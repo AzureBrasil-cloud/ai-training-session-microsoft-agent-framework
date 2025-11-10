@@ -1,5 +1,3 @@
-using PowerPilotChat.Application;
-
 namespace ContosoAutoTech.Application;
 
 public static class Errors

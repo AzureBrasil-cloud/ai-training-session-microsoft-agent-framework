@@ -1,7 +1,6 @@
 using System.Net;
 using System.Text.Json;
 using ContosoAutoTech.Application;
-using PowerPilotChat.Application;
 
 namespace PowerPilotChat.Web.Middlewares;
 

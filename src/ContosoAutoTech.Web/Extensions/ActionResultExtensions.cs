@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PowerPilotChat.Application;
+﻿using ContosoAutoTech.Application;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ContosoAutoTech.Web.Extensions;
 

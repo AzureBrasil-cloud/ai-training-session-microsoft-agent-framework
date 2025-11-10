@@ -1,14 +1,11 @@
-using ContosoAutoTech.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using Thread = ContosoAutoTech.Data.Entities.Thread;
 
 namespace ContosoAutoTech.Data;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    public DbSet<Order> Orders { get; set; } = null!;
-    public DbSet<ImagePreOrder> ImagePreOrders { get; set; } = null!;
-    public DbSet<AudioPreOrder> AudioPreOrders { get; set; } = null!;
-    public DbSet<Review> Reviews { get; set; } = null!;
+    public DbSet<Thread> Threads { get; set; } = null!;
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

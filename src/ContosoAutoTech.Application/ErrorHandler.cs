@@ -1,5 +1,4 @@
 using FluentValidation.Results;
-using PowerPilotChat.Application;
 
 namespace ContosoAutoTech.Application;
 

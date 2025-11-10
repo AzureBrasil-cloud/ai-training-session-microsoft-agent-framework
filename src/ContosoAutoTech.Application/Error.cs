@@ -1,7 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
-using ContosoAutoTech.Application;
 
-namespace PowerPilotChat.Application;
+namespace ContosoAutoTech.Application;
 
 public sealed record Error(Guid Code, string? RawMessage = null, IDictionary<string, object>? Args = null)
 {
