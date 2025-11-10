@@ -6,13 +6,21 @@ public class Thread : IEntity
 {
     public Guid Id { get; set; }
     public string State { get; set; } = null!;
+    
+    public Feature Feature { get; set; }
 
     // EF
     private Thread() { }
 
-    public Thread(string state)
+    public Thread(string state, Feature feature)
     {
         Id = Guid.NewGuid();
         State = state;
+        Feature = feature;
     }
+}
+
+public enum Feature
+{
+    AgentWithFunctionCalling = 1
 }

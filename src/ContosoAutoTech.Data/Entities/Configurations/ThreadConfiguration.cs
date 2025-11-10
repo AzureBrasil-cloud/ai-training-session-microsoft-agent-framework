@@ -12,5 +12,9 @@ public class ThreadConfiguration : IEntityTypeConfiguration<Thread>
         builder
             .Property(x => x.State)
             .IsRequired();
+        
+        builder
+            .Property(x => x.Feature)
+            .IsRequired();
     }
 }

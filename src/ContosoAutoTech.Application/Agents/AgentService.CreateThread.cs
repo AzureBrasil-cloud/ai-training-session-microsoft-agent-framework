@@ -1,4 +1,5 @@
 using System.Text.Json;
+using ContosoAutoTech.Application.Agents.Models.Requests;
 using ContosoAutoTech.Application.Agents.Models.Results;
 using ContosoAutoTech.Infrastructure.Shared;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ namespace ContosoAutoTech.Application.Agents;
 
 public partial class AgentService
 {
-    public async Task<Result<ThreadResult>> CreateThreadAsync()
+    public async Task<Result<ThreadResult>> CreateThreadAsync(CreateThreadRequest request)
     {
         var credentials = GetCredentials();
        
@@ -20,7 +21,7 @@ public partial class AgentService
         // Serialize the thread state
         var serializedJson = aiThread.Serialize(JsonSerializerOptions.Web).GetRawText();
 
-        var thread = new ContosoAutoTech.Data.Entities.Thread(serializedJson);
+        var thread = new ContosoAutoTech.Data.Entities.Thread(serializedJson, request.Feature);
         
         await context.Threads.AddAsync(thread);
         await context.SaveChangesAsync();
