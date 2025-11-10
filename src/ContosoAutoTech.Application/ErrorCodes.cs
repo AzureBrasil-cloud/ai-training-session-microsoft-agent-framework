@@ -1,4 +1,4 @@
-namespace PowerPilotChat.Application;
+namespace ContosoAutoTech.Application;
 
 public class ErrorCodes
 {

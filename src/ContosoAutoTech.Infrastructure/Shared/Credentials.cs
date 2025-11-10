@@ -1,7 +1,6 @@
-namespace ContosoAutoTech.Infrastructure.Azure.Shared;
+namespace ContosoAutoTech.Infrastructure.Shared;
 
 public record Credentials(
-    string TenantId, 
-    string ClientId, 
-    string ClientSecret,
-    string ProjectConnectionString);
+    string FoundryEndpoint, 
+    string FoundryApiKey,
+    string ModelDeploymentName);
