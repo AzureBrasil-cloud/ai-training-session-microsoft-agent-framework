@@ -1,5 +1,6 @@
 using ContosoAutoTech.Data.Extensions;
 using ContosoAutoTech.Application.Agents;
+using ContosoAutoTech.Application.Tools;
 using ContosoAutoTech.Infrastructure.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,9 @@ public static class Extensions
     {
         // Services
         services.AddScoped<AgentService>();
+        
+        // // Tools
+        // services.AddScoped<CarTools>();
         
         // Domain
         services.AddData(configuration);

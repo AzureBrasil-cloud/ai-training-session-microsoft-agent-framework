@@ -61,7 +61,8 @@ public partial class AgentService
                 }
             }
 
-            return Result<ThreadMessagesResult>.Success(new ThreadMessagesResult(messageResults));
+            return Result<ThreadMessagesResult>.Success(new ThreadMessagesResult(messageResults
+                .Where(x => !string.IsNullOrWhiteSpace(x.Content))));
         }
         catch (JsonException ex)
         {
