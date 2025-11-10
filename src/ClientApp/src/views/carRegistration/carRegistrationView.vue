@@ -240,16 +240,16 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
       <div v-for="(msg, i) in messages" :key="i"
            class="mb-2 p-2 rounded"
            :style="msg.role === Role.User ? userStyle : assistantStyle">
-        <div class="row g-0">
-          <div :class="msg.usage ? 'col-11 col-md-11' : 'col-12'">
+        <div class="d-flex gap-2">
+          <div class="flex-grow-1">
             <div v-html="md.render(msg.content)"></div>
           </div>
-          <div v-if="msg.usage" class="col-1 col-md-1 d-flex align-items-start justify-content-end">
+          <div v-if="msg.usage" class="flex-shrink-0">
             <button
               @click="openUsageModal(msg.usage)"
               class="btn btn-warning btn-sm shadow-sm rounded-circle p-0"
-              style="width: 32px; height: 32px;"
-              title="💡 Ver consumo de tokens"
+              style="width: 32px; height: 32px; min-width: 32px; min-height: 32px;"
+              title="Ver consumo de tokens"
             >
               <i class="bi bi-lightning-charge-fill"></i>
             </button>
