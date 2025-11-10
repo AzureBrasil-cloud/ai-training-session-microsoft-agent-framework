@@ -1,0 +1,188 @@
+//  the _custom.scss file will be used to add your CSS styles.
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.table-container {
+  overflow: hidden;
+  width: 100%;
+}
+
+.custom-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+}
+
+.bg-body-custom {
+  background-color: #3F474E;
+}
+
+/* DARK */
+
+html[data-bs-theme="dark"] .custom-sidebar {
+  background-color: blue !important;
+}
+
+html[data-bs-theme="dark"] .bck-h {
+  background: #232323 !important;
+}
+
+/* LIGHT */
+
+html[data-bs-theme="light"] .home-text-light {
+    color: #441945 !important;
+ }
+
+html[data-bs-theme="light"] .btn-purple {
+  background: #441945;
+  border: 1px solid #441945;
+  color: white;
+}
+
+html[data-bs-theme="light"] .btn-purple:hover{
+  background: #5c265d;
+  border: 1px solid #5c265d;
+  color: white;
+}
+
+html[data-bs-theme="light"] .colum-title {
+  color: #404040 !important;
+}
+
+th {
+  color: white !important;
+}
+
+.bg-gray-600 {
+  background-color: #262626;
+}
+
+.bg-gray-100 {
+  background-color: #F5F5F5;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.item-purple{
+  color: #441945;
+}
+
+.bg-purple{
+  background: #441945;
+  color: white;
+}
+
+.btn-purple{
+  background: #441945;
+  border: 1px solid #441945;
+  color: white;
+}
+
+.btn-purple:hover{
+  background: #5c265d;
+  border: 1px solid #5c265d;
+  color: white;
+}
+
+.border-purple{
+  border: 2px solid #441945;
+}
+
+.form-check-input:checked {
+  background-color: #441945;
+  border-color: #441945;
+}
+
+.form-check-input:focus {
+  border-color: #441945;
+  outline: 0;
+  box-shadow: 0 0 0 0.15rem var(--x-primary-bg-subtle);
+}
+
+.form-select:focus {
+  border-color: #441945;
+  outline: 0;
+  box-shadow: var(--x-shadow-sm), 0 0 0 0.15rem var(--x-primary-bg-subtle);
+}
+
+/* SideBar */
+
+.dropdown-item {
+  padding: 8px 0;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa59; /* cor de fundo ao passar o mouse */
+}
+
+.dropdown-item.active {
+  background-color: #e9ecef8c; /* cor de fundo do item ativo */
+  font-weight: 600;
+}
+
+.s-h3{
+  background: #e9ecef;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+/* Tooltip */
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-container .tooltip-text {
+  visibility: hidden;
+  background-color: #e9ecef;
+  color: #441945;
+  text-align: center;
+  border-radius: 0.5rem;
+  padding: 5px 10px;
+  position: absolute;
+  bottom: 125%; /* acima do botão */
+  right: 0;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.btn-custom-hover:hover {
+  background-color: #ffffff !important;
+  color: #441945 !important;
+  border-color: #ffffff !important;
+}
+
+@media (min-width: 768px) {
+  .end-border{
+    border-right: 1px solid #3131311f;
+  }
+}
+
