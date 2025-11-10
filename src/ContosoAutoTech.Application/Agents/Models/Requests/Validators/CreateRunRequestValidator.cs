@@ -29,5 +29,11 @@ public class CreateRunRequestValidator : AbstractValidator<CreateRunRequest>
             .WithErrorCode(Errors.NotBeNullOrEmpty(nameof(CreateRunRequest.AgentInstructions)).Code.ToString())
             .WithMessage(Errors.NotBeNullOrEmpty(nameof(CreateRunRequest.AgentInstructions)).RawMessage)
             .WithState(x => Errors.NotBeNullOrEmpty(nameof(CreateRunRequest.AgentInstructions)).Args);
+        
+        RuleFor(x => x.Feature)
+            .Must(x => x > 0)
+            .WithErrorCode(Errors.GreaterThanZero(nameof(CreateRunRequest.Feature)).Code.ToString())
+            .WithMessage(Errors.GreaterThanZero(nameof(CreateRunRequest.Feature)).RawMessage)
+            .WithState(x => Errors.GreaterThanZero(nameof(CreateRunRequest.Feature)).Args);
     }
 }

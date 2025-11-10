@@ -8,6 +8,7 @@ export interface CreateThreadRequest {
 }
 
 export interface CreateRunRequest {
+  feature: number;
   threadId: string;
   message: string;
   agentName: string;

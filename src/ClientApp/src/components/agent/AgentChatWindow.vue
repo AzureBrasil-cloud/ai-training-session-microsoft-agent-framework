@@ -78,6 +78,7 @@ async function sendMessage() {
 
   try {
     const response = await agentService.run({
+      feature: props.featureId,
       threadId: currentThreadId.value,
       message: input,
       agentName: agentSettings.value.name,
