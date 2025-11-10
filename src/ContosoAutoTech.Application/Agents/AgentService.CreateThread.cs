@@ -9,11 +9,7 @@ public partial class AgentService
 {
     public async Task<Result<ThreadResult>> CreateThreadAsync()
     {
-        var foundryEndpoint = configuration["AiFoundry:Endpoint"]!;
-        var foudryApiKey = configuration["AiFoundry:ApiKey"]!;
-        var model = configuration["AiFoundry:ChatModel"]!;
-        
-        var credentials = new Credentials(foundryEndpoint, foudryApiKey, model);
+        var credentials = GetCredentials();
        
         var aiThread = aiAgentService.CreateThread(
             credentials,

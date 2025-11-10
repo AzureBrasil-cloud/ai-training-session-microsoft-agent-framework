@@ -6,12 +6,6 @@ public class CreateRunRequestValidator : AbstractValidator<CreateRunRequest>
 {
     public CreateRunRequestValidator()
     {
-        RuleFor(x => x.AgentId)
-            .Must(x => !string.IsNullOrWhiteSpace(x))
-            .WithErrorCode(Errors.NotBeNullOrEmpty(nameof(CreateRunRequest.AgentId)).Code.ToString())
-            .WithMessage(Errors.NotBeNullOrEmpty(nameof(CreateRunRequest.AgentId)).RawMessage)
-            .WithState(x => Errors.NotBeNullOrEmpty(nameof(CreateRunRequest.AgentId)).Args);
-
         RuleFor(x => x.ThreadId)
             .Must(x => !string.IsNullOrWhiteSpace(x))
             .WithErrorCode(Errors.NotBeNullOrEmpty(nameof(CreateRunRequest.ThreadId)).Code.ToString())
@@ -23,5 +17,17 @@ public class CreateRunRequestValidator : AbstractValidator<CreateRunRequest>
             .WithErrorCode(Errors.NotBeNullOrEmpty(nameof(CreateRunRequest.Message)).Code.ToString())
             .WithMessage(Errors.NotBeNullOrEmpty(nameof(CreateRunRequest.Message)).RawMessage)
             .WithState(x => Errors.NotBeNullOrEmpty(nameof(CreateRunRequest.Message)).Args);
+        
+        RuleFor(x => x.AgentName)
+            .Must(x => !string.IsNullOrWhiteSpace(x))
+            .WithErrorCode(Errors.NotBeNullOrEmpty(nameof(CreateRunRequest.AgentName)).Code.ToString())
+            .WithMessage(Errors.NotBeNullOrEmpty(nameof(CreateRunRequest.AgentName)).RawMessage)
+            .WithState(x => Errors.NotBeNullOrEmpty(nameof(CreateRunRequest.AgentName)).Args);
+        
+        RuleFor(x => x.AgentInstructions)
+            .Must(x => !string.IsNullOrWhiteSpace(x))
+            .WithErrorCode(Errors.NotBeNullOrEmpty(nameof(CreateRunRequest.AgentInstructions)).Code.ToString())
+            .WithMessage(Errors.NotBeNullOrEmpty(nameof(CreateRunRequest.AgentInstructions)).RawMessage)
+            .WithState(x => Errors.NotBeNullOrEmpty(nameof(CreateRunRequest.AgentInstructions)).Args);
     }
 }

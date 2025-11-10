@@ -1,44 +1,62 @@
-// using System.Diagnostics;
-// using ContosoAutoTech.Application.Agents.Models.Requests;
-// using ContosoAutoTech.Application.Agents.Models.Requests.Validators;
-// using ContosoAutoTech.Application.Agents.Models.Results;
-// using ContosoAutoTech.Infrastructure.AIAgent.Models;
-// using Microsoft.Extensions.Logging;
-// using PowerPilotChat.Application;
-//
-// namespace ContosoAutoTech.Application.Agents;
-//
-// public partial class AgentService
-// {
-//     private static readonly ActivitySource ActivitySource =  InstrumentationConfig.ActivitySource;
-//     
-//     public async Task<Result<MessageResult>> RunAsync(CreateRunRequest request)
-//     {
-//         var validationResult = await new CreateRunRequestValidator().ValidateAsync(request);
-//
-//         if (!validationResult.IsValid)
-//         {
-//             var error = ErrorHandler.CreateErrorFromValidationResult(validationResult);
-//             logger.LogInformation("{Method} - {Message}", nameof(CreateAsync), error.Message);
-//             
-//             return Result<MessageResult>.Failure(error);
-//         }
-//
-//         logger.LogInformation("Starting run ...");
-//         
-//         using Activity activity = ActivitySource.StartActivity("Run");
-//         
-//         var result = await aiAgentService.CreateRunAsync(
-//             CreateCredentials(),
-//             request.ThreadId,
-//             request.Message,
-//             request.AgentId);
-//
-//         activity!.SetTag("InputTokenCount", result.InputTokenCount.ToString());
-//         activity!.SetTag("OutputTokenCount", result.OutputTokenCount.ToString());
-//         
-//         logger.LogInformation("Run completed ...");
-//         
-//         return Result<MessageResult>.Success(new MessageResult(result.Message.Role, result.Message.Content));
-//     }
-// }
+using System.Diagnostics;
+using System.Text.Json;
+using ContosoAutoTech.Application.Agents.Models.Requests;
+using ContosoAutoTech.Application.Agents.Models.Requests.Validators;
+using ContosoAutoTech.Application.Agents.Models.Results;
+using Microsoft.Extensions.Logging;
+
+namespace ContosoAutoTech.Application.Agents;
+
+public partial class AgentService
+{
+    private static readonly ActivitySource ActivitySource =  InstrumentationConfig.ActivitySource;
+    public async Task<Result<MessageResult>> RunAsync(CreateRunRequest request)
+    {
+        var validationResult = await new CreateRunRequestValidator().ValidateAsync(request);
+
+        if (!validationResult.IsValid)
+        {
+            var error = ErrorHandler.CreateErrorFromValidationResult(validationResult);
+            logger.LogInformation("{Method} - {Message}", nameof(RunAsync), error.Message);
+            
+            return Result<MessageResult>.Failure(error);
+        }
+
+        logger.LogInformation("Starting run ...");
+        
+        var thread = context.Threads.FirstOrDefault(x => x.Id == Guid.Parse(request.ThreadId));
+
+        if (thread is null)
+        {
+            var error = Errors.EntityNotFound(nameof(Thread), request.ThreadId);
+            logger.LogInformation("{Method} - {Message}", nameof(RunAsync), error.Message);
+            
+            return Result<MessageResult>.Failure(error);
+        }
+
+        using Activity activity = ActivitySource.StartActivity("Run");
+        
+        var credentials = GetCredentials();
+
+        var (runResult, updatedThread) = await aiAgentService.CreateRunAsync(
+            credentials,
+            request.AgentName.Trim(),
+            request.AgentInstructions.Trim(),
+            request.Message.Trim(),
+            thread.State);
+        
+        // Save new thread updated
+        var serializedJson = updatedThread.Serialize(JsonSerializerOptions.Web).GetRawText();
+        thread.State = serializedJson;
+
+        await context.SaveChangesAsync();
+        
+         return Result<MessageResult>.Success(new MessageResult(
+             Role.Agent, 
+             runResult.Text,
+             new TokenUsage(
+                 runResult.Usage?.InputTokenCount, 
+                 runResult.Usage?.OutputTokenCount, 
+                 runResult.Usage?.TotalTokenCount)));
+    }
+}
