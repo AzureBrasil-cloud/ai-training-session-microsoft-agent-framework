@@ -4,6 +4,7 @@ using ContosoAutoTech.Application.Agents.Models.Requests;
 using ContosoAutoTech.Application.Agents.Models.Requests.Validators;
 using ContosoAutoTech.Application.Agents.Models.Results;
 using Microsoft.Extensions.Logging;
+using Thread = System.Threading.Thread;
 
 namespace ContosoAutoTech.Application.Agents;
 
@@ -37,14 +38,15 @@ public partial class AgentService
         using Activity activity = ActivitySource.StartActivity("Run");
         
         var credentials = GetCredentials();
-
+        
         // Create and execute the run
         var (runResult, updatedThread, firstTruncatedMessage) = await aiAgentService.CreateRunAsync(
             credentials,
             request.AgentName.Trim(),
             request.AgentInstructions.Trim(),
             request.Message.Trim(),
-            thread.State);
+            thread.State,
+            GetToolsByFeature(request.Feature));
         
         // Save the new thread updated
         var serializedJson = updatedThread.Serialize(JsonSerializerOptions.Web).GetRawText();

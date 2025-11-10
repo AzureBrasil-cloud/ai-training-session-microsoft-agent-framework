@@ -23,5 +23,5 @@ public class Thread : IEntity
 
 public enum Feature
 {
-    AgentWithFunctionCalling = 1
+    CarRegistration = 1
 }

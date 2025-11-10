@@ -6,6 +6,7 @@ namespace ContosoAutoTech.Data;
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<Thread> Threads { get; set; } = null!;
+    public DbSet<Entities.Car> Cars { get; set; } = null!;
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

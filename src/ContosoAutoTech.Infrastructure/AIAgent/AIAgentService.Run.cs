@@ -3,6 +3,7 @@ using ContosoAutoTech.Infrastructure.Shared;
 using Microsoft.Agents.AI;
 using OpenAI;
 using ContosoAutoTech.Common;
+using Microsoft.Extensions.AI;
 
 namespace ContosoAutoTech.Infrastructure.AIAgent;
 
@@ -13,18 +14,22 @@ public partial class AiAgentService
         string name,
         string instructions,
         string userMessage,
-        string thread)
+        string thread,
+        IList<AITool>? tools = null)
     {
         var client = CreateAgentsClient(credentials);
 
         var agent = client.CreateAIAgent(
             instructions: instructions,
-            name: name);
+            name: name,
+            tools: tools);
         
         var reloaded = JsonSerializer.Deserialize<JsonElement>(thread, JsonSerializerOptions.Web);
         var resumedThread = agent.DeserializeThread(reloaded, JsonSerializerOptions.Web);
         
-        var result = await agent.RunAsync(userMessage, resumedThread);
+        var result = await agent.RunAsync(
+            userMessage, 
+            resumedThread);
 
         return string.CompareOrdinal(thread, "{}") == 0 ? 
             (result, resumedThread, userMessage.Truncate()) : 
