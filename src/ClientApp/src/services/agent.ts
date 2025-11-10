@@ -1,5 +1,5 @@
 import type { MessageResult } from '@/models/messageResult'
-import type { Thread, ThreadListResult } from '@/models/thread'
+import type { Thread } from '@/models/thread'
 import axios, { AxiosError } from 'axios'
 
 export interface CreateThreadRequest {
@@ -34,9 +34,9 @@ const agentService = {
     }
   },
 
-  listThreads: async (feature: number): Promise<ThreadListResult> => {
+  listThreads: async (feature: number): Promise<Thread[]> => {
     try {
-      const response = await axios.get<ThreadListResult>(`/api/agents/threads?Feature=${feature}`)
+      const response = await axios.get<Thread[]>(`/api/agents/threads?Feature=${feature}`)
       return response.data
     } catch (error: unknown) {
       const axiosError = error as AxiosError

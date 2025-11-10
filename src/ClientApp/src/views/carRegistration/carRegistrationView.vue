@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import HelpButton from "@/components/common/HelpButton.vue";
 import agentService from '@/services/agent';
 import type { MessageResult } from '@/models/messageResult';
+import type { Thread } from '@/models/thread';
 import MarkdownIt from 'markdown-it';
 
 const md = new MarkdownIt();
@@ -16,7 +17,7 @@ const isWaitingResponse = ref(false);
 const userInput = ref('');
 const messages = ref<MessageResult[]>([]);
 const currentThreadId = ref<string>('');
-const threads = ref<string[]>([]);
+const threads = ref<Thread[]>([]);
 
 // Configurações do agente
 const agentSettings = ref({
@@ -110,7 +111,7 @@ function saveInstructions() {
 async function openThreadsModal() {
   try {
     const result = await agentService.listThreads(FEATURE_CAR_REGISTRATION);
-    threads.value = result.threadIds;
+    threads.value = result || [];
     showThreadsModal.value = true;
   } catch (error) {
     console.error('Erro ao listar threads:', error);
@@ -323,15 +324,18 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
           </div>
           <div v-else class="list-group">
             <button
-              v-for="threadId in threads"
-              :key="threadId"
+              v-for="thread in threads"
+              :key="thread.id"
               type="button"
               class="list-group-item list-group-item-action"
-              :class="{ 'active': threadId === currentThreadId }"
-              @click="loadThread(threadId)"
+              :class="{ 'active': thread.id === currentThreadId }"
+              @click="loadThread(thread.id)"
             >
               <i class="bi bi-chat-dots me-2"></i>
-              Thread: {{ threadId.substring(0, 8) }}...
+              <div class="d-flex flex-column">
+                <span class="fw-semibold">Thread: {{ thread.id.substring(0, 8) }}...</span>
+                <small v-if="thread.firstTruncatedMessage" class="text-muted">{{ thread.firstTruncatedMessage }}</small>
+              </div>
             </button>
           </div>
         </div>

@@ -1,6 +1,7 @@
 export interface Thread {
   id: string;
-  feature: number;
+  feature?: number;
+  firstTruncatedMessage?: string | null;
 }
 
 export interface ThreadListResult {
