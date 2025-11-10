@@ -14,18 +14,18 @@ public static class ConfigurationExtensions
 {
     public static void AddLogging(this WebApplicationBuilder builder)
     {
-        builder.Logging.AddOpenTelemetry(options =>
-        {
-            options.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("ConstosoAcai.Api")); 
-            options.AddOtlpExporter();
-            options.IncludeFormattedMessage = true;
-            options.ParseStateValues = true;
-            options.IncludeScopes = true; 
-            options.AddAzureMonitorLogExporter(cfg => 
-            {
-                cfg.ConnectionString = builder.Configuration["AzureMonitor:ConnectionString"];
-            });
-        });
+        // builder.Logging.AddOpenTelemetry(options =>
+        // {
+        //     options.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("ConstosoAcai.Api")); 
+        //     options.AddOtlpExporter();
+        //     options.IncludeFormattedMessage = true;
+        //     options.ParseStateValues = true;
+        //     options.IncludeScopes = true; 
+        //     options.AddAzureMonitorLogExporter(cfg => 
+        //     {
+        //         cfg.ConnectionString = builder.Configuration["AzureMonitor:ConnectionString"];
+        //     });
+        // });
     }
     
     public static void AddConfigurations(
@@ -51,26 +51,26 @@ public static class ConfigurationExtensions
         AppContext.SetSwitch("Azure.Experimental.EnableActivitySource", true); 
         AppContext.SetSwitch("Azure.Experimental.TraceGenAIMessageContent", true);
 
-        services.AddOpenTelemetry()
-            .WithTracing(tracing => tracing
-                .ConfigureResource(resource => resource.AddService("ConstosoAcai.Api"))    
-                .AddAspNetCoreInstrumentation()
-                .AddHttpClientInstrumentation()
-                .AddSource(InstrumentationConfig.ActivitySource.Name)
-                .AddOtlpExporter()
-                .AddAzureMonitorTraceExporter(options =>
-                {
-                    options.ConnectionString = configuration["AzureMonitor:ConnectionString"]!;
-                }))
-            .WithMetrics(metrics => metrics
-                .ConfigureResource(resource => resource.AddService("ConstosoAcai.Api"))    
-                .AddAspNetCoreInstrumentation()
-                .AddHttpClientInstrumentation()
-                .AddOtlpExporter()
-                .AddAzureMonitorMetricExporter(options =>
-                {
-                    options.ConnectionString = configuration["AzureMonitor:ConnectionString"]!;
-                }));
+        // services.AddOpenTelemetry()
+        //     .WithTracing(tracing => tracing
+        //         .ConfigureResource(resource => resource.AddService("ConstosoAcai.Api"))    
+        //         .AddAspNetCoreInstrumentation()
+        //         .AddHttpClientInstrumentation()
+        //         .AddSource(InstrumentationConfig.ActivitySource.Name)
+        //         .AddOtlpExporter()
+        //         .AddAzureMonitorTraceExporter(options =>
+        //         {
+        //             options.ConnectionString = configuration["AzureMonitor:ConnectionString"]!;
+        //         }))
+        //     .WithMetrics(metrics => metrics
+        //         .ConfigureResource(resource => resource.AddService("ConstosoAcai.Api"))    
+        //         .AddAspNetCoreInstrumentation()
+        //         .AddHttpClientInstrumentation()
+        //         .AddOtlpExporter()
+        //         .AddAzureMonitorMetricExporter(options =>
+        //         {
+        //             options.ConnectionString = configuration["AzureMonitor:ConnectionString"]!;
+        //         }));
     }
 
     public static void ConfigureApplication(this WebApplication app)
