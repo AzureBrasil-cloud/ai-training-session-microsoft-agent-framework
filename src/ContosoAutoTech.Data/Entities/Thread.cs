@@ -6,8 +6,8 @@ public class Thread : IEntity
 {
     public Guid Id { get; set; }
     public string State { get; set; } = null!;
-    
     public Feature Feature { get; set; }
+    public string? FirstTruncatedMessage { get; set; }
 
     // EF
     private Thread() { }
@@ -17,6 +17,7 @@ public class Thread : IEntity
         Id = Guid.NewGuid();
         State = state;
         Feature = feature;
+        FirstTruncatedMessage = null;
     }
 }
 

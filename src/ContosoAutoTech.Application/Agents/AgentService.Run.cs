@@ -38,17 +38,25 @@ public partial class AgentService
         
         var credentials = GetCredentials();
 
-        var (runResult, updatedThread) = await aiAgentService.CreateRunAsync(
+        // Create and execute the run
+        var (runResult, updatedThread, firstTruncatedMessage) = await aiAgentService.CreateRunAsync(
             credentials,
             request.AgentName.Trim(),
             request.AgentInstructions.Trim(),
             request.Message.Trim(),
             thread.State);
         
-        // Save new thread updated
+        // Save the new thread updated
         var serializedJson = updatedThread.Serialize(JsonSerializerOptions.Web).GetRawText();
         thread.State = serializedJson;
 
+        // If this is the first message that caused the thread to be created, save it
+        if (!string.IsNullOrWhiteSpace(firstTruncatedMessage))
+        {
+            thread.FirstTruncatedMessage = firstTruncatedMessage;
+        }
+
+        // Save changes to the database
         await context.SaveChangesAsync();
         
          return Result<MessageResult>.Success(new MessageResult(

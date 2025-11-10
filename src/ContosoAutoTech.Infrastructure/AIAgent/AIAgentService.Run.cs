@@ -2,12 +2,13 @@ using System.Text.Json;
 using ContosoAutoTech.Infrastructure.Shared;
 using Microsoft.Agents.AI;
 using OpenAI;
+using ContosoAutoTech.Common;
 
 namespace ContosoAutoTech.Infrastructure.AIAgent;
 
 public partial class AiAgentService
 {
-    public async Task<(AgentRunResponse, AgentThread Thread)> CreateRunAsync(
+    public async Task<(AgentRunResponse, AgentThread Thread, string? FirstTruncatedMessage)> CreateRunAsync(
         Credentials credentials,
         string name,
         string instructions,
@@ -25,6 +26,8 @@ public partial class AiAgentService
         
         var result = await agent.RunAsync(userMessage, resumedThread);
 
-        return (result, resumedThread);
+        return string.CompareOrdinal(thread, "{}") == 0 ? 
+            (result, resumedThread, userMessage.Truncate()) : 
+            (result, resumedThread, null);
     }
 }

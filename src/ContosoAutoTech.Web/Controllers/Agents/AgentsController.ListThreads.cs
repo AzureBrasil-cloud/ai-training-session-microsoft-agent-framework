@@ -7,11 +7,12 @@ namespace ContosoAutoTech.Web.Controllers.Agents;
 
 public partial class AgentsController
 {
-    [HttpPost("/api/agents/thread")]
-    public async Task<IActionResult> CreateThread(
-        [FromBody] CreateThreadRequest request,
+    [HttpGet("/api/agents/threads")]
+    public async Task<IActionResult> ListThreadsByFeature(
+        [FromQuery] ListThreadsByFeatureRequest request,
         [FromServices] AgentService service)
     {
-        return (await service.CreateThreadAsync(request)).ToApiResponse();
+        return (await service.ListThreadsByFeatureAsync(request)).ToApiResponse();
     }
 }
+
