@@ -89,7 +89,7 @@ async function sendMessage() {
     console.error('Erro ao enviar mensagem:', error);
     messages.value.push({
       role: Role.Agent,
-      content: '❌ Desculpe, ocorreu um erro ao processar sua mensagem. Tente novamente.'
+      content: 'Desculpe, ocorreu um erro ao processar sua mensagem. Tente novamente.'
     });
   } finally {
     isWaitingResponse.value = false;

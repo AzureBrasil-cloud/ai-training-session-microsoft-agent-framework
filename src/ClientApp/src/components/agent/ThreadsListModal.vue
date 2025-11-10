@@ -23,7 +23,7 @@ const emit = defineEmits<{
           <h5 class="modal-title"><i class="bi bi-list-ul"></i> Threads Anteriores</h5>
           <button type="button" class="btn-close" @click="emit('close')"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="max-height: 60vh; overflow-y: auto;">
           <div v-if="threads.length === 0" class="text-muted text-center py-4">
             Nenhuma thread encontrada.
           </div>
