@@ -45,6 +45,12 @@ const router = createRouter({
       meta: { requiresAuth: true }
     },
     {
+      path: '/car-registration',
+      name: 'car-registration',
+      component: () => import('../views/carRegistration/carRegistrationView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
       path: '/send-image-pre-order',
       name: 'send-image-pre-order',
       component: () => import('../views/orders/sendImagePreOrderView.vue'),

@@ -138,6 +138,12 @@ const logo = `${window.location.origin}/images/logo-acai.png`;
                   <span>Assistente de pedidos</span>
                 </RouterLink>
               </li>
+              <li class="nav-item">
+                <RouterLink to="/car-registration" class="dropdown-item">
+                  <i class="bi bi-car-front px-3"></i>
+                  <span>Cadastro de Carros</span>
+                </RouterLink>
+              </li>
             </ul>
           </div>
         </div>
