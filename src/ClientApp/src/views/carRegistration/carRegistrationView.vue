@@ -29,10 +29,18 @@ const agentSettings = ref({
 // Modais
 const showInstructionsModal = ref(false);
 const showThreadsModal = ref(false);
+const showUsageModal = ref(false);
 
 // Cópias temporárias para edição no modal
 const tempAgentName = ref('');
 const tempAgentInstructions = ref('');
+
+// Usage selecionado
+const selectedUsage = ref<{
+  input?: number;
+  output?: number;
+  total?: number;
+} | null>(null);
 
 // Estilos das mensagens
 const userStyle = 'max-width: 75%; background-color: #0d6efd; color: white; margin-left: auto;';
@@ -145,6 +153,12 @@ function handleKeyDown(event: KeyboardEvent) {
   }
 }
 
+// Função para abrir modal de usage
+function openUsageModal(usage: { input?: number; output?: number; total?: number }) {
+  selectedUsage.value = usage;
+  showUsageModal.value = true;
+}
+
 // Inicialização
 onMounted(async () => {
   await createNewThread();
@@ -224,9 +238,19 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
     <!-- Área de Mensagens -->
     <div class="flex-grow-1 border rounded p-3 mb-3 overflow-auto" style="min-height: 0;">
       <div v-for="(msg, i) in messages" :key="i"
-           class="mb-2 p-2 rounded"
+           class="mb-2 p-2 rounded position-relative"
            :style="msg.role === Role.User ? userStyle : assistantStyle">
         <div v-html="md.render(msg.content)"></div>
+        <!-- Ícone de usage se disponível -->
+        <button
+          v-if="msg.usage"
+          @click="openUsageModal(msg.usage)"
+          class="btn btn-sm btn-link position-absolute top-0 end-0 mt-1 me-1 p-0"
+          style="text-decoration: none;"
+          title="Ver detalhes de uso de tokens"
+        >
+          <i class="bi bi-exclamation-circle" style="font-size: 1.2rem; color: #ffc107;"></i>
+        </button>
       </div>
     </div>
 
@@ -358,6 +382,63 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" @click="showThreadsModal = false">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Usage (Tokens) -->
+  <div v-if="showUsageModal" class="modal d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-graph-up"></i> Uso de Tokens</h5>
+          <button type="button" class="btn-close" @click="showUsageModal = false"></button>
+        </div>
+        <div class="modal-body">
+          <div v-if="selectedUsage" class="table-responsive">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td class="fw-semibold" style="width: 40%;">
+                    <i class="bi bi-arrow-down-circle text-primary me-2"></i>
+                    Tokens de Entrada
+                  </td>
+                  <td>
+                    <span class="badge bg-primary">{{ selectedUsage.input ?? 0 }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="fw-semibold">
+                    <i class="bi bi-arrow-up-circle text-success me-2"></i>
+                    Tokens de Saída
+                  </td>
+                  <td>
+                    <span class="badge bg-success">{{ selectedUsage.output ?? 0 }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="fw-semibold">
+                    <i class="bi bi-calculator text-info me-2"></i>
+                    Total de Tokens
+                  </td>
+                  <td>
+                    <span class="badge bg-info">{{ selectedUsage.total ?? 0 }}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="alert alert-info mb-0">
+              <i class="bi bi-info-circle me-2"></i>
+              <small>
+                Os tokens representam a quantidade de texto processado pela IA.
+                Entrada são os tokens enviados, saída são os tokens gerados na resposta.
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" @click="showUsageModal = false">Fechar</button>
         </div>
       </div>
     </div>
