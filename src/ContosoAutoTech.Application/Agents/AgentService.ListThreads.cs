@@ -10,7 +10,8 @@ public partial class AgentService
     {
         var threads = await context.Threads
             .AsNoTracking()
-            .Where(t => t.Feature == request.Feature)
+            .Where(t=> t.Feature == request.Feature)
+            .Where(t => !string.IsNullOrWhiteSpace(t.FirstTruncatedMessage))
             .ToListAsync();
         
         var result = threads.Select(x => new ThreadResult(
