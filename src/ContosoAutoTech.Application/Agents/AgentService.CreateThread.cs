@@ -22,7 +22,7 @@ public partial class AgentService
         
         // State to string
         // Serialize the thread state
-        string serializedJson = aiThread.Serialize(JsonSerializerOptions.Web).GetRawText();
+        var serializedJson = aiThread.Serialize(JsonSerializerOptions.Web).GetRawText();
 
         var thread = new ContosoAutoTech.Data.Entities.Thread(serializedJson);
         
