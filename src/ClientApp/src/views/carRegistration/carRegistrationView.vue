@@ -245,11 +245,11 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
         <button
           v-if="msg.usage"
           @click="openUsageModal(msg.usage)"
-          class="btn btn-sm btn-link position-absolute top-0 end-0 mt-1 me-1 p-0"
-          style="text-decoration: none;"
-          title="Ver detalhes de uso de tokens"
+          class="btn btn-warning btn-sm position-absolute top-0 end-0 m-2 shadow-sm rounded-circle"
+          style="width: 32px; height: 32px; padding: 0;"
+          title="💡 Ver consumo de tokens"
         >
-          <i class="bi bi-exclamation-circle" style="font-size: 1.2rem; color: #ffc107;"></i>
+          <i class="bi bi-lightning-charge-fill"></i>
         </button>
       </div>
     </div>
@@ -390,87 +390,94 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
   <!-- Modal de Usage (Tokens) -->
   <div v-if="showUsageModal" class="modal d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title"><i class="bi bi-graph-up"></i> Uso de Tokens</h5>
-          <button type="button" class="btn-close" @click="showUsageModal = false"></button>
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header border-0 bg-purple text-white">
+          <h5 class="modal-title fw-bold">
+            <i class="bi bi-lightning-charge-fill me-2"></i>
+            Consumo de Tokens
+          </h5>
+          <button type="button" class="btn-close btn-close-white" @click="showUsageModal = false"></button>
         </div>
-        <div class="modal-body">
-          <div v-if="selectedUsage" class="table-responsive">
-            <table class="table table-bordered">
-              <tbody>
-                <tr>
-                  <td class="fw-semibold" style="width: 40%;">
-                    <i class="bi bi-arrow-down-circle text-primary me-2"></i>
-                    Tokens de Entrada
-                  </td>
-                  <td>
-                    <span class="badge bg-primary">{{ selectedUsage.input ?? 0 }}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="fw-semibold">
-                    <i class="bi bi-arrow-up-circle text-success me-2"></i>
-                    Tokens de Saída
-                  </td>
-                  <td>
-                    <span class="badge bg-success">{{ selectedUsage.output ?? 0 }}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="fw-semibold">
-                    <i class="bi bi-calculator text-info me-2"></i>
-                    Total de Tokens
-                  </td>
-                  <td>
-                    <span class="badge bg-info">{{ selectedUsage.total ?? 0 }}</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="alert alert-info mb-0">
-              <i class="bi bi-info-circle me-2"></i>
-              <small>
-                Os tokens representam a quantidade de texto processado pela IA.
-                Entrada são os tokens enviados, saída são os tokens gerados na resposta.
-              </small>
+        <div class="modal-body p-4">
+          <div v-if="selectedUsage">
+            <!-- Cards de Tokens -->
+            <div class="row g-3 mb-4">
+              <!-- Token de Entrada -->
+              <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                  <div class="card-body p-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center">
+                        <div class="rounded-circle bg-primary p-2 me-3">
+                          <i class="bi bi-arrow-down-circle text-white fs-4"></i>
+                        </div>
+                        <div>
+                          <div class="text-muted small mb-1">Tokens de Entrada</div>
+                          <div class="fw-bold fs-4 text-primary">{{ selectedUsage.input?.toLocaleString() ?? 0 }}</div>
+                        </div>
+                      </div>
+                      <span class="badge bg-primary rounded-pill px-3 py-2 fs-6">
+                        Input
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Token de Saída -->
+              <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                  <div class="card-body p-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center">
+                        <div class="rounded-circle bg-success p-2 me-3">
+                          <i class="bi bi-arrow-up-circle text-white fs-4"></i>
+                        </div>
+                        <div>
+                          <div class="text-muted small mb-1">Tokens de Saída</div>
+                          <div class="fw-bold fs-4 text-success">{{ selectedUsage.output?.toLocaleString() ?? 0 }}</div>
+                        </div>
+                      </div>
+                      <span class="badge bg-success rounded-pill px-3 py-2 fs-6">
+                        Output
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Total -->
+              <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                  <div class="card-body p-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center">
+                        <div class="rounded-circle bg-warning p-2 me-3">
+                          <i class="bi bi-calculator-fill text-white fs-4"></i>
+                        </div>
+                        <div>
+                          <div class="text-muted small mb-1">Total de Tokens</div>
+                          <div class="fw-bold fs-3 text-warning">{{ selectedUsage.total?.toLocaleString() ?? 0 }}</div>
+                        </div>
+                      </div>
+                      <span class="badge bg-warning rounded-pill px-3 py-2 fs-6">
+                        Total
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="showUsageModal = false">Fechar</button>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary px-4" @click="showUsageModal = false">
+            <i class="bi bi-x-circle me-2"></i>Fechar
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped>
-.btn-purple {
-  background-color: #6f42c1;
-  border-color: #6f42c1;
-  color: white;
-}
-
-.btn-purple:hover {
-  background-color: #5a32a3;
-  border-color: #5a32a3;
-}
-
-.item-purple {
-  color: #6f42c1;
-}
-
-.s-h3 {
-  font-weight: 600;
-}
-
-.bck-h {
-  background-color: #f8f9fa;
-}
-
-.modal.d-block {
-  display: block !important;
-}
-</style>
 
