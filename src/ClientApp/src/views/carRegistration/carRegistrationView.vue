@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import HelpButton from "@/components/common/HelpButton.vue";
 import agentService from '@/services/agent';
 import type { MessageResult } from '@/models/messageResult';
+import { Role } from '@/models/messageResult';
 import type { Thread } from '@/models/thread';
 import MarkdownIt from 'markdown-it';
 
@@ -47,7 +48,7 @@ async function createNewThread() {
 
     // Mensagem de boas-vindas
     messages.value.push({
-      role: 'Agent',
+      role: Role.Agent,
       content: '👋 Olá! Sou o Agente de Cadastro de Carros. Como posso ajudar você hoje? Posso auxiliar no cadastro, consulta ou atualização de informações de veículos.'
     });
   } catch (error) {
@@ -63,7 +64,7 @@ async function sendMessage() {
   if (!userInput.value.trim() || !currentThreadId.value) return;
 
   const input = userInput.value;
-  messages.value.push({ role: 'User', content: input });
+  messages.value.push({ role: Role.User, content: input });
   userInput.value = '';
   isWaitingResponse.value = true;
 
@@ -79,7 +80,7 @@ async function sendMessage() {
   } catch (error) {
     console.error('Erro ao enviar mensagem:', error);
     messages.value.push({
-      role: 'Agent',
+      role: Role.Agent,
       content: '❌ Desculpe, ocorreu um erro ao processar sua mensagem. Tente novamente.'
     });
   } finally {
@@ -224,7 +225,7 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
     <div class="flex-grow-1 border rounded p-3 mb-3 overflow-auto" style="min-height: 0;">
       <div v-for="(msg, i) in messages" :key="i"
            class="mb-2 p-2 rounded"
-           :style="msg.role === 'User' ? userStyle : assistantStyle">
+           :style="msg.role === Role.User ? userStyle : assistantStyle">
         <div v-html="md.render(msg.content)"></div>
       </div>
     </div>

@@ -1,5 +1,10 @@
+export enum Role {
+  User = 1,
+  Agent = 2
+}
+
 export interface MessageResult {
-  role: 'User' | 'Agent';
+  role: Role;
   content: string;
   usage?: {
     input?: number;

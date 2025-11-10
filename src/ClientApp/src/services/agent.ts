@@ -1,4 +1,5 @@
 import type { MessageResult } from '@/models/messageResult'
+import { Role } from '@/models/messageResult'
 import type { Thread } from '@/models/thread'
 import axios, { AxiosError } from 'axios'
 
@@ -14,7 +15,7 @@ export interface CreateRunRequest {
 }
 
 export interface RunResponse {
-  role: string;
+  role: number;
   content: string;
   usage?: {
     input?: number;
@@ -58,7 +59,7 @@ const agentService = {
     try {
       const response = await axios.post<RunResponse>('/api/agents/run', request)
       return {
-        role: response.data.role as 'User' | 'Agent',
+        role: response.data.role as Role,
         content: response.data.content,
         usage: response.data.usage
       }
