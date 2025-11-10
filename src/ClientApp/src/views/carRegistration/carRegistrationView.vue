@@ -238,19 +238,23 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
     <!-- Área de Mensagens -->
     <div class="flex-grow-1 border rounded p-3 mb-3 overflow-auto" style="min-height: 0;">
       <div v-for="(msg, i) in messages" :key="i"
-           class="mb-2 p-2 rounded position-relative"
+           class="mb-2 p-2 rounded"
            :style="msg.role === Role.User ? userStyle : assistantStyle">
-        <div v-html="md.render(msg.content)"></div>
-        <!-- Ícone de usage se disponível -->
-        <button
-          v-if="msg.usage"
-          @click="openUsageModal(msg.usage)"
-          class="btn btn-warning btn-sm position-absolute top-0 end-0 m-2 shadow-sm rounded-circle"
-          style="width: 32px; height: 32px; padding: 0;"
-          title="💡 Ver consumo de tokens"
-        >
-          <i class="bi bi-lightning-charge-fill"></i>
-        </button>
+        <div class="row g-0">
+          <div :class="msg.usage ? 'col-11 col-md-11' : 'col-12'">
+            <div v-html="md.render(msg.content)"></div>
+          </div>
+          <div v-if="msg.usage" class="col-1 col-md-1 d-flex align-items-start justify-content-end">
+            <button
+              @click="openUsageModal(msg.usage)"
+              class="btn btn-warning btn-sm shadow-sm rounded-circle p-0"
+              style="width: 32px; height: 32px;"
+              title="💡 Ver consumo de tokens"
+            >
+              <i class="bi bi-lightning-charge-fill"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
