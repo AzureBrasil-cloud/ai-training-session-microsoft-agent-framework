@@ -20,4 +20,5 @@ public class ErrorCodes
     public static (Guid Code, string Message) UnableRemoveFileFromDocumentConnector = (Guid.Parse("C2A531D9-FC34-417F-9AAC-7EA9E9610AAA"), "Unable to remove the file from the document connector");
     public static (Guid Code, string Message) UnableAddFileFromDocumentConnector = (Guid.Parse("12298596-0EE6-4225-BC30-7D3D8AAB9EAC"), "Unable to add the file from the document connector");
     public static (Guid Code, string Message) InvalidEnum = (Guid.Parse("E4073D2A-F88C-4003-BD4B-3E0BAA9795EA"), "'{enum}' is invalid");
+    public static (Guid Code, string Message) AiInferenceError = (Guid.Parse("8F2A4D3E-1B5C-4E7F-9A2D-6C8E9B1F3A7C"), "An error occurred during AI inference");
 }

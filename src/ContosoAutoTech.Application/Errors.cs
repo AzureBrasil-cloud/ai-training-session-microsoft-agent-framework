@@ -124,4 +124,10 @@ public static class Errors
             {
                 {"enum", enumValue}
             });
+    
+    public static Error AiInferenceError() =>
+        new(
+            ErrorCodes.AiInferenceError.Code,
+            ErrorCodes.AiInferenceError.Message,
+            new Dictionary<string, object>());
 }
