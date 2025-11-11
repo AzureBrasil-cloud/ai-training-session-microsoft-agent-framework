@@ -94,6 +94,12 @@ const logo = `${window.location.origin}/images/logo-acai.png`;
                   <span>Assistente de informações</span>
                 </RouterLink>
               </li>
+              <li class="nav-item">
+                <RouterLink to="/send-review" class="dropdown-item">
+                  <i class="bi bi-card-checklist px-3"></i>
+                  <span>Agente de Consulta de Preços</span>
+                </RouterLink>
+              </li>
             </ul>
           </div>
         </div>
