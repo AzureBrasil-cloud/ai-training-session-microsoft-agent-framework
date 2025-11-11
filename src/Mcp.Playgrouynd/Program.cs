@@ -46,7 +46,6 @@ AIAgent agent = new AzureOpenAIClient(
 
 Console.WriteLine(await agent.RunAsync("Me fala a lista de carros disponiveis."));
 
-/*
 await using var mcpHttpClient = await McpClient.CreateAsync(
     new HttpClientTransport(new HttpClientTransportOptions()
     {
@@ -54,7 +53,6 @@ await using var mcpHttpClient = await McpClient.CreateAsync(
         Endpoint = new Uri("http://localhost:5122/mcp")
     })
 );
-
 
 var tools2 = await mcpHttpClient.ListToolsAsync().ConfigureAwait(false);
 
@@ -66,7 +64,7 @@ AIAgent agent2 = new AzureOpenAIClient(
     .CreateAIAgent(instructions: "Você é um assistente que utiliza as ferramentas disponiveis para consultar Estoque.", 
         tools: [.. tools2]);
 
-//Console.WriteLine(await agent2.RunAsync("Lista todo o estoque de peças disponíveis com quantidades, status e localização."));
+Console.WriteLine(await agent2.RunAsync("Lista todo o estoque de peças disponíveis com quantidades, status e localização."));
 
 var orchestrator = new AzureOpenAIClient(
         new Uri(endpoint),
@@ -80,7 +78,14 @@ var workflow = new WorkflowBuilder(orchestrator)
     .AddEdge(orchestrator, agent2)
     .Build();
 
+var workFlowAgent = workflow.AsAgent();
+var thread = workFlowAgent.GetNewThread();
+
+var result = await workFlowAgent.RunAsync("Liste todas as pecas em estoque", thread);
+
+
 // Execute the workflow
+/*
 await using StreamingRun run = await InProcessExecution.StreamAsync(workflow, new ChatMessage(ChatRole.User, "Liste todas as pecas em estoque"));
 
 await run.TrySendMessageAsync(new TurnToken(emitEvents: true));
@@ -90,5 +95,4 @@ await foreach (WorkflowEvent evt in run.WatchStreamAsync())
     {
         Console.Write($"{executorComplete.Data}");
     }
-}
-    */
+}*/

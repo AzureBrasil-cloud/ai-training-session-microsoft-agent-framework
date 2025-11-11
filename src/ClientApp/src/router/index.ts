@@ -63,6 +63,18 @@ const router = createRouter({
       meta: { requiresAuth: true }
     },
     {
+      path: '/car-parts-stock',
+      name: 'car-parts-stock',
+      component: () => import('../views/carParts/carPartStockView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/car-parts',
+      name: 'car-parts',
+      component: () => import('../views/carParts/carPartsView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
       path: '/send-image-pre-order',
       name: 'send-image-pre-order',
       component: () => import('../views/orders/sendImagePreOrderView.vue'),

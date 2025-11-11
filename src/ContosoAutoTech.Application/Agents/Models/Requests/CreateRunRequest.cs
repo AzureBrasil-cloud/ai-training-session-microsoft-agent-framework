@@ -8,3 +8,19 @@ public record CreateRunRequest(
     string AgentInstructions,
     string ThreadId,
     string Message);
+
+
+public record CreateWorkflowRunRequest(
+    Feature Feature,
+    string AgentName,
+    string AgentInstructions,
+    string ThreadId,
+    string Message,
+    AgentRequest[] Agents
+);
+        
+        
+public record AgentRequest(
+    string AgentName, 
+    string AgentInstructions,
+    Feature Feature);

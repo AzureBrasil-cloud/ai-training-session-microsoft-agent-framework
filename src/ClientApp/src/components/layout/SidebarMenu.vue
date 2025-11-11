@@ -96,8 +96,20 @@ const logo = `${window.location.origin}/images/logo-acai.png`;
               </li>
               <li class="nav-item">
                 <RouterLink to="/car-parts-price" class="dropdown-item">
-                  <i class="bi bi-card-checklist px-3"></i>
+                  <i class="bi bi-robot px-3"></i>
                   <span>Agente de Consulta de Preços</span>
+                </RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink to="/car-parts-stock" class="dropdown-item">
+                  <i class="bi bi-robot px-3"></i>
+                  <span>Agente de Consulta de Estoque</span>
+                </RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink to="/car-parts" class="dropdown-item">
+                 <i class="bi bi-robot px-3"></i>
+                  <span>Agente Orquestrador</span>
                 </RouterLink>
               </li>
             </ul>

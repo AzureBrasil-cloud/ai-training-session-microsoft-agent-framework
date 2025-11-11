@@ -13,6 +13,7 @@
       <PackageReference Include="Azure.ResourceManager.Resources" Version="1.9.1" />
       <PackageReference Include="Microsoft.Agents.AI.AzureAI" Version="1.0.0-preview.251104.1" />
       <PackageReference Include="Microsoft.Agents.AI.OpenAI" Version="1.0.0-preview.251110.1" />
+      <PackageReference Include="Microsoft.Agents.AI.Workflows" Version="1.0.0-preview.251110.1" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.10" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.10" />
       <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.4" />

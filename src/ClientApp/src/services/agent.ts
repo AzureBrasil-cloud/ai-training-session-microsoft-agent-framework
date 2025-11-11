@@ -69,6 +69,21 @@ const agentService = {
       throw axiosError?.response?.data
     }
   },
+  runWorkflow: async (params: {
+  feature: number;
+  agentName: string;
+  agentInstructions: string;
+  threadId: string;
+  message: string;
+  agents: Array<{
+    agentName: string;
+    agentInstructions: string;
+    feature: number;
+  }>;
+}): Promise<MessageResult> => {
+  const response = await axios.post('api/agents/run-workflow', params);
+  return response.data;
+}
 }
 
 export default agentService

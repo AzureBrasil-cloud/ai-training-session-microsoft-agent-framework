@@ -9,7 +9,7 @@ public partial class McpService
         string command,
         IList<string>? arguments = null)
     {
-        await using var mcpClient = await McpClient.CreateAsync(
+        var mcpClient = await McpClient.CreateAsync(
             new StdioClientTransport(new StdioClientTransportOptions
             {
                 Name = name,

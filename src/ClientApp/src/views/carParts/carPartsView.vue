@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import HelpButton from "@/components/common/HelpButton.vue";
-import AgentChatWindow from "@/components/agent/AgentChatWindow.vue";
+import WorkflowChatWindow from "@/components/agent/WorkflowChatWindow.vue";
 
 const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
 </script>
@@ -103,15 +103,27 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
     </ul>
   </HelpButton>
 
-  <AgentChatWindow
-    :feature-id="3"
-    title="Agente de Catálogo de Peças de Carros"
-    welcome-message="👋 Olá! Sou o Agente de Catálogo de Peças Automotivas. Posso listar todas as peças disponíveis, buscar por marca, modelo ou exibir o catálogo completo. O que você deseja consultar?"
-    default-agent-name="Agente de Catálogo de Peças"
-    default-instructions="Você é um assistente especializado em catálogo automotivo. Use apenas as ferramentas MCP disponíveis (ListAllParts, ListPartsByBrand, ListPartsByModel, ListAvailableBrands, ListAvailableModels) para responder. Responda sempre de forma clara, organizada e amigável."
-  >
-    <template #icon>
-      <i class="bi bi-tools px-3"></i>
-    </template>
-  </AgentChatWindow>
+  <WorkflowChatWindow
+  :feature-id="5"
+  title="Workflow de Gestão de Peças"
+  welcome-message="👋 Olá! Sou o Orquestrador de peças. Coordeno diversos agentes especializados para ajudá-lo com estoque e preços. O que você precisa?"
+  default-orchestrator-name="Orquestrador de Vendas"
+  default-orchestrator-instructions="Você é um orquestrador. Nunca combine dados de outros agentes a menos que solicitado explicitamente. Selecione o agente a ser chamado de acordo com a solicitacao do cliente. Use os agentes especializados disponiveis para responder as perguntas do usuario."
+  :default-specialized-agents="[
+    {
+      name: 'Agente de Estoque',
+      instructions: 'Você é um assistente que utiliza as ferramentas disponiveis para consultar Estoque.',
+      featureId: 4
+    },
+    {
+      name: 'Agente de Precos',
+      instructions: 'Voce é um assistente inteligente que consulta apenas as ferramentas para informar os precos.',
+      featureId: 3
+    }
+  ]"
+>
+  <template #icon>
+    <i class="bi bi-diagram-3 px-3"></i>
+  </template>
+</WorkflowChatWindow>
 </template>
