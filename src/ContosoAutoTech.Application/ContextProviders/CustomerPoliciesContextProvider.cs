@@ -27,24 +27,9 @@ public class CustomerPoliciesContextProvider(AiSearchService aiSearchService)
     private static async Task<IEnumerable<TextSearchProvider.TextSearchResult>> SearchAdapter(
         string query, 
         CancellationToken cancellationToken,
-        object aiSearchService)
+        AiSearchService aiSearchService)
     {
-        // Call the AiSearchService.SearchCustomerPoliciesAsync method
-        var method = aiSearchService.GetType().GetMethod("SearchCustomerPoliciesAsync");
-        if (method == null)
-            return [];
-
-        var task = method.Invoke(aiSearchService, [query, cancellationToken]);
-        
-        // The method returns Task<IEnumerable<SearchResult>>
-        // We need to convert SearchResult to TextSearchProvider.TextSearchResult
-        dynamic? taskResult = task;
-        if (taskResult == null)
-            return [];
-
-        await taskResult;
-        var searchResults = taskResult.Result;
-
+        var searchResults = await aiSearchService.SearchCustomerPoliciesAsync(query, cancellationToken);
         var textSearchResults = new List<TextSearchProvider.TextSearchResult>();
         foreach (var result in searchResults)
         {
