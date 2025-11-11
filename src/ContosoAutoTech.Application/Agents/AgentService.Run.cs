@@ -13,6 +13,8 @@ public partial class AgentService
     private static readonly ActivitySource ActivitySource =  InstrumentationConfig.ActivitySource;
     public async Task<Result<MessageResult>> RunAsync(CreateRunRequest request)
     {
+        using Activity? activity = ActivitySource.StartActivity();
+        
         var validationResult = await new CreateRunRequestValidator().ValidateAsync(request);
 
         if (!validationResult.IsValid)
@@ -35,8 +37,6 @@ public partial class AgentService
             return Result<MessageResult>.Failure(error);
         }
 
-        using Activity activity = ActivitySource.StartActivity("Run");
-        
         var credentials = GetCredentials();
         
         // Create and execute the run

@@ -4,7 +4,7 @@ namespace ContosoAutoTech.Application;
 
 public class InstrumentationConfig
 {
-    private const string ServiceName = "Azure.AI*";
+    private const string ServiceName = "ContosoAutoTech.Api";
 
     public static ActivitySource ActivitySource { get; set; } = new(ServiceName);
 

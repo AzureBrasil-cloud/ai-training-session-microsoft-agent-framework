@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text.Json;
 using ContosoAutoTech.Application.Agents.Models.Results;
 using Microsoft.Extensions.Logging;
@@ -8,6 +9,8 @@ public partial class AgentService
 {
     public async Task<Result<ThreadMessagesResult>> GetThreadMessagesAsync(Guid threadId)
     {
+        using Activity? activity = ActivitySource.StartActivity();
+        
         // Get the thread from database
         var thread = await context.Threads.FindAsync(threadId);
 

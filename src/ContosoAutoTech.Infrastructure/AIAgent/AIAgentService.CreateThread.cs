@@ -10,8 +10,15 @@ public partial class AiAgentService
         string name,
         string instructions)
     {
-        var client = CreateAgent(credentials, name, instructions);
-        var thread = client.GetNewThread();
+        var client = CreateAgentsClient(credentials);
+
+        var agent = CreateAiAgent(
+            client,
+            instructions,
+            name,
+            []);
+        
+        var thread = agent.GetNewThread();
 
         return thread;
     }

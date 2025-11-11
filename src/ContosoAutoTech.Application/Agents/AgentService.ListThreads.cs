@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using ContosoAutoTech.Application.Agents.Models.Requests;
 using ContosoAutoTech.Application.Agents.Models.Results;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,8 @@ public partial class AgentService
 {
     public async Task<Result<IList<ThreadResult>>> ListThreadsByFeatureAsync(ListThreadsByFeatureRequest request)
     {
+        using Activity? activity = ActivitySource.StartActivity();
+        
         var threads = await context.Threads
             .AsNoTracking()
             .Where(t=> t.Feature == request.Feature)

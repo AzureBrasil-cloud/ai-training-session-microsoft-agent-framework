@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text.Json;
 using ContosoAutoTech.Application.Agents.Models.Requests;
 using ContosoAutoTech.Application.Agents.Models.Requests.Validators;
@@ -12,6 +13,8 @@ public partial class AgentService
 {
     public async Task<Result<ThreadResult>> CreateThreadAsync(CreateThreadRequest request)
     {
+        using Activity? activity = ActivitySource.StartActivity();
+        
         var validationResult = await new CreateThreadRequestValidator().ValidateAsync(request);
 
         if (!validationResult.IsValid)

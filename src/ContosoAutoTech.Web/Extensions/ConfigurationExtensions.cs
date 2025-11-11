@@ -12,20 +12,19 @@ namespace ContosoAutoTech.Web.Extensions;
 
 public static class ConfigurationExtensions
 {
+    private const string ServiceName = "ContosoAutoTech.Api";
+    
     public static void AddLogging(this WebApplicationBuilder builder)
     {
-        // builder.Logging.AddOpenTelemetry(options =>
-        // {
-        //     options.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("ConstosoAcai.Api")); 
-        //     options.AddOtlpExporter();
-        //     options.IncludeFormattedMessage = true;
-        //     options.ParseStateValues = true;
-        //     options.IncludeScopes = true; 
-        //     options.AddAzureMonitorLogExporter(cfg => 
-        //     {
-        //         cfg.ConnectionString = builder.Configuration["AzureMonitor:ConnectionString"];
-        //     });
-        // });
+        builder.Logging.AddOpenTelemetry(options =>
+        {
+            options.SetResourceBuilder(ResourceBuilder.CreateDefault()
+                .AddService(ServiceName)); 
+            options.AddOtlpExporter();
+            options.IncludeFormattedMessage = true;
+            options.ParseStateValues = true;
+            options.IncludeScopes = true;
+        });
     }
     
     public static void AddConfigurations(
@@ -51,39 +50,26 @@ public static class ConfigurationExtensions
         AppContext.SetSwitch("Azure.Experimental.EnableActivitySource", true); 
         AppContext.SetSwitch("Azure.Experimental.TraceGenAIMessageContent", true);
 
-        // services.AddOpenTelemetry()
-        //     .WithTracing(tracing => tracing
-        //         .ConfigureResource(resource => resource.AddService("ConstosoAcai.Api"))    
-        //         .AddAspNetCoreInstrumentation()
-        //         .AddHttpClientInstrumentation()
-        //         .AddSource(InstrumentationConfig.ActivitySource.Name)
-        //         .AddOtlpExporter()
-        //         .AddAzureMonitorTraceExporter(options =>
-        //         {
-        //             options.ConnectionString = configuration["AzureMonitor:ConnectionString"]!;
-        //         }))
-        //     .WithMetrics(metrics => metrics
-        //         .ConfigureResource(resource => resource.AddService("ConstosoAcai.Api"))    
-        //         .AddAspNetCoreInstrumentation()
-        //         .AddHttpClientInstrumentation()
-        //         .AddOtlpExporter()
-        //         .AddAzureMonitorMetricExporter(options =>
-        //         {
-        //             options.ConnectionString = configuration["AzureMonitor:ConnectionString"]!;
-        //         }));
+        services.AddOpenTelemetry()
+            .WithTracing(tracing => tracing
+                .ConfigureResource(resource => resource.AddService(ServiceName))    
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddSource(InstrumentationConfig.ActivitySource.Name)
+                .AddSource("*Microsoft.Extensions.AI") 
+                .AddSource("*Microsoft.Extensions.Agents*")
+                .AddOtlpExporter())
+            .WithMetrics(metrics => metrics
+                .ConfigureResource(resource => resource.AddService(ServiceName))    
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddMeter("*Microsoft.Agents.AI")
+                .AddOtlpExporter());
     }
 
     public static void ConfigureApplication(this WebApplication app)
     {
         app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
-        
-        if (!app.Environment.IsDevelopment())
-        {
-            app.UseExceptionHandler("/Home/Error");
-            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-            app.UseHsts();
-        }
-
         app.UseStaticFiles();
         app.UseHttpsRedirection();
         app.UseRouting();

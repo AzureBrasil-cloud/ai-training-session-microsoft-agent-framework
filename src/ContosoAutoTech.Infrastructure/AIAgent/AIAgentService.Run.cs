@@ -1,4 +1,6 @@
 using System.Text.Json;
+using Azure.AI.OpenAI;
+using Azure.Identity;
 using ContosoAutoTech.Infrastructure.Shared;
 using Microsoft.Agents.AI;
 using OpenAI;
@@ -19,10 +21,11 @@ public partial class AiAgentService
     {
         var client = CreateAgentsClient(credentials);
 
-        var agent = client.CreateAIAgent(
-            instructions: instructions,
-            name: name,
-            tools: tools);
+        var agent = CreateAiAgent(
+            client,
+            instructions,
+            name,
+            tools);
         
         var reloaded = JsonSerializer.Deserialize<JsonElement>(thread, JsonSerializerOptions.Web);
         var resumedThread = agent.DeserializeThread(reloaded, JsonSerializerOptions.Web);
