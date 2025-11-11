@@ -1,9 +1,7 @@
 using Azure;
 using Azure.AI.OpenAI;
-using ContosoAutoTech.Infrastructure.Email;
 using ContosoAutoTech.Infrastructure.Shared;
 using Microsoft.Agents.AI;
-using Microsoft.Agents.AI.Data;
 using Microsoft.Extensions.AI;
 using OpenAI;
 using OpenAI.Chat;
@@ -29,7 +27,6 @@ public partial class AiAgentService
         IList<AITool>? tools = null,
         Func<ChatClientAgentOptions.AIContextProviderFactoryContext, AIContextProvider>? aiContextProviderFactory = null)
     {
-
         return  client
             .CreateAIAgent(new ChatClientAgentOptions
             {

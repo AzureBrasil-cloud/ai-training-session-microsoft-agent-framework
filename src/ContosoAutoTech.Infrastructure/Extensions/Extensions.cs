@@ -1,4 +1,5 @@
 using ContosoAutoTech.Infrastructure.AIAgent;
+using ContosoAutoTech.Infrastructure.AiInference;
 using ContosoAutoTech.Infrastructure.AiSearch;
 using ContosoAutoTech.Infrastructure.Email;
 using ContosoAutoTech.Infrastructure.Mcps;
@@ -12,11 +13,11 @@ public static class Extensions
     public static IServiceCollection AddAzure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddHttpClient();
-        
         services.AddScoped<AiAgentService>();
         services.AddScoped<AiSearchService>();
+        services.AddScoped<BasicRagService>();
+        services.AddScoped<AiInferenceService>();
         services.AddScoped<McpService>();
-        services.AddSingleton<EmailService>(x => new EmailService(configuration["Email:Secret"]!, configuration["Email:SenderEmail"]!));
         
         return services;
     }

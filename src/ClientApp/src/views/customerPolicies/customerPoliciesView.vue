@@ -72,7 +72,7 @@ const videoUrl = `${window.location.origin}/videos/customer-policies-agent.mp4`;
 REGRAS IMPORTANTES:
 1. Responda APENAS com base nos documentos de políticas fornecidos no contexto.
 2. NUNCA invente ou assuma informações que não estejam explicitamente nos documentos.
-3. Se a informação solicitada NÃO estiver nos documentos fornecidos, responda: 'Não encontrei essa informação nas políticas disponíveis. Posso ajudá-lo com informações sobre: políticas de atendimento, garantias, trocas, devoluções, privacidade (LGPD), entrega, financiamento e manutenção preventiva.'
+3. Se a informação solicitada NÃO estiver nos documentos fornecidos, responda: 'Não encontrei essa informação nas políticas disponíveis. Posso ajudá-lo com informações sobre: políticas de atendimento, garantias, trocas e devoluções'
 
 Quando responder:
 - Seja claro, preciso e direto

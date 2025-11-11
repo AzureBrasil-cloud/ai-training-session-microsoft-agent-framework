@@ -20,7 +20,8 @@ public partial class AgentService(
     ILogger<AgentService> logger,
     McpService mcpService,
     AiAgentService aiAgentService,
-    AiSearchService aiSearchService)
+    AiSearchService aiSearchService,
+    BasicRagService basicRagService)
 {
     private Credentials GetCredentials()
     {
@@ -30,12 +31,13 @@ public partial class AgentService(
 
         return new Credentials(foundryEndpoint, foudryApiKey, model);
     }
+
     private async Task<(IList<AITool> tools, IList<McpClient> mcpClients)> GetToolsWithMcpClient(Feature feature)
     {
-        var tools = new List<AITool>();    
+        var tools = new List<AITool>();
         var mcpClients = new List<McpClient>();
 
-        switch (feature) 
+        switch (feature)
         {
             case Feature.CarPartPrice:
                 var (carPartPriceTools, stdioMcpClient) = await mcpService
@@ -43,7 +45,7 @@ public partial class AgentService(
                 tools.AddRange(carPartPriceTools);
                 mcpClients.Add(stdioMcpClient);
                 break;
-            case Feature.CarPartStock: 
+            case Feature.CarPartStock:
                 var (carPartStockTools, httpMcpClient) = await mcpService
                     .GetHttpMcpToolAsync("CarPartStockMcp", "http://localhost:5122/mcp");
                 tools.AddRange(carPartStockTools);
@@ -53,28 +55,41 @@ public partial class AgentService(
 
         return (tools, mcpClients);
     }
-    
-    private Func<ChatClientAgentOptions.AIContextProviderFactoryContext, AIContextProvider>? GetAiContextProviderByFeature(Feature requestFeature)
+
+    private Func<ChatClientAgentOptions.AIContextProviderFactoryContext, AIContextProvider>?
+        GetAiContextProviderByFeature(Feature requestFeature)
     {
         switch (requestFeature)
         {
             case Feature.CustomerRelationsPolicies:
-                var contextProvider = new CustomerPoliciesContextProvider(aiSearchService);
-                return contextProvider.CreateProviderFactory();
+
+                var useBasicContext = Convert.ToBoolean(configuration["Application:UseBasicCustomerPoliciesAgentContext"]);
+
+                if (useBasicContext)
+                {
+                        // Option 1: Use mock provider for development/testing (no Azure AI Search required)
+                    var basicContextProvider = new BasicRagCustomerPoliciesContextProvider(basicRagService);
+                    return basicContextProvider.CreateProviderFactory();
+                }
+
+                // Option 2: Use Azure AI Search Knowledge Agent (requires Azure configuration)
+                var agenticContextProvider = new AgenticRagCustomerPoliciesContextProvider(aiSearchService, configuration);
+                return agenticContextProvider.CreateProviderFactory();
+            
             default:
                 return null;
         }
     }
-    
+
     private IList<AITool> GetToolsByFeature(Feature requestFeature)
     {
         var tools = new List<AITool>();
-        
+
         switch (requestFeature)
         {
             case Feature.CarRegistration:
                 var carTools = new CarTools(context);
-                
+
                 var createCarTool = AIFunctionFactory.Create(
                     typeof(CarTools).GetMethod(nameof(CarTools.CreateCar))!,
                     carTools);
@@ -94,16 +109,16 @@ public partial class AgentService(
                 var deleteCarTool = AIFunctionFactory.Create(
                     typeof(CarTools).GetMethod(nameof(CarTools.DeleteCar))!,
                     carTools);
-                
+
                 tools.Add(createCarTool);
                 tools.Add(updateCarTool);
                 tools.Add(listCarsTool);
                 tools.Add(getCarTool);
                 tools.Add(deleteCarTool);
-                
+
                 break;
         }
-        
+
         return tools;
     }
 };

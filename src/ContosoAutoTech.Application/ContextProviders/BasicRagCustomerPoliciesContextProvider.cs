@@ -5,7 +5,7 @@ using Microsoft.Agents.AI.Data;
 
 namespace ContosoAutoTech.Application.ContextProviders;
 
-public class CustomerPoliciesContextProvider(AiSearchService aiSearchService)
+public class BasicRagCustomerPoliciesContextProvider(BasicRagService basicRagService)
 {
     private static readonly ActivitySource ActivitySource = InstrumentationConfig.ActivitySource;
     
@@ -32,8 +32,9 @@ public class CustomerPoliciesContextProvider(AiSearchService aiSearchService)
     {
         using Activity? activity = ActivitySource.StartActivity();
         activity?.SetTag("search.query", query);
+        activity?.SetTag("search.provider", "Mock");
         
-        var searchResults = await aiSearchService.SearchCustomerPoliciesAsync(query, cancellationToken);
+        var searchResults = await basicRagService.SearchCustomerPoliciesAsync(query, cancellationToken);
         var textSearchResults = new List<TextSearchProvider.TextSearchResult>();
         
         foreach (var result in searchResults)
@@ -61,8 +62,9 @@ public class CustomerPoliciesContextProvider(AiSearchService aiSearchService)
                 activity?.SetTag($"search.result[{i}].text", result.Text);
             }
         }
-
+        
         return textSearchResults;
     }
 }
+
 
