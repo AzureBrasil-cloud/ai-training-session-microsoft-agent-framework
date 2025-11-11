@@ -1,13 +1,15 @@
+using ContosoAutoTech.Application.ContextProviders;
 using ContosoAutoTech.Application.Tools;
 using ContosoAutoTech.Data;
 using ContosoAutoTech.Data.Entities;
 using ContosoAutoTech.Infrastructure.AIAgent;
 using ContosoAutoTech.Infrastructure.Mcps;
+using ContosoAutoTech.Infrastructure.AiSearch;
 using ContosoAutoTech.Infrastructure.Shared;
+using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Client.Platforms.Features.DesktopOs.Kerberos;
 using ModelContextProtocol.Client;
 
 namespace ContosoAutoTech.Application.Agents;
@@ -17,7 +19,8 @@ public partial class AgentService(
     IConfiguration configuration,
     ILogger<AgentService> logger,
     McpService mcpService,
-    AiAgentService aiAgentService)
+    AiAgentService aiAgentService,
+    AiSearchService aiSearchService)
 {
     private Credentials GetCredentials()
     {
@@ -27,7 +30,6 @@ public partial class AgentService(
 
         return new Credentials(foundryEndpoint, foudryApiKey, model);
     }
-
     private async Task<(IList<AITool> tools, IList<McpClient> mcpClients)> GetToolsWithMcpClient(Feature feature)
     {
         var tools = new List<AITool>();    
@@ -36,8 +38,8 @@ public partial class AgentService(
         switch (feature) 
         {
             case Feature.CarPartPrice:
-               var (carPartPriceTools, stdioMcpClient) = await mcpService
-                   .GetHttpMcpToolAsync("CarPartPriceMcp", "http://localhost:5000/mcp");
+                var (carPartPriceTools, stdioMcpClient) = await mcpService
+                    .GetHttpMcpToolAsync("CarPartPriceMcp", "http://localhost:5000/mcp");
                 tools.AddRange(carPartPriceTools);
                 mcpClients.Add(stdioMcpClient);
                 break;
@@ -50,6 +52,18 @@ public partial class AgentService(
         }
 
         return (tools, mcpClients);
+    }
+    
+    private Func<ChatClientAgentOptions.AIContextProviderFactoryContext, AIContextProvider>? GetAiContextProviderByFeature(Feature requestFeature)
+    {
+        switch (requestFeature)
+        {
+            case Feature.CustomerRelationsPolicies:
+                var contextProvider = new CustomerPoliciesContextProvider(aiSearchService);
+                return contextProvider.CreateProviderFactory();
+            default:
+                return null;
+        }
     }
     
     private IList<AITool> GetToolsByFeature(Feature requestFeature)

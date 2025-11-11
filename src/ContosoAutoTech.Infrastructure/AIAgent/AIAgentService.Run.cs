@@ -8,13 +8,14 @@ namespace ContosoAutoTech.Infrastructure.AIAgent;
 
 public partial class AiAgentService
 {
-    public async Task<(AgentRunResponse, AgentThread Thread, string? FirstTruncatedMessage)> CreateRunAsync(
+    public async Task<(AgentRunResponse, AgentThread Thread)> CreateRunAsync(
         Credentials credentials,
         string name,
         string instructions,
         string userMessage,
         string thread,
-        IList<AITool>? tools = null)
+        IList<AITool>? tools = null,
+        Func<ChatClientAgentOptions.AIContextProviderFactoryContext, AIContextProvider>? aiContextProviderFactory = null)
     {
         var client = CreateAgentsClient(credentials);
 
@@ -22,17 +23,16 @@ public partial class AiAgentService
             client,
             instructions,
             name,
-            tools);
-        
+            tools,
+            aiContextProviderFactory);
+
         var reloaded = JsonSerializer.Deserialize<JsonElement>(thread, JsonSerializerOptions.Web);
         var resumedThread = agent.DeserializeThread(reloaded, JsonSerializerOptions.Web);
-        
+
         var result = await agent.RunAsync(
-            userMessage, 
+            userMessage,
             resumedThread);
 
-        return string.CompareOrdinal(thread, "{}") == 0 ? 
-            (result, resumedThread, userMessage.Truncate()) : 
-            (result, resumedThread, null);
+        return (result, resumedThread);
     }
 }

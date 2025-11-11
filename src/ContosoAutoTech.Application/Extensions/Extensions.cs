@@ -14,9 +14,6 @@ public static class Extensions
         // Services
         services.AddScoped<AgentService>();
         
-        // // Tools
-        // services.AddScoped<CarTools>();
-        
         // Domain
         services.AddData(configuration);
         

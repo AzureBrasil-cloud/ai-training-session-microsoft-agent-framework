@@ -153,7 +153,7 @@ public static class Constants
 
                                                                 <!-- footer -->
                                                                 <div style="text-align:center; color:#718096; font-size:14px; line-height:20px; color:white">
-                                                                    Enviado por Contoso Açaí
+                                                                    Enviado por Contoso AutoTech
                                                                 </div>
 
                                                                 <div style="height:24px; font-size:24px; line-height:24px;">&nbsp;</div>

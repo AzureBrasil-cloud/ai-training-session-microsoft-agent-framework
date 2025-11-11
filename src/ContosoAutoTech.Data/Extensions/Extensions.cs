@@ -15,7 +15,10 @@ public static class Extensions
     private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<AppDbContext>(options =>
-            options.UseInMemoryDatabase("InMemoryDb"));
+        {
+            options.UseInMemoryDatabase("InMemoryDb");
+            options.EnableSensitiveDataLogging();
+        });
 
         return services;
     } 

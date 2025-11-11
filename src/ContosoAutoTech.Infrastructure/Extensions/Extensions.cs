@@ -1,4 +1,5 @@
 using ContosoAutoTech.Infrastructure.AIAgent;
+using ContosoAutoTech.Infrastructure.AiSearch;
 using ContosoAutoTech.Infrastructure.Email;
 using ContosoAutoTech.Infrastructure.Mcps;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +14,7 @@ public static class Extensions
         services.AddHttpClient();
         
         services.AddScoped<AiAgentService>();
+        services.AddScoped<AiSearchService>();
         services.AddScoped<McpService>();
         services.AddSingleton<EmailService>(x => new EmailService(configuration["Email:Secret"]!, configuration["Email:SenderEmail"]!));
         

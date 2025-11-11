@@ -48,7 +48,7 @@ const logo = `${window.location.origin}/images/logo-acai.png`;
         >
           <img :src="logo" alt="..." width="85" />
           <div class="d-grid flex-grow-1 ls-tight text-sm">
-            <span :class="[userIsAdmin ? 'text-white' : 'text-black', 'fw-semibold']">Contoso Açaí</span>
+            <span :class="[userIsAdmin ? 'text-white' : 'text-black', 'fw-semibold']">Contoso AutoTech</span>
             <span class="text-truncate text-xs text-body-secondary mt-n1">Web app</span>
           </div>
         </div>
@@ -95,7 +95,7 @@ const logo = `${window.location.origin}/images/logo-acai.png`;
                 </RouterLink>
               </li>
               <li class="nav-item">
-                <RouterLink to="/send-review" class="dropdown-item">
+                <RouterLink to="/car-parts-price" class="dropdown-item">
                   <i class="bi bi-card-checklist px-3"></i>
                   <span>Agente de Consulta de Preços</span>
                 </RouterLink>

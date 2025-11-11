@@ -1,14 +1,16 @@
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Text.Json;
 using ContosoAutoTech.Data;
 using ContosoAutoTech.Data.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.AI;
 
 namespace ContosoAutoTech.Application.Tools;
 
 public class CarTools(AppDbContext context)
 {
+    private static readonly ActivitySource ActivitySource = InstrumentationConfig.ActivitySource;
+
     [Description("Create a new car in the system.")]
     public async Task<string> CreateCar(
         [Description("The name/description of the car")] string name,
@@ -18,12 +20,25 @@ public class CarTools(AppDbContext context)
         [Description("The price of the car in the local currency")] decimal price,
         [Description("The license plate of the car")] string licensePlate)
     {
+        using Activity? activity = ActivitySource.StartActivity();
+        activity?.SetTag("car.operation", "create");
+        activity?.SetTag("car.name", name);
+        activity?.SetTag("car.owner", owner);
+        activity?.SetTag("car.year", year);
+        activity?.SetTag("car.model", model);
+        activity?.SetTag("car.price", price);
+        activity?.SetTag("car.license_plate", licensePlate);
+        
         try
         {
             var car = new Car(name, owner, year, model, price, licensePlate);
 
             await context.Cars.AddAsync(car);
             await context.SaveChangesAsync();
+
+            activity?.SetTag("car.id", car.Id);
+            activity?.SetTag("car.created_at", car.CreatedAt);
+            activity?.SetTag("operation.success", true);
 
             return JsonSerializer.Serialize(new
             {
@@ -45,6 +60,10 @@ public class CarTools(AppDbContext context)
         }
         catch (Exception ex)
         {
+            activity?.SetTag("operation.success", false);
+            activity?.SetTag("error.message", ex.Message);
+            activity?.SetTag("error.type", ex.GetType().Name);
+            
             return JsonSerializer.Serialize(new
             {
                 success = false,
@@ -63,10 +82,23 @@ public class CarTools(AppDbContext context)
         [Description("The new price (optional)")] decimal? price = null,
         [Description("The new license plate (optional)")] string? licensePlate = null)
     {
+        using Activity? activity = ActivitySource.StartActivity();
+        activity?.SetTag("car.operation", "update");
+        activity?.SetTag("car.id", carId);
+        if (name != null) activity?.SetTag("car.new_name", name);
+        if (owner != null) activity?.SetTag("car.new_owner", owner);
+        if (year != null) activity?.SetTag("car.new_year", year);
+        if (model != null) activity?.SetTag("car.new_model", model);
+        if (price != null) activity?.SetTag("car.new_price", price);
+        if (licensePlate != null) activity?.SetTag("car.new_license_plate", licensePlate);
+        
         try
         {
             if (!Guid.TryParse(carId, out var id))
             {
+                activity?.SetTag("operation.success", false);
+                activity?.SetTag("error.reason", "invalid_id_format");
+                
                 return JsonSerializer.Serialize(new
                 {
                     success = false,
@@ -77,6 +109,9 @@ public class CarTools(AppDbContext context)
             var car = await context.Cars.FindAsync(id);
             if (car == null)
             {
+                activity?.SetTag("operation.success", false);
+                activity?.SetTag("error.reason", "car_not_found");
+                
                 return JsonSerializer.Serialize(new
                 {
                     success = false,
@@ -86,6 +121,10 @@ public class CarTools(AppDbContext context)
 
             car.Update(name, owner, year, model, price, licensePlate);
             await context.SaveChangesAsync();
+
+            activity?.SetTag("car.name", car.Name);
+            activity?.SetTag("car.updated_at", car.UpdatedAt);
+            activity?.SetTag("operation.success", true);
 
             return JsonSerializer.Serialize(new
             {
@@ -106,6 +145,10 @@ public class CarTools(AppDbContext context)
         }
         catch (Exception ex)
         {
+            activity?.SetTag("operation.success", false);
+            activity?.SetTag("error.message", ex.Message);
+            activity?.SetTag("error.type", ex.GetType().Name);
+            
             return JsonSerializer.Serialize(new
             {
                 success = false,
@@ -118,10 +161,17 @@ public class CarTools(AppDbContext context)
     public async Task<string> DeleteCar(
         [Description("The ID of the car to delete")] string carId)
     {
+        using Activity? activity = ActivitySource.StartActivity();
+        activity?.SetTag("car.operation", "delete");
+        activity?.SetTag("car.id", carId);
+        
         try
         {
             if (!Guid.TryParse(carId, out var id))
             {
+                activity?.SetTag("operation.success", false);
+                activity?.SetTag("error.reason", "invalid_id_format");
+                
                 return JsonSerializer.Serialize(new
                 {
                     success = false,
@@ -132,6 +182,9 @@ public class CarTools(AppDbContext context)
             var car = await context.Cars.FindAsync(id);
             if (car == null)
             {
+                activity?.SetTag("operation.success", false);
+                activity?.SetTag("error.reason", "car_not_found");
+                
                 return JsonSerializer.Serialize(new
                 {
                     success = false,
@@ -140,8 +193,12 @@ public class CarTools(AppDbContext context)
             }
 
             var carName = car.Name;
+            activity?.SetTag("car.name", carName);
+            
             context.Cars.Remove(car);
             await context.SaveChangesAsync();
+
+            activity?.SetTag("operation.success", true);
 
             return JsonSerializer.Serialize(new
             {
@@ -151,6 +208,10 @@ public class CarTools(AppDbContext context)
         }
         catch (Exception ex)
         {
+            activity?.SetTag("operation.success", false);
+            activity?.SetTag("error.message", ex.Message);
+            activity?.SetTag("error.type", ex.GetType().Name);
+            
             return JsonSerializer.Serialize(new
             {
                 success = false,
@@ -169,6 +230,16 @@ public class CarTools(AppDbContext context)
         [Description("Filter by license plate (optional)")] string? licensePlate = null,
         [Description("Maximum number of results to return (default: 10)")] int limit = 10)
     {
+        using Activity? activity = ActivitySource.StartActivity();
+        activity?.SetTag("car.operation", "list");
+        if (owner != null) activity?.SetTag("filter.owner", owner);
+        if (model != null) activity?.SetTag("filter.model", model);
+        if (minYear != null) activity?.SetTag("filter.min_year", minYear);
+        if (maxYear != null) activity?.SetTag("filter.max_year", maxYear);
+        if (maxPrice != null) activity?.SetTag("filter.max_price", maxPrice);
+        if (licensePlate != null) activity?.SetTag("filter.license_plate", licensePlate);
+        activity?.SetTag("filter.limit", limit);
+        
         try
         {
             var query = context.Cars.AsQueryable();
@@ -196,6 +267,9 @@ public class CarTools(AppDbContext context)
                 .OrderByDescending(c => c.CreatedAt)
                 .ToListAsync();
 
+            activity?.SetTag("result.count", cars.Count);
+            activity?.SetTag("operation.success", true);
+
             return JsonSerializer.Serialize(new
             {
                 success = true,
@@ -216,6 +290,10 @@ public class CarTools(AppDbContext context)
         }
         catch (Exception ex)
         {
+            activity?.SetTag("operation.success", false);
+            activity?.SetTag("error.message", ex.Message);
+            activity?.SetTag("error.type", ex.GetType().Name);
+            
             return JsonSerializer.Serialize(new
             {
                 success = false,
@@ -228,10 +306,17 @@ public class CarTools(AppDbContext context)
     public async Task<string> GetCarById(
         [Description("The ID of the car to retrieve")] string carId)
     {
+        using Activity? activity = ActivitySource.StartActivity();
+        activity?.SetTag("car.operation", "get_by_id");
+        activity?.SetTag("car.id", carId);
+        
         try
         {
             if (!Guid.TryParse(carId, out var id))
             {
+                activity?.SetTag("operation.success", false);
+                activity?.SetTag("error.reason", "invalid_id_format");
+                
                 return JsonSerializer.Serialize(new
                 {
                     success = false,
@@ -242,12 +327,22 @@ public class CarTools(AppDbContext context)
             var car = await context.Cars.FindAsync(id);
             if (car == null)
             {
+                activity?.SetTag("operation.success", false);
+                activity?.SetTag("error.reason", "car_not_found");
+                
                 return JsonSerializer.Serialize(new
                 {
                     success = false,
                     message = $"Car with ID '{carId}' not found"
                 });
             }
+
+            activity?.SetTag("car.name", car.Name);
+            activity?.SetTag("car.owner", car.Owner);
+            activity?.SetTag("car.year", car.Year);
+            activity?.SetTag("car.model", car.Model);
+            activity?.SetTag("car.price", car.Price);
+            activity?.SetTag("operation.success", true);
 
             return JsonSerializer.Serialize(new
             {
@@ -268,6 +363,10 @@ public class CarTools(AppDbContext context)
         }
         catch (Exception ex)
         {
+            activity?.SetTag("operation.success", false);
+            activity?.SetTag("error.message", ex.Message);
+            activity?.SetTag("error.type", ex.GetType().Name);
+            
             return JsonSerializer.Serialize(new
             {
                 success = false,

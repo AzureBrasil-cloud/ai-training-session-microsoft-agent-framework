@@ -40,15 +40,13 @@ public static class ConfigurationExtensions
         }
         
         services.AddHttpContextAccessor();
-
-        // Application
-        services.AddApplication(configuration);
         
         // Global exception handler
         services.AddTransient<GlobalExceptionHandlerMiddleware>();
         
         AppContext.SetSwitch("Azure.Experimental.EnableActivitySource", true); 
         AppContext.SetSwitch("Azure.Experimental.TraceGenAIMessageContent", true);
+        AppContext.SetSwitch("System.Diagnostics.DiagnosticSource.EFCoreInstrumentation", true);
 
         services.AddOpenTelemetry()
             .WithTracing(tracing => tracing
@@ -58,6 +56,7 @@ public static class ConfigurationExtensions
                 .AddSource(InstrumentationConfig.ActivitySource.Name)
                 .AddSource("*Microsoft.Extensions.AI") 
                 .AddSource("*Microsoft.Extensions.Agents*")
+                .AddEntityFrameworkCoreInstrumentation()
                 .AddOtlpExporter())
             .WithMetrics(metrics => metrics
                 .ConfigureResource(resource => resource.AddService(ServiceName))    
@@ -65,6 +64,9 @@ public static class ConfigurationExtensions
                 .AddHttpClientInstrumentation()
                 .AddMeter("*Microsoft.Agents.AI")
                 .AddOtlpExporter());
+        
+        // Application
+        services.AddApplication(configuration);
     }
 
     public static void ConfigureApplication(this WebApplication app)

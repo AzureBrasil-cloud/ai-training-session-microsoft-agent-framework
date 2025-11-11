@@ -18,7 +18,7 @@ onMounted(async () => {
       <div class="d-flex align-items-center justify-content-between flex-wrap gap-4 ">
         <div>
           <h6 style="color: gray">
-            AzureBrasil.cloud apresenta Contoso Açaí
+            AzureBrasil.cloud apresenta Contoso AutoTech
           </h6>
         </div>
       </div>
@@ -34,7 +34,7 @@ onMounted(async () => {
 
               <div class="w-100 w-md-50 d-flex flex-column justify-content-center align-items-start px-5 py-5 py-md-0 mb-4 mb-md-0 end-border">
                 <h1 class="home-text-light text-start fw-bold lh-1 display-6 display-md-3 display-lg-1">
-                  Seja muito <br> bem-vindo(a) ao <u>Contoso Açai</u>
+                  Seja muito <br> bem-vindo(a) ao <u>Contoso AutoTech</u>
                 </h1>
               </div>
 
