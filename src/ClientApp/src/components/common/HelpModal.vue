@@ -10,7 +10,7 @@ const emit = defineEmits(['close'])
           <h5 class="modal-title"><i class="bi bi-person-raised-hand"></i>Ajuda</h5>
           <button type="button" class="btn-close" @click="emit('close')"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body help-modal-content">
           <slot />
         </div>
         <div class="modal-footer">
@@ -20,3 +20,10 @@ const emit = defineEmits(['close'])
     </div>
   </div>
 </template>
+
+<style scoped>
+.help-modal-content :deep(a:hover) {
+  color: #0dcaf0 !important;
+}
+</style>
+

@@ -47,13 +47,13 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
     <h5 class="mt-6 mb-3 bg-gray-100 p-2 rounded bck-h"><i class="bi bi-link-45deg px-2"></i> Links Úteis</h5>
     <ul>
       <li>
-        <a href="https://learn.microsoft.com/en-us/azure/ai-services/agents/overview" target="_blank" rel="noopener">
-          Azure AI Agent Service – Visão Geral
+        <a href="https://learn.microsoft.com/en-au/agent-framework/overview/agent-framework-overview" target="_blank" rel="noopener">
+          Visão Geral do Microsoft Agent Framework
         </a>
       </li>
       <li>
-        <a href="https://tallesvaliatti.com/criando-uma-aplica%C3%A7%C3%A3o-com-o-azure-ai-agent-service-parte-1-1d4fef7901a4" target="_blank" rel="noopener">
-          Azure AI Agent Service – Overview
+        <a href="https://learn.microsoft.com/en-au/agent-framework/tutorials/agents/function-tools?pivots=programming-language-csharp" target="_blank" rel="noopener">
+          Usando ferramentas de função com um agente
         </a>
       </li>
     </ul>
