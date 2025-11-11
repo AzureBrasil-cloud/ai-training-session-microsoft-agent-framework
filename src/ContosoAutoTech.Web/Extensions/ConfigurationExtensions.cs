@@ -58,6 +58,7 @@ public static class ConfigurationExtensions
                 .AddSource(InstrumentationConfig.ActivitySource.Name)
                 .AddSource("*Microsoft.Extensions.AI") 
                 .AddSource("*Microsoft.Extensions.Agents*")
+                .AddEntityFrameworkCoreInstrumentation()
                 .AddOtlpExporter())
             .WithMetrics(metrics => metrics
                 .ConfigureResource(resource => resource.AddService(ServiceName))    

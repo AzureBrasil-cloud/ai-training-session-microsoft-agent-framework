@@ -3,6 +3,9 @@ using System.Text.Json;
 using ContosoAutoTech.Application.Agents.Models.Requests;
 using ContosoAutoTech.Application.Agents.Models.Requests.Validators;
 using ContosoAutoTech.Application.Agents.Models.Results;
+using ContosoAutoTech.Common;
+using ContosoAutoTech.Data.Entities;
+using Microsoft.Agents.AI;
 using Microsoft.Extensions.Logging;
 using Thread = System.Threading.Thread;
 
@@ -38,25 +41,27 @@ public partial class AgentService
         }
 
         var credentials = GetCredentials();
-        
+
+        // Save the first message sent by the user for context
+        // if the thread is new
+        if (string.CompareOrdinal(thread.State, "{}") == 0)
+        {
+            thread.FirstTruncatedMessage = request.Message.Truncate();
+        }
+
         // Create and execute the run
-        var (runResult, updatedThread, firstTruncatedMessage) = await aiAgentService.CreateRunAsync(
+        var (runResult, updatedThread) = await aiAgentService.CreateRunAsync(
             credentials,
             request.AgentName.Trim(),
             request.AgentInstructions.Trim(),
             request.Message.Trim(),
             thread.State,
-            GetToolsByFeature(request.Feature));
+            GetToolsByFeature(request.Feature),
+            GetAiContextProviderByFeature(request.Feature));
         
         // Save the new thread updated
         var serializedJson = updatedThread.Serialize(JsonSerializerOptions.Web).GetRawText();
         thread.State = serializedJson;
-
-        // If this is the first message that caused the thread to be created, save it
-        if (!string.IsNullOrWhiteSpace(firstTruncatedMessage))
-        {
-            thread.FirstTruncatedMessage = firstTruncatedMessage;
-        }
 
         // Save changes to the database
         await context.SaveChangesAsync();

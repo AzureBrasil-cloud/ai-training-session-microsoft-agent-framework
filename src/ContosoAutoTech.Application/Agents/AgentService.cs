@@ -1,8 +1,10 @@
+using ContosoAutoTech.Application.ContextProviders;
 using ContosoAutoTech.Application.Tools;
 using ContosoAutoTech.Data;
 using ContosoAutoTech.Data.Entities;
 using ContosoAutoTech.Infrastructure.AIAgent;
 using ContosoAutoTech.Infrastructure.Shared;
+using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -23,6 +25,17 @@ public partial class AgentService(
         var model = configuration["AiFoundry:ChatModel"]!;
 
         return new Credentials(foundryEndpoint, foudryApiKey, model);
+    }
+    
+    private Func<ChatClientAgentOptions.AIContextProviderFactoryContext, AIContextProvider>? GetAiContextProviderByFeature(Feature requestFeature)
+    {
+        switch (requestFeature)
+        {
+            case Feature.CustomerRelationsPolicies:
+                return CustomerPoliciesContextProvider.CreateProviderFactory();
+            default:
+                return null;
+        }
     }
     
     private IList<AITool>? GetToolsByFeature(Feature requestFeature)
