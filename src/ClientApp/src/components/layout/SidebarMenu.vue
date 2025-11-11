@@ -144,6 +144,12 @@ const logo = `${window.location.origin}/images/logo-acai.png`;
                   <span>Cadastro de Carros</span>
                 </RouterLink>
               </li>
+              <li class="nav-item">
+                <RouterLink to="/customer-policies" class="dropdown-item">
+                  <i class="bi bi-shield-check px-3"></i>
+                  <span>Políticas clientes</span>
+                </RouterLink>
+              </li>
             </ul>
           </div>
         </div>
