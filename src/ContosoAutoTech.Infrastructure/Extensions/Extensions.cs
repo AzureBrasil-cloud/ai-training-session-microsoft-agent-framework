@@ -15,6 +15,7 @@ public static class Extensions
         
         services.AddScoped<AiAgentService>();
         services.AddScoped<AiSearchService>();
+        services.AddScoped<BasicRagService>();
         services.AddScoped<McpService>();
         services.AddSingleton<EmailService>(x => new EmailService(configuration["Email:Secret"]!, configuration["Email:SenderEmail"]!));
         
