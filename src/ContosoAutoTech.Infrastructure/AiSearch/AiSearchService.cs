@@ -11,7 +11,7 @@ namespace ContosoAutoTech.Infrastructure.AiSearch;
 
 public class AiSearchService(ILogger<AiSearchService> logger)
 {
-    public async Task<string> SearchCustomerPoliciesAsync(
+    public async Task<Response<KnowledgeAgentRetrievalResponse>> SearchCustomerPoliciesAsync(
         string query,
         AiSearchCredentials credentials,
         CancellationToken cancellationToken = default)
@@ -41,13 +41,9 @@ public class AiSearchService(ILogger<AiSearchService> logger)
         var retrievalRequest = new KnowledgeAgentRetrievalRequest(messages: messages);
         var retrievalResult = await agentClient.RetrieveAsync(retrievalRequest);
 
-        // Extract the response text from the Knowledge Agent
-        var responseContent = retrievalResult.Value.Response[0].Content[0] as KnowledgeAgentMessageTextContent;
-        var responseText = responseContent?.Text ?? string.Empty;
-
-        logger.LogInformation("Knowledge Agent response received: {ResponseLength} characters", responseText.Length);
+        logger.LogInformation("Knowledge Agent response received");
         
-        return responseText;
+        return retrievalResult;
     }
 
     private async Task EnsureKnowledgeInfrastructureAsync(

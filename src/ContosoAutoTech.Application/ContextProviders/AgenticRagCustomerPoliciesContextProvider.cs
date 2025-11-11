@@ -1,9 +1,12 @@
 using System.Diagnostics;
+using System.Text;
+using System.Text.Json;
 using ContosoAutoTech.Infrastructure.AiSearch;
 using ContosoAutoTech.Infrastructure.AiSearch.Models;
 using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.Data;
 using Microsoft.Extensions.Configuration;
+using Azure.Search.Documents.Agents.Models;
 
 namespace ContosoAutoTech.Application.ContextProviders;
 
@@ -37,9 +40,59 @@ public class AgenticRagCustomerPoliciesContextProvider(AiSearchService aiSearchS
         activity?.SetTag("search.provider", "KnowledgeAgent");
         
         var credentials = GetCredentials();
-        var responseText = await aiSearchService.SearchCustomerPoliciesAsync(query, credentials, cancellationToken);
+        var retrievalResult = await aiSearchService.SearchCustomerPoliciesAsync(query, credentials, cancellationToken);
         
-        // Return the Knowledge Agent's response as a single search result
+        var sb = new StringBuilder();
+
+        // Response
+        sb.AppendLine("Response:");
+        try
+        {
+            var msgContent = retrievalResult?.Value?.Response?.FirstOrDefault()?.Content?.FirstOrDefault() as KnowledgeAgentMessageTextContent;
+            sb.AppendLine(msgContent?.Text ?? string.Empty);
+        }
+        catch
+        {
+            sb.AppendLine(string.Empty);
+        }
+
+        // Activity
+        sb.AppendLine();
+        sb.AppendLine("Activity:");
+        if (retrievalResult?.Value?.Activity != null)
+        {
+            foreach (var act in retrievalResult.Value.Activity)
+            {
+                sb.AppendLine($"Activity Type: {act.GetType().Name}");
+                string activityJson = JsonSerializer.Serialize(
+                    act,
+                    act.GetType(),
+                    new JsonSerializerOptions { WriteIndented = true }
+                );
+                sb.AppendLine(activityJson);
+            }
+        }
+
+        // Results / References
+        sb.AppendLine();
+        sb.AppendLine("Results:");
+        if (retrievalResult?.Value?.References != null)
+        {
+            foreach (var reference in retrievalResult.Value.References)
+            {
+                sb.AppendLine($"Reference Type: {reference.GetType().Name}");
+                string referenceJson = JsonSerializer.Serialize(
+                    reference,
+                    reference.GetType(),
+                    new JsonSerializerOptions { WriteIndented = true }
+                );
+                sb.AppendLine(referenceJson);
+            }
+        }
+
+        var responseText = sb.ToString();
+
+        // Return the consolidated Knowledge Agent's response
         var textSearchResults = new List<TextSearchProvider.TextSearchResult>
         {
             new()

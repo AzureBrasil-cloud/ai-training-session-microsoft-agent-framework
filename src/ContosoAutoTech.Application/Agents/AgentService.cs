@@ -67,10 +67,10 @@ public partial class AgentService(
 
                 if (useBasicContext)
                 {
+                        // Option 1: Use mock provider for development/testing (no Azure AI Search required)
                     var basicContextProvider = new BasicRagCustomerPoliciesContextProvider(basicRagService);
                     return basicContextProvider.CreateProviderFactory();
                 }
-                // Option 1: Use mock provider for development/testing (no Azure AI Search required)
 
                 // Option 2: Use Azure AI Search Knowledge Agent (requires Azure configuration)
                 var agenticContextProvider = new AgenticRagCustomerPoliciesContextProvider(aiSearchService, configuration);
