@@ -1,4 +1,5 @@
 using ContosoAutoTech.Infrastructure.AIAgent;
+using ContosoAutoTech.Infrastructure.AiSearch;
 using ContosoAutoTech.Infrastructure.Email;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@ public static class Extensions
         services.AddHttpClient();
         
         services.AddScoped<AiAgentService>();
+        services.AddScoped<AiSearchService>();
         services.AddSingleton<EmailService>(x => new EmailService(configuration["Email:Secret"]!, configuration["Email:SenderEmail"]!));
         
         return services;

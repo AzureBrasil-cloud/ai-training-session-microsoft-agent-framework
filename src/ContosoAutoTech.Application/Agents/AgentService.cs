@@ -3,12 +3,12 @@ using ContosoAutoTech.Application.Tools;
 using ContosoAutoTech.Data;
 using ContosoAutoTech.Data.Entities;
 using ContosoAutoTech.Infrastructure.AIAgent;
+using ContosoAutoTech.Infrastructure.AiSearch;
 using ContosoAutoTech.Infrastructure.Shared;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Client.Platforms.Features.DesktopOs.Kerberos;
 
 namespace ContosoAutoTech.Application.Agents;
 
@@ -16,7 +16,8 @@ public partial class AgentService(
     AppDbContext context,
     IConfiguration configuration,
     ILogger<AgentService> logger,
-    AiAgentService aiAgentService)
+    AiAgentService aiAgentService,
+    AiSearchService aiSearchService)
 {
     private Credentials GetCredentials()
     {
@@ -32,7 +33,8 @@ public partial class AgentService(
         switch (requestFeature)
         {
             case Feature.CustomerRelationsPolicies:
-                return CustomerPoliciesContextProvider.CreateProviderFactory();
+                var contextProvider = new CustomerPoliciesContextProvider(aiSearchService);
+                return contextProvider.CreateProviderFactory();
             default:
                 return null;
         }
