@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using ContosoAutoTech.Application.ContextProviders;
 using ContosoAutoTech.Application.Tools;
 using ContosoAutoTech.Data;
@@ -23,6 +24,8 @@ public partial class AgentService(
     AiSearchService aiSearchService,
     BasicRagService basicRagService)
 {
+    private static readonly ActivitySource ActivitySource =  InstrumentationConfig.ActivitySource;
+
     private Credentials GetCredentials()
     {
         var foundryEndpoint = configuration["AiFoundry:Endpoint"]!;
