@@ -97,6 +97,12 @@ const router = createRouter({
       name: 'send-review',
       component: () => import('../views/reviews/sendReview.vue'),
       meta: { requiresAuth: true }
+    },
+    {
+      path: '/feedback-classifier',
+      name: 'feedback-classifier',
+      component: () => import('../views/feedbackClassifier/FeedbackClassifierView.vue'),
+      meta: { requiresAuth: true }
     }
   ],
 })

@@ -156,6 +156,12 @@ const logo = `${window.location.origin}/images/logo-acai.png`;
                   <span>Políticas clientes</span>
                 </RouterLink>
               </li>
+              <li class="nav-item">
+                <RouterLink to="/feedback-classifier" class="dropdown-item">
+                  <i class="bi bi-chat-square-text px-3"></i>
+                  <span>Feedbacks</span>
+                </RouterLink>
+              </li>
             </ul>
           </div>
         </div>

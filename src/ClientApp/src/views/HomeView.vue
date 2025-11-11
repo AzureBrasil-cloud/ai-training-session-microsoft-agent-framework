@@ -138,6 +138,15 @@ onMounted(async () => {
                         </RouterLink>
                       </div>
 
+                      <div class="col-12">
+                        <RouterLink to="/feedback-classifier"
+                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                                    style="min-height: 90px;">
+                          <i class="bi bi-chat-square-text fs-1 fs-md-1"></i>
+                          <span class="fs-4 fs-md-2">Classificador de Feedbacks</span>
+                        </RouterLink>
+                      </div>
+
                       <div class="col-12 mb-5 mb-md-0">
                         <RouterLink to="/orders-chat"
                                     class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
