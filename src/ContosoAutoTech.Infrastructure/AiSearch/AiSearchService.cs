@@ -37,7 +37,7 @@ public class AiSearchService(ILogger<AiSearchService> logger)
         {
             new PolicyDocument
             {
-                SourceName = "Política de Devoluções e Reembolsos",
+                SourceName = "politica-devolucoes-reembolsos.pdf",
                 SourceLink = "https://contosoautotech.com/policies/returns",
                 Text = "Os clientes podem devolver qualquer item dentro de 30 dias após a entrega. " +
                        "Os itens devem estar sem uso e incluir a embalagem original. " +
@@ -47,7 +47,7 @@ public class AiSearchService(ILogger<AiSearchService> logger)
             },
             new PolicyDocument
             {
-                SourceName = "Política de Garantia",
+                SourceName = "politica-garantia.pdf",
                 SourceLink = "https://contosoautotech.com/policies/warranty",
                 Text = "Todos os veículos vendidos pela Contoso AutoTech incluem garantia de fábrica. " +
                        "Veículos novos: 3 anos ou 100.000 km. Veículos seminovos: 1 ano ou 20.000 km. " +
@@ -57,7 +57,7 @@ public class AiSearchService(ILogger<AiSearchService> logger)
             },
             new PolicyDocument
             {
-                SourceName = "Política de Atendimento ao Cliente",
+                SourceName = "politica-atendimento-cliente.pdf",
                 SourceLink = "https://contosoautotech.com/policies/customer-service",
                 Text = "A Contoso AutoTech oferece atendimento ao cliente 24/7 através de telefone, email e chat online. " +
                        "Todas as reclamações são analisadas em até 48 horas úteis. " +
@@ -67,7 +67,7 @@ public class AiSearchService(ILogger<AiSearchService> logger)
             },
             new PolicyDocument
             {
-                SourceName = "Política de Trocas",
+                SourceName = "politica-trocas.pdf",
                 SourceLink = "https://contosoautotech.com/policies/exchange",
                 Text = "Peças e acessórios podem ser trocados dentro de 15 dias, mediante apresentação da nota fiscal. " +
                        "A troca está sujeita à disponibilidade em estoque. " +
@@ -77,7 +77,7 @@ public class AiSearchService(ILogger<AiSearchService> logger)
             },
             new PolicyDocument
             {
-                SourceName = "Política de Privacidade e Proteção de Dados",
+                SourceName = "politica-privacidade-lgpd.pdf",
                 SourceLink = "https://contosoautotech.com/policies/privacy",
                 Text = "A Contoso AutoTech está em conformidade com a LGPD (Lei Geral de Proteção de Dados). " +
                        "Dados pessoais são coletados apenas para fins de vendas e atendimento. " +
@@ -87,7 +87,7 @@ public class AiSearchService(ILogger<AiSearchService> logger)
             },
             new PolicyDocument
             {
-                SourceName = "Política de Entrega",
+                SourceName = "politica-entrega.pdf",
                 SourceLink = "https://contosoautotech.com/policies/delivery",
                 Text = "Peças e acessórios: entrega em até 7 dias úteis para capitais e 15 dias para demais regiões. " +
                        "Veículos: entrega agendada em até 30 dias após aprovação do financiamento. " +
@@ -97,7 +97,7 @@ public class AiSearchService(ILogger<AiSearchService> logger)
             },
             new PolicyDocument
             {
-                SourceName = "Política de Financiamento",
+                SourceName = "politica-financiamento.pdf",
                 SourceLink = "https://contosoautotech.com/policies/financing",
                 Text = "A Contoso AutoTech oferece opções de financiamento com taxas competitivas. " +
                        "Financiamento disponível em até 60 meses para veículos novos e 48 meses para seminovos. " +
@@ -107,7 +107,7 @@ public class AiSearchService(ILogger<AiSearchService> logger)
             },
             new PolicyDocument
             {
-                SourceName = "Política de Manutenção Preventiva",
+                SourceName = "politica-manutencao-preventiva.pdf",
                 SourceLink = "https://contosoautotech.com/policies/maintenance",
                 Text = "Recomendamos manutenção preventiva a cada 10.000 km ou 6 meses, o que ocorrer primeiro. " +
                        "Manutenções incluem troca de óleo, filtros, verificação de freios e suspensão. " +

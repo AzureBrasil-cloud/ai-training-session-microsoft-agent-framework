@@ -35,7 +35,7 @@ function save() {
 
 <template>
   <div class="modal d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title"><i class="bi bi-gear"></i> Configurações do Agente</h5>
@@ -57,7 +57,7 @@ function save() {
             <textarea
               class="form-control"
               id="agentInstructions"
-              rows="5"
+              rows="20"
               v-model="tempInstructions"
               placeholder="Descreva como o agente deve se comportar..."
             ></textarea>
