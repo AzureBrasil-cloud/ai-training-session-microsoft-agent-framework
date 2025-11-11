@@ -3,6 +3,7 @@ using ContosoAutoTech.Application.Agents.Models.Results;
 using ContosoAutoTech.Application.AiInference.Models.Requests;
 using ContosoAutoTech.Application.AiInference.Models.Requests.Validators;
 using ContosoAutoTech.Application.AiInference.Models.Results;
+using ContosoAutoTech.Infrastructure.Shared;
 using Microsoft.Extensions.Logging;
 
 namespace ContosoAutoTech.Application.AiInference;
@@ -26,11 +27,22 @@ public partial class AiInferenceApplicationService
             return Result<ChatCompletionResult>.Failure(error);
         }
 
+        var credentials = GetCredentials();
+        
+        var useFinedClassificationModel =
+            Convert.ToBoolean(configuration["Application:UserClassificationFinedTunedModel"]);
+
+        if (useFinedClassificationModel)
+        {
+            credentials = credentials with
+            {
+                ModelDeploymentName = configuration["AiFoundry:FinedTunedUserClassificationModel"]!
+            };
+        }
+
         try
         {
             logger.LogInformation("{Method} - Starting chat completion", nameof(CompleteAsync));
-            
-            var credentials = GetCredentials();
             var response = await aiInferenceService.CompleteAsync(
                 credentials,
                 request.Instructions!.Trim(),
