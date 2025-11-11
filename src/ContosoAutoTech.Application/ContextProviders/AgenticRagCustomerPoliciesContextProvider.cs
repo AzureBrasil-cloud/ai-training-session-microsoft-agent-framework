@@ -2,11 +2,11 @@ using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 using ContosoAutoTech.Infrastructure.AiSearch;
-using ContosoAutoTech.Infrastructure.AiSearch.Models;
 using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.Data;
 using Microsoft.Extensions.Configuration;
 using Azure.Search.Documents.Agents.Models;
+using ContosoAutoTech.Infrastructure.Shared;
 
 namespace ContosoAutoTech.Application.ContextProviders;
 

@@ -1,4 +1,4 @@
-namespace ContosoAutoTech.Infrastructure.AiSearch.Models;
+namespace ContosoAutoTech.Infrastructure.Shared;
 
 public class AiSearchCredentials
 {

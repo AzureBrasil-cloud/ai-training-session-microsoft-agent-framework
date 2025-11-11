@@ -1,4 +1,3 @@
-using ContosoAutoTech.Infrastructure.AiSearch.Models;
 using Microsoft.Extensions.Logging;
 using Azure;
 using Azure.Search.Documents.Indexes;
@@ -6,6 +5,7 @@ using Azure.Search.Documents.Indexes.Models;
 using Azure.Search.Documents.Agents;
 using Azure.Search.Documents.Agents.Models;
 using Azure.Search.Documents.Models;
+using ContosoAutoTech.Infrastructure.Shared;
 
 namespace ContosoAutoTech.Infrastructure.AiSearch;
 

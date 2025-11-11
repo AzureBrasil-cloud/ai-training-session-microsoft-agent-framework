@@ -1,4 +1,4 @@
-using ContosoAutoTech.Infrastructure.AiSearch.Models;
+using ContosoAutoTech.Infrastructure.Shared;
 using Microsoft.Extensions.Logging;
 
 namespace ContosoAutoTech.Infrastructure.AiSearch;
