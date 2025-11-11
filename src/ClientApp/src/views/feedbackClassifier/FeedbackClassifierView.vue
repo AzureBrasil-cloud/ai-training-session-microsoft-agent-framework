@@ -3,25 +3,34 @@
 import { ref } from 'vue';
 import aiInferenceService from '@/services/aiInference';
 import AgentSettingsModal from '@/components/agent/AgentSettingsModal.vue';
+import TokenUsageModal from '@/components/agent/TokenUsageModal.vue';
 
 interface FeedbackItem {
   id: number;
   text: string;
   classification: string;
   isLoading: boolean;
+  usage: {
+    input?: number;
+    output?: number;
+    total?: number;
+  } | null;
 }
 
 // Lista de feedbacks
 const feedbacks = ref<FeedbackItem[]>([
-  { id: 1, text: 'Prometeram um retorno que nunca aconteceu', classification: '', isLoading: false },
-  { id: 2, text: 'Foi bom em partes, mas pode melhorar.', classification: '', isLoading: false },
-  { id: 3, text: 'A pior experiência que já tive com suporte técnico.', classification: '', isLoading: false },
-  { id: 4, text: 'Equipe fantástica, resolveram tudo em minutos.', classification: '', isLoading: false },
-  { id: 5, text: 'Boa experiência, voltaria a contratar.', classification: '', isLoading: false }
+  { id: 1, text: 'Prometeram um retorno que nunca aconteceu', classification: '', isLoading: false, usage: null },
+  { id: 2, text: 'Foi bom em partes, mas pode melhorar.', classification: '', isLoading: false, usage: null },
+  { id: 3, text: 'A pior experiência que já tive com suporte técnico.', classification: '', isLoading: false, usage: null },
+  { id: 4, text: 'Equipe fantástica, resolveram tudo em minutos.', classification: '', isLoading: false, usage: null },
+  { id: 5, text: 'Boa experiência, voltaria a contratar.', classification: '', isLoading: false, usage: null }
 ]);
 
 // Configurações do agente (instruções)
 const showSettingsModal = ref(false);
+const showTokenModal = ref(false);
+const selectedUsage = ref<{ input?: number; output?: number; total?: number } | null>(null);
+
 const agentSettings = ref({
   name: 'Classificador de Sentimentos',
   instructions: 'Você é um classificador de sentimento de atendimento ao cliente da Contoso AutoTech. Sua tarefa é receber uma avaliação de serviço e retornar uma nota de 1 a 5, onde: 1 = MUITO RUIM, 2 = RUIM, 3 = MÉDIO, 4 = BOM e 5 = MUITO BOM.\n' +
@@ -71,6 +80,7 @@ async function classifyFeedback(feedback: FeedbackItem) {
   try {
     feedback.isLoading = true;
     feedback.classification = '';
+    feedback.usage = null;
 
     const result = await aiInferenceService.complete({
       instructions: agentSettings.value.instructions,
@@ -78,12 +88,19 @@ async function classifyFeedback(feedback: FeedbackItem) {
     });
 
     feedback.classification = result.content;
+    feedback.usage = result.usage || null;
   } catch (error) {
     console.error('Erro ao classificar feedback:', error);
     feedback.classification = 'Erro ao classificar';
   } finally {
     feedback.isLoading = false;
   }
+}
+
+// Função para mostrar modal de tokens
+function showTokenUsage(usage: { input?: number; output?: number; total?: number } | null) {
+  selectedUsage.value = usage;
+  showTokenModal.value = true;
 }
 
 // Função para salvar configurações
@@ -118,9 +135,10 @@ function saveSettings(settings: { name: string; instructions: string }) {
             <thead class="table-light">
               <tr>
                 <th scope="col" style="width: 5%;">#</th>
-                <th scope="col" style="width: 50%;">Feedback</th>
+                <th scope="col" style="width: 45%;">Feedback</th>
                 <th scope="col" style="width: 15%;">Ação</th>
-                <th scope="col" style="width: 30%;">Classificação</th>
+                <th scope="col" style="width: 25%;">Classificação</th>
+                <th scope="col" style="width: 10%;">Tokens</th>
               </tr>
             </thead>
             <tbody>
@@ -150,6 +168,17 @@ function saveSettings(settings: { name: string; instructions: string }) {
                     Aguardando classificação
                   </div>
                 </td>
+                <td class="align-middle text-center">
+                  <button
+                    v-if="feedback.usage"
+                    class="btn btn-sm btn-outline-info"
+                    @click="showTokenUsage(feedback.usage)"
+                    title="Ver consumo de tokens"
+                  >
+                    <i class="bi bi-lightning-charge-fill"></i>
+                  </button>
+                  <span v-else class="text-muted">-</span>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -164,6 +193,13 @@ function saveSettings(settings: { name: string; instructions: string }) {
       :agent-instructions="agentSettings.instructions"
       @close="showSettingsModal = false"
       @save="saveSettings"
+    />
+
+    <!-- Modal de Token Usage -->
+    <TokenUsageModal
+      v-if="showTokenModal"
+      :usage="selectedUsage"
+      @close="showTokenModal = false"
     />
   </div>
 </template>
