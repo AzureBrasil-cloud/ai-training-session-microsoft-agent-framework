@@ -3,12 +3,14 @@ using ContosoAutoTech.Application.Tools;
 using ContosoAutoTech.Data;
 using ContosoAutoTech.Data.Entities;
 using ContosoAutoTech.Infrastructure.AIAgent;
+using ContosoAutoTech.Infrastructure.Mcps;
 using ContosoAutoTech.Infrastructure.AiSearch;
 using ContosoAutoTech.Infrastructure.Shared;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using ModelContextProtocol.Client;
 
 namespace ContosoAutoTech.Application.Agents;
 
@@ -16,6 +18,7 @@ public partial class AgentService(
     AppDbContext context,
     IConfiguration configuration,
     ILogger<AgentService> logger,
+    McpService mcpService,
     AiAgentService aiAgentService,
     AiSearchService aiSearchService)
 {
@@ -26,6 +29,29 @@ public partial class AgentService(
         var model = configuration["AiFoundry:ChatModel"]!;
 
         return new Credentials(foundryEndpoint, foudryApiKey, model);
+    }
+    private async Task<(IList<AITool> tools, IList<McpClient> mcpClients)> GetToolsWithMcpClient(Feature feature)
+    {
+        var tools = new List<AITool>();    
+        var mcpClients = new List<McpClient>();
+
+        switch (feature) 
+        {
+            case Feature.CarPartPrice:
+                var (carPartPriceTools, stdioMcpClient) = await mcpService
+                    .GetHttpMcpToolAsync("CarPartPriceMcp", "http://localhost:5000/mcp");
+                tools.AddRange(carPartPriceTools);
+                mcpClients.Add(stdioMcpClient);
+                break;
+            case Feature.CarPartStock: 
+                var (carPartStockTools, httpMcpClient) = await mcpService
+                    .GetHttpMcpToolAsync("CarPartStockMcp", "http://localhost:5122/mcp");
+                tools.AddRange(carPartStockTools);
+                mcpClients.Add(httpMcpClient);
+                break;
+        }
+
+        return (tools, mcpClients);
     }
     
     private Func<ChatClientAgentOptions.AIContextProviderFactoryContext, AIContextProvider>? GetAiContextProviderByFeature(Feature requestFeature)
@@ -40,7 +66,7 @@ public partial class AgentService(
         }
     }
     
-    private IList<AITool>? GetToolsByFeature(Feature requestFeature)
+    private IList<AITool> GetToolsByFeature(Feature requestFeature)
     {
         var tools = new List<AITool>();
         

@@ -7,7 +7,7 @@ using ContosoAutoTech.Common;
 using ContosoAutoTech.Data.Entities;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.Logging;
-using Thread = System.Threading.Thread;
+using Thread = ContosoAutoTech.Data.Entities.Thread;
 
 namespace ContosoAutoTech.Application.Agents;
 
@@ -41,37 +41,52 @@ public partial class AgentService
         }
 
         var credentials = GetCredentials();
+        var (mcpTools, mcpClients) = await GetToolsWithMcpClient(request.Feature);
 
-        // Save the first message sent by the user for context
-        // if the thread is new
-        if (string.CompareOrdinal(thread.State, "{}") == 0)
+        var tools = GetToolsByFeature(request.Feature).ToList();
+        tools.AddRange(mcpTools);
+
+
+        try
         {
-            thread.FirstTruncatedMessage = request.Message.Truncate();
+            // Save the first message sent by the user for context
+            // if the thread is new
+            if (string.CompareOrdinal(thread.State, "{}") == 0)
+            {
+                thread.FirstTruncatedMessage = request.Message.Truncate();
+            }
+
+            // Create and execute the run
+            var (runResult, updatedThread) = await aiAgentService.CreateRunAsync(
+                credentials,
+                request.AgentName.Trim(),
+                request.AgentInstructions.Trim(),
+                request.Message.Trim(),
+                thread.State,
+                tools,
+                GetAiContextProviderByFeature(request.Feature));
+        
+            // Save the new thread updated
+            var serializedJson = updatedThread.Serialize(JsonSerializerOptions.Web).GetRawText();
+            thread.State = serializedJson;
+            
+            // Save changes to the database
+            await context.SaveChangesAsync();
+        
+            return Result<MessageResult>.Success(new MessageResult(
+                Role.Agent, 
+                runResult.Text,
+                new TokenUsage(
+                    runResult.Usage?.InputTokenCount, 
+                    runResult.Usage?.OutputTokenCount, 
+                    runResult.Usage?.TotalTokenCount)));
         }
-
-        // Create and execute the run
-        var (runResult, updatedThread) = await aiAgentService.CreateRunAsync(
-            credentials,
-            request.AgentName.Trim(),
-            request.AgentInstructions.Trim(),
-            request.Message.Trim(),
-            thread.State,
-            GetToolsByFeature(request.Feature),
-            GetAiContextProviderByFeature(request.Feature));
-        
-        // Save the new thread updated
-        var serializedJson = updatedThread.Serialize(JsonSerializerOptions.Web).GetRawText();
-        thread.State = serializedJson;
-
-        // Save changes to the database
-        await context.SaveChangesAsync();
-        
-         return Result<MessageResult>.Success(new MessageResult(
-             Role.Agent, 
-             runResult.Text,
-             new TokenUsage(
-                 runResult.Usage?.InputTokenCount, 
-                 runResult.Usage?.OutputTokenCount, 
-                 runResult.Usage?.TotalTokenCount)));
+        finally
+        {
+            foreach (var mcpClient in mcpClients)
+            {
+                await mcpClient.DisposeAsync();
+            }
+        }
     }
 }

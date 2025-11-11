@@ -1,9 +1,6 @@
 using System.Text.Json;
-using Azure.AI.OpenAI;
-using Azure.Identity;
 using ContosoAutoTech.Infrastructure.Shared;
 using Microsoft.Agents.AI;
-using OpenAI;
 using ContosoAutoTech.Common;
 using Microsoft.Extensions.AI;
 
