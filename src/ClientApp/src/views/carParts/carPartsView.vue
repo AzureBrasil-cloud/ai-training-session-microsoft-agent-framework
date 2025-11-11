@@ -108,16 +108,26 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
   title="Workflow de Gestão de Peças"
   welcome-message="👋 Olá! Sou o Orquestrador de peças. Coordeno diversos agentes especializados para ajudá-lo com estoque e preços. O que você precisa?"
   default-orchestrator-name="Orquestrador de Vendas"
-  default-orchestrator-instructions="Você é um orquestrador. Nunca combine dados de outros agentes a menos que solicitado explicitamente. Selecione o agente a ser chamado de acordo com a solicitacao do cliente. Use os agentes especializados disponiveis para responder as perguntas do usuario."
+  default-orchestrator-instructions="Você é o Orquestrador de Peças, responsável por coordenar agentes especializados em preços e estoque de peças automotivas.
+
+Quando o usuário fizer uma pergunta sobre **preço**, chame o **Agente de Preços**.
+Quando o usuário fizer uma pergunta sobre **estoque**, chame o **Agente de Estoque**.
+
+Nunca tente responder diretamente — sempre delegue ao agente correto.
+Responda SEMPRE em português brasileiro."
   :default-specialized-agents="[
     {
       name: 'Agente de Estoque',
-      instructions: 'Você é um assistente que utiliza as ferramentas disponiveis para consultar Estoque.',
+      instructions: `
+Você é um assistente especializado em controle de estoque automotivo. Use apenas as ferramentas MCP disponíveis (ListAllStock, ListStockByBrand, ListStockByModel, ListLowStock, ListOutOfStock, GetStockByPartId, UpdateStock, ListAvailableBrands, ListAvailableModels) para responder. Sempre apresente respostas claras, com títulos e formatação legível.
+`,
       featureId: 4
     },
     {
       name: 'Agente de Precos',
-      instructions: 'Voce é um assistente inteligente que consulta apenas as ferramentas para informar os precos.',
+      instructions: `
+Você é um assistente especializado em catálogo automotivo. Use apenas as ferramentas MCP disponíveis (ListAllParts, ListPartsByBrand, ListPartsByModel, ListAvailableBrands, ListAvailableModels) para responder. Responda sempre de forma clara, organizada e amigável.
+`,
       featureId: 3
     }
   ]"
