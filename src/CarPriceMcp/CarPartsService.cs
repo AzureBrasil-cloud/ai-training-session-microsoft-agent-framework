@@ -1,4 +1,4 @@
-using CarPriceMcp;
+namespace CarPriceMcp;
 
 public class CarPartsService
 {

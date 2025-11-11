@@ -1,35 +1,17 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using ModelContextProtocol.Server;
-using CarPriceMcp;
+﻿using CarPriceMcp;
 
-var builder = Host.CreateApplicationBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
-// Configurar logging
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
-builder.Logging.SetMinimumLevel(LogLevel.Debug); // Mudei para Debug
+builder.Services.AddScoped<CarPartsService>();
 
-// Registrar serviços
-builder.Services.AddSingleton<CarPartsService>();
-builder.Services.AddSingleton<CarPartsTools>();
-
-// Configurar MCP Server
-builder.Services.AddMcpServer(options =>
-    {
-        options.ServerInfo = new()
-        {
-            Name = "car-catalog-server",
-            Version = "1.0.0"
-        };
-    })
-    .WithStdioServerTransport()
-    .WithToolsFromAssembly(typeof(CarPartsTools).Assembly);
+// Add MCP services and configure the HTTP transport
+builder.Services.AddMcpServer()
+    .WithHttpTransport()
+    .WithToolsFromAssembly(typeof(Program).Assembly); // Configures the server to use HTTP transport
 
 var app = builder.Build();
 
-var logger = app.Services.GetRequiredService<ILogger<Program>>();
-logger.LogInformation("🚗 MCP Car Catalog Server iniciado!");
+// Map the MCP server endpoint
+app.MapMcp("/mcp"); 
 
-await app.RunAsync();
+app.Run();

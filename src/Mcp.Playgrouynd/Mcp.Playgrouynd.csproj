@@ -13,6 +13,7 @@
       <PackageReference Include="dotenv.net" Version="4.0.0" />
       <PackageReference Include="Microsoft.Agents.AI.Abstractions" Version="1.0.0-preview.251110.1" />
       <PackageReference Include="Microsoft.Agents.AI.OpenAI" Version="1.0.0-preview.251110.1" />
+      <PackageReference Include="Microsoft.Agents.AI.Workflows" Version="1.0.0-preview.251110.1" />
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0-rc.2.25502.107" />
       <PackageReference Include="ModelContextProtocol.Core" Version="0.4.0-preview.3" />
     </ItemGroup>

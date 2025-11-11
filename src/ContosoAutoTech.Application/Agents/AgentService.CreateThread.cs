@@ -17,7 +17,7 @@ public partial class AgentService
         if (!validationResult.IsValid)
         {
             var error = ErrorHandler.CreateErrorFromValidationResult(validationResult);
-            logger.LogInformation("{Method} - {Message}", nameof(RunAsync), error.Message);
+            logger.LogInformation("{Method} - {Message}", nameof(CreateThreadAsync), error.Message);
             
             return Result<ThreadResult>.Failure(error);
         }
