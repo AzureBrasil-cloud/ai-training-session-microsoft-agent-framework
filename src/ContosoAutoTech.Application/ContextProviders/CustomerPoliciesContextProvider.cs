@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using ContosoAutoTech.Infrastructure.AiSearch;
 using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.Data;
@@ -31,15 +32,15 @@ public class CustomerPoliciesContextProvider(AiSearchService aiSearchService)
         // Call the AiSearchService.SearchCustomerPoliciesAsync method
         var method = aiSearchService.GetType().GetMethod("SearchCustomerPoliciesAsync");
         if (method == null)
-            return Enumerable.Empty<TextSearchProvider.TextSearchResult>();
+            return [];
 
-        var task = method.Invoke(aiSearchService, new object[] { query, cancellationToken });
+        var task = method.Invoke(aiSearchService, [query, cancellationToken]);
         
         // The method returns Task<IEnumerable<SearchResult>>
         // We need to convert SearchResult to TextSearchProvider.TextSearchResult
         dynamic? taskResult = task;
         if (taskResult == null)
-            return Enumerable.Empty<TextSearchProvider.TextSearchResult>();
+            return [];
 
         await taskResult;
         var searchResults = taskResult.Result;
