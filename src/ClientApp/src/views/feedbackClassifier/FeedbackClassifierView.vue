@@ -24,8 +24,47 @@ const feedbacks = ref<FeedbackItem[]>([
 const showSettingsModal = ref(false);
 const agentSettings = ref({
   name: 'Classificador de Sentimentos',
-  instructions: 'Você é um classificador de sentimento de atendimento ao cliente da Contoso AutoTech. Sua tarefa é receber uma avaliação de serviço e retornar uma nota de 1 a 5, onde: 1 = MUITO RUIM, 2 = RUIM, 3 = MÉDIO, 4 = BOM e 5 = MUITO BOM.'
+  instructions: 'Você é um classificador de sentimento de atendimento ao cliente da Contoso AutoTech. Sua tarefa é receber uma avaliação de serviço e retornar uma nota de 1 a 5, onde: 1 = MUITO RUIM, 2 = RUIM, 3 = MÉDIO, 4 = BOM e 5 = MUITO BOM.\n' +
+    '\n' +
+    'Exemplo 1\n' +
+    '- Entrada: Serviço péssimo! Nunca mais volto!\n' +
+    '- Saída: 1\n' +
+    '\n' +
+    'Exemplo 2\n' +
+    '- Entrada: Não gostei!\n' +
+    '- Saída: 2\n' +
+    '\n' +
+    'Exemplo 3\n' +
+    '- Entrada: Resolveram meu problema, mas tive dificuldades de me comunicar com eles.\n' +
+    '- Saída: 3\n' +
+    '\n' +
+    'Exemplo 4\n' +
+    '- Entrada: Gostei! Me atenderam bem\n' +
+    '- Saída: 4\n' +
+    '\n' +
+    'Exemplo 5\n' +
+    '- Entrada: Ótima equipe, com certeza vou voltar!\n' +
+    '- Saída: 5\n' +
+    '\n' +
+    'Retorne APENAS o número de 1 a 5, sem texto adicional.'
 });
+
+// Função para mapear número para nome da classificação
+function getClassificationName(classification: string): string {
+  const trimmed = classification.trim();
+
+  // Mapeia números para nomes
+  const classificationMap: Record<string, string> = {
+    '1': '⭐ MUITO RUIM',
+    '2': '⭐⭐ RUIM',
+    '3': '⭐⭐⭐ MÉDIO',
+    '4': '⭐⭐⭐⭐ BOM',
+    '5': '⭐⭐⭐⭐⭐ MUITO BOM'
+  };
+
+  // Retorna o nome correspondente ou o texto original se não for um número de 1 a 5
+  return classificationMap[trimmed] || classification;
+}
 
 // Função para classificar um feedback
 async function classifyFeedback(feedback: FeedbackItem) {
@@ -105,7 +144,7 @@ function saveSettings(settings: { name: string; instructions: string }) {
                     Classificando...
                   </div>
                   <div v-else-if="feedback.classification" class="fw-semibold text-success">
-                    {{ feedback.classification }}
+                    {{ getClassificationName(feedback.classification) }}
                   </div>
                   <div v-else class="text-muted fst-italic">
                     Aguardando classificação

@@ -7,7 +7,7 @@ namespace ContosoAutoTech.Web.Controllers.AiInference;
 
 public partial class AiInferenceController
 {
-    [HttpPost("/api/inference/complete")]
+    [HttpPost("/api/ai-inference/complete")]
     public async Task<IActionResult> Complete(
         [FromBody] ChatCompletionRequest request,
         [FromServices] AiInferenceApplicationService service)
