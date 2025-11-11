@@ -57,6 +57,12 @@ const router = createRouter({
       meta: { requiresAuth: true }
     },
     {
+      path: '/car-parts-price',
+      name: 'car-parts-price',
+      component: () => import('../views/carParts/carPartPriceView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
       path: '/send-image-pre-order',
       name: 'send-image-pre-order',
       component: () => import('../views/orders/sendImagePreOrderView.vue'),

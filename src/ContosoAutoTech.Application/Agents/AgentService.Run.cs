@@ -4,7 +4,7 @@ using ContosoAutoTech.Application.Agents.Models.Requests;
 using ContosoAutoTech.Application.Agents.Models.Requests.Validators;
 using ContosoAutoTech.Application.Agents.Models.Results;
 using Microsoft.Extensions.Logging;
-using Thread = System.Threading.Thread;
+
 
 namespace ContosoAutoTech.Application.Agents;
 
@@ -38,35 +38,50 @@ public partial class AgentService
         }
 
         var credentials = GetCredentials();
-        
-        // Create and execute the run
-        var (runResult, updatedThread, firstTruncatedMessage) = await aiAgentService.CreateRunAsync(
-            credentials,
-            request.AgentName.Trim(),
-            request.AgentInstructions.Trim(),
-            request.Message.Trim(),
-            thread.State,
-            GetToolsByFeature(request.Feature));
-        
-        // Save the new thread updated
-        var serializedJson = updatedThread.Serialize(JsonSerializerOptions.Web).GetRawText();
-        thread.State = serializedJson;
 
-        // If this is the first message that caused the thread to be created, save it
-        if (!string.IsNullOrWhiteSpace(firstTruncatedMessage))
+        var (mcpTools, mcpClients) = await GetToolsWithMcpClient(request.Feature);
+
+        var tools = GetToolsByFeature(request.Feature).ToList();
+        tools.AddRange(mcpTools);
+
+        try
         {
-            thread.FirstTruncatedMessage = firstTruncatedMessage;
-        }
+            // Create and execute the run
+            var (runResult, updatedThread, firstTruncatedMessage) = await aiAgentService.CreateRunAsync(
+                credentials,
+                request.AgentName.Trim(),
+                request.AgentInstructions.Trim(),
+                request.Message.Trim(),
+                thread.State,
+                tools);
 
-        // Save changes to the database
-        await context.SaveChangesAsync();
-        
-         return Result<MessageResult>.Success(new MessageResult(
-             Role.Agent, 
-             runResult.Text,
-             new TokenUsage(
-                 runResult.Usage?.InputTokenCount, 
-                 runResult.Usage?.OutputTokenCount, 
-                 runResult.Usage?.TotalTokenCount)));
+            // Save the new thread updated
+            var serializedJson = updatedThread.Serialize(JsonSerializerOptions.Web).GetRawText();
+            thread.State = serializedJson;
+
+            // If this is the first message that caused the thread to be created, save it
+            if (!string.IsNullOrWhiteSpace(firstTruncatedMessage))
+            {
+                thread.FirstTruncatedMessage = firstTruncatedMessage;
+            }
+
+            // Save changes to the database
+            await context.SaveChangesAsync();
+
+            return Result<MessageResult>.Success(new MessageResult(
+                Role.Agent,
+                runResult.Text,
+                new TokenUsage(
+                    runResult.Usage?.InputTokenCount,
+                    runResult.Usage?.OutputTokenCount,
+                    runResult.Usage?.TotalTokenCount)));
+        }
+        finally
+        {
+            foreach (var mcpClient in mcpClients)
+            {
+                await mcpClient.DisposeAsync();
+            }
+        }
     }
 }

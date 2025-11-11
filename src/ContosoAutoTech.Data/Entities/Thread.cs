@@ -23,5 +23,8 @@ public class Thread : IEntity
 
 public enum Feature
 {
-    CarRegistration = 1
+    CarRegistration = 1,
+    CarPartPrice = 2,
+    CarPartStock = 3,
+    //CarPartPriceStock = 4
 }
