@@ -3,6 +3,7 @@ using ContosoAutoTech.Application.Tools;
 using ContosoAutoTech.Data;
 using ContosoAutoTech.Data.Entities;
 using ContosoAutoTech.Infrastructure.AIAgent;
+using ContosoAutoTech.Infrastructure.AiInference;
 using ContosoAutoTech.Infrastructure.Mcps;
 using ContosoAutoTech.Infrastructure.AiSearch;
 using ContosoAutoTech.Infrastructure.Shared;
@@ -22,7 +23,8 @@ public partial class AgentService(
     AiAgentService aiAgentService,
     AiSearchService aiSearchService,
     BasicRagService basicRagService,
-    IHttpClientFactory httpClientFactory)
+    IHttpClientFactory httpClientFactory,
+    AiInferenceService aiInferenceService)
 {
     private Credentials GetCredentials()
     {
@@ -90,7 +92,10 @@ public partial class AgentService(
             case Feature.CarSales:
                 var carSalesTools = new CarSalesTool(
                     configuration, 
-                    httpClientFactory);
+                    httpClientFactory,
+                    aiInferenceService,
+                    context,
+                    GetCredentials());
                 
                 var getAvailableCarsForSaleTool = AIFunctionFactory.Create(
                     typeof(CarSalesTool).GetMethod(nameof(CarSalesTool.GetAvailableCarsForSale))!,

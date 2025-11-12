@@ -9,7 +9,8 @@ public sealed partial class AiInferenceService
 {
     private const string ServiceName = "ContosoAutoTech.Api";
     
-    private IChatClient CreateChatClient(Credentials credentials)
+    private IChatClient CreateChatClient(
+        Credentials credentials)
     {
         return new AzureOpenAIClient(  
                 new Uri(credentials.FoundryEndpoint),   

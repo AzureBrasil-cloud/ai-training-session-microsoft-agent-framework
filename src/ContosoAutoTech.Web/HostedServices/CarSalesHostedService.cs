@@ -26,10 +26,12 @@ public class CarSalesHostedService(
                                            - licensePlate: The license plate number
                                            - price: The numeric price value (extract only the number, without R$ or commas)
                                            - description: The full description text
-                                        4. After processing all cars, provide a summary of how many cars were processed
+                                        4. After processing all cars successfully, output ONLY: OK
+                                           If any error occurs during processing, output only: ERROR: <error message>
                                         
-                                        IMPORTANT: You must call ProcessCarInformation once for each car you find in the HTML.
-                                        Extract the price as a decimal number (e.g., 108900.00 instead of "R$ 108.900,00").
+                                        IMPORTANT: 
+                                        - You must call ProcessCarInformation once for each car you find in the HTML.
+                                        - Extract the price as a decimal number (e.g., 108900.00 instead of "R$ 108.900,00").
                                         """;
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -44,29 +46,37 @@ public class CarSalesHostedService(
 
         logger.LogInformation("CarSales background service started.");
 
-        using var scope = serviceProvider.CreateScope();
-        var agentService = scope.ServiceProvider.GetRequiredService<AgentService>();
-        
-        using Activity? activity = ActivitySource.StartActivity(nameof(CarSalesHostedService));
-
-        var thread = await agentService.CreateThreadAsync(new CreateThreadRequest(Feature.CarSales));
-
-        var result = await agentService.RunAsync(new CreateRunRequest(
-            Feature.CarSales,
-            "CarSales",
-            Instructions,
-            thread.Value.Id.ToString(),
-            "Execute the process"));
-
-        if (result.IsSuccess)
+        try
         {
-            logger.LogInformation("Car Sales Agent executed successfully. Result: {Result}", result.Value);
+            using var scope = serviceProvider.CreateScope();
+            var agentService = scope.ServiceProvider.GetRequiredService<AgentService>();
+            
+            using Activity? activity = ActivitySource.StartActivity(nameof(CarSalesHostedService));
+
+            var thread = await agentService.CreateThreadAsync(new CreateThreadRequest(Feature.CarSales));
+
+            var result = await agentService.RunAsync(new CreateRunRequest(
+                Feature.CarSales,
+                "CarSales",
+                Instructions,
+                thread.Value.Id.ToString(),
+                "Run it"));
+
+            if (result.IsSuccess)
+            {
+                logger.LogInformation("Car Sales Agent executed successfully. Result: {Result}", result.Value);
+            }
+            else
+            {
+                logger.LogError("Car Sales Agent execution failed. Error: {Error}", result.Error);
+            }
+            
+            logger.LogInformation("CarSales agent execution completed.");
         }
-        else
+        catch (Exception ex)
         {
-            logger.LogError("Car Sales Agent execution failed. Error: {Error}", result.Error);
+            logger.LogError(ex, "Fatal error during CarSales agent execution");
+            throw;
         }
-        
-        logger.LogInformation("CarSales agent execution completed.");
     }
 }

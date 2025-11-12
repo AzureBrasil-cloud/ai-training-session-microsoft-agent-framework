@@ -1,5 +1,12 @@
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Text.Json;
+using ContosoAutoTech.Data;
+using ContosoAutoTech.Data.Entities;
+using ContosoAutoTech.Infrastructure.AIAgent;
+using ContosoAutoTech.Infrastructure.AiInference;
+using ContosoAutoTech.Infrastructure.Shared;
+using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 
 namespace ContosoAutoTech.Application.Tools;
@@ -8,15 +15,24 @@ public class CarSalesTool
 {
     private static readonly ActivitySource ActivitySource = InstrumentationConfig.ActivitySource;
     private readonly IHttpClientFactory _httpClientFactory;
+    private readonly AiInferenceService _aiInferenceService;
+    private readonly AppDbContext _context;
+    private readonly Credentials _credentials;
     private readonly string _carSalesRemoteUrl;
 
     public CarSalesTool(
-        IConfiguration configuration, 
-        IHttpClientFactory httpClientFactory)
+        IConfiguration configuration,
+        IHttpClientFactory httpClientFactory,
+        AiInferenceService aiInferenceService,
+        AppDbContext context,
+        Credentials credentials)
     {
         _httpClientFactory = httpClientFactory;
+        _aiInferenceService = aiInferenceService;
+        _context = context;
+        _credentials = credentials;
         _carSalesRemoteUrl = configuration["Application:CarSalesRemoteUrl"] 
-            ?? throw new InvalidOperationException("CarSalesRemoteUrl is not configured");
+                             ?? throw new InvalidOperationException("CarSalesRemoteUrl is not configured");
         _carSalesRemoteUrl = _carSalesRemoteUrl.TrimEnd('/');
     }
 
@@ -76,15 +92,71 @@ public class CarSalesTool
 
         try
         {
-            activity?.SetTag("operation.success", true);
 
-            var result = $"✓ Car processed successfully:\n" +
-                        $"  Model: {model}\n" +
-                        $"  Color: {color}\n" +
-                        $"  License Plate: {licensePlate}\n" +
-                        $"  Price: {price:C}\n" +
-                        $"  Image: {imageUrl}\n" +
-                        $"  Description: {description[..Math.Min(50, description.Length)]}...";
+            JsonElement schema = AIJsonUtilities.CreateJsonSchema(typeof(Features));
+            
+            ChatOptions chatOptions = new()
+            {
+                ResponseFormat = ChatResponseFormat.ForJsonSchema(
+                    schema: schema,
+                    schemaName: "DescriptionFeatures",
+                    schemaDescription: "Extracted strengths and weaknesses of the car from the description")
+            };
+            
+            var inferenceResult = await _aiInferenceService.CompleteAsync(
+                _credentials,
+                "Your are an expert automotive analyst. Your task is to analyze car descriptions and extract key strengths and weaknesses based on the provided details.",
+                description,
+                chatOptions: chatOptions);
+
+            var jsonOptions = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            var features = JsonSerializer.Deserialize<Features>(inferenceResult.Text, jsonOptions);
+
+            if (features == null)
+            {
+                activity?.SetTag("error.reason", "failed_to_deserialize_features");
+                return "Error: Failed to extract features from description";
+            }
+
+            var carSale = new CarSale(
+                model: model,
+                licensePlate: licensePlate,
+                color: color,
+                price: price,
+                description: description,
+                strengths: features.Strengths,
+                weaknesses: features.Weaknesses
+            );
+
+            await _context.CarSales.AddAsync(carSale);
+            await _context.SaveChangesAsync();
+
+            activity?.SetTag("operation.success", true);
+            activity?.SetTag("car.id", carSale.Id);
+
+            var result = JsonSerializer.Serialize(new
+            {
+                success = true,
+                message = $"Car '{model}' processed successfully!",
+                carId = carSale.Id,
+                details = new
+                {
+                    carSale.Id,
+                    carSale.Model,
+                    carSale.LicensePlate,
+                    carSale.Color,
+                    carSale.Price,
+                    ImageUrl = imageUrl,
+                    carSale.Description,
+                    carSale.Strengths,
+                    carSale.Weaknesses,
+                    carSale.CreatedAt
+                }
+            });
 
             return result;
         }
@@ -96,6 +168,12 @@ public class CarSalesTool
 
             return $"Error processing car information: {ex.Message}";
         }
+    }
+
+    class Features
+    {
+        public List<string> Strengths { get; set; } = null!;
+        public List<string> Weaknesses { get; set; } = null!;
     }
 }
 
