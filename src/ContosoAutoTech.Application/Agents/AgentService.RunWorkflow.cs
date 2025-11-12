@@ -3,7 +3,6 @@ using System.Text.Json;
 using ContosoAutoTech.Application.Agents.Models.Requests;
 using ContosoAutoTech.Application.Agents.Models.Requests.Validators;
 using ContosoAutoTech.Application.Agents.Models.Results;
-using ContosoAutoTech.Common;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.Logging;
 using ModelContextProtocol.Client;

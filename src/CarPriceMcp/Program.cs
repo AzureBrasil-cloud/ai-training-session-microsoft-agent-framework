@@ -1,8 +1,4 @@
-﻿using CarPriceMcp;
-
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddScoped<CarPartsService>();
+﻿var builder = WebApplication.CreateBuilder(args);
 
 // Add MCP services and configure the HTTP transport
 builder.Services.AddMcpServer()

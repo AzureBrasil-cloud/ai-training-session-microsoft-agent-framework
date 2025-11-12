@@ -1,8 +1,4 @@
-using CarStockMcp;
-
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddScoped<StockService>();
 
 // Add MCP services and configure the HTTP transport
 builder.Services.AddMcpServer()
