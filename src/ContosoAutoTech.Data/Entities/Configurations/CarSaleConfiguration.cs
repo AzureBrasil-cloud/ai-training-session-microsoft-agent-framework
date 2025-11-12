@@ -31,20 +31,22 @@ public class CarSaleConfiguration : IEntityTypeConfiguration<CarSale>
             .IsRequired();
 
         builder
-            .Property(x => x.Strengths)
-            .IsRequired()
-            .HasConversion(
-                v => string.Join(';', v),
-                v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList()
-            );
+            .OwnsOne(x => x.CarFeatures, features =>
+            {
+                features.Property(f => f.Strengths)
+                    .IsRequired()
+                    .HasConversion(
+                        v => string.Join(';', v),
+                        v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList()
+                    );
 
-        builder
-            .Property(x => x.Weaknesses)
-            .IsRequired()
-            .HasConversion(
-                v => string.Join(';', v),
-                v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList()
-            );
+                features.Property(f => f.Weaknesses)
+                    .IsRequired()
+                    .HasConversion(
+                        v => string.Join(';', v),
+                        v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList()
+                    );
+            });
 
         builder
             .Property(x => x.CreatedAt)
