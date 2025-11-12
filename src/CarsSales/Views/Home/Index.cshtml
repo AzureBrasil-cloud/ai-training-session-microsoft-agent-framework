@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Carros Disponíveis";
+    
+    var carros = new List<dynamic>
+    {
+        new
+        {
+            Modelo = "Toyota Corolla XEi 2.0",
+            Placa = "QBG7H34",
+            Cor = "Prata",
+            Valor = "R$ 108.900,00",
+            Imagem = "https://staaitrainingdaymaf.blob.core.windows.net/public/corola-prata.jpg",
+            Descricao = "Corolla em ótimo estado mecânico, motor 2.0 potente e econômico. Interior com bancos de couro, ar-condicionado digital e central multimídia com Android Auto e Apple CarPlay. Amassado pequeno na lateral esquerda traseira e leves riscos no para-choque dianteiro. Todas as revisões feitas em concessionária, pneus novos e documentação em dia."
+        },
+        new
+        {
+            Modelo = "Honda Civic Touring 1.5 Turbo",
+            Placa = "RDK4J21",
+            Cor = "Cinza Metálico",
+            Valor = "R$ 126.500,00",
+            Imagem = "https://staaitrainingdaymaf.blob.core.windows.net/public/civic-prata.jpg",
+            Descricao = "Civic completo, versão Touring com teto solar elétrico, bancos em couro e sistema de som premium. Veículo nunca envolvido em acidentes, único dono, e com pneus seminovos. Apresenta leve desgaste no volante e no banco do motorista. Revisões parciais realizadas, ainda em excelente desempenho e conforto."
+        },
+        new
+        {
+            Modelo = "Chevrolet Cruze LTZ 1.4 Turbo",
+            Placa = "MNP8T56",
+            Cor = "Branco Perolizado",
+            Valor = "R$ 112.800,00",
+            Imagem = "https://staaitrainingdaymaf.blob.core.windows.net/public/cruze-branco.jpg",
+            Descricao = "Cruze topo de linha com câmera 360º, controle de tração e bancos aquecidos. Motor turbo eficiente, ótima dirigibilidade e conforto. Possui pequeno arranhão na porta dianteira direita e pintura levemente queimada no retrovisor. Não revisado nos últimos 10 mil km, mas funcionamento perfeito e documentação sem pendências."
+        }
+    };
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Carros Disponíveis para Venda</h1>
+    
+    <div class="row">
+        @foreach (var carro in carros)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="@carro.Imagem" 
+                         class="card-img-top" 
+                         alt="@carro.Modelo"
+                         style="height: 250px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">@carro.Modelo</h5>
+                        <p class="card-text">
+                            <strong>Placa:</strong> @carro.Placa<br>
+                            <strong>Cor:</strong> @carro.Cor<br>
+                            <strong>Valor:</strong> <span class="text-success fw-bold">@carro.Valor</span>
+                        </p>
+                        <p class="card-text">
+                            @carro.Descricao
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
