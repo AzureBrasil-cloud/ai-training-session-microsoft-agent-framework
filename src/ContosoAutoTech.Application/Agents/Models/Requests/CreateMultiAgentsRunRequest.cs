@@ -2,7 +2,7 @@ using ContosoAutoTech.Data.Entities;
 
 namespace ContosoAutoTech.Application.Agents.Models.Requests;
 
-public record CreateWorkflowRunRequest(
+public record CreateMultiAgentsRunRequest(
     Feature Feature,
     string AgentName,
     string AgentInstructions,

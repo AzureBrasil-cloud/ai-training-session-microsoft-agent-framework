@@ -12,11 +12,11 @@ namespace ContosoAutoTech.Application.Agents;
 
 public partial class AgentService
 {
-    public async Task<Result<MessageResult>> RunWorkflowAsync(CreateWorkflowRunRequest request)
+    public async Task<Result<MessageResult>> RunMultiAgentsAsync(CreateMultiAgentsRunRequest request)
     {
         using Activity? activity = ActivitySource.StartActivity();
         
-        var validationResult = await new CreateWorkflowRunRequestValidator().ValidateAsync(request);
+        var validationResult = await new CreateMultiAgentsRunRequestValidator().ValidateAsync(request);
 
         if (!validationResult.IsValid)
         {

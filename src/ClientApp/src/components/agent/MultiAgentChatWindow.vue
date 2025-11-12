@@ -110,7 +110,7 @@ async function sendMessage() {
 
   try {
     // Monta o request completo com orquestrador e agentes especializados
-    const response = await agentService.runWorkflow({
+    const response = await agentService.runMultiAgents({
       feature: props.featureId,
       agentName: orchestratorSettings.value.name,
       agentInstructions: buildOrchestratorInstructions(),
