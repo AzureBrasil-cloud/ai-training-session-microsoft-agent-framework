@@ -37,7 +37,9 @@ public partial class AiAgentService
         return (result, resumedThread);
     }
 
+    private static string? _workflowId;
     private static Workflow? _workflow;
+    private static CheckpointManager _checkpointManager = CheckpointManager.CreateInMemory();
     
     public async Task<(AgentRunResponse, AgentThread Thread)> CreateWorkflowRunAsync(
         Credentials credentials,
@@ -57,20 +59,23 @@ public partial class AiAgentService
             name,
             tools,
             aiContextProviderFactory);
-
-        var checkpointManager = CheckpointManager.Default;
+        
         var workflowBuilder = new WorkflowBuilder(orchestratorAgent);
-
+        
         foreach (var aiAgent in aiAgents)
         {
             workflowBuilder.AddEdge(orchestratorAgent, aiAgent);
         }
-
-        if(_workflow is null)
+        var workflowSignature = $"handoff|{string.Join("|", aiAgents.Select(a => a.Name))}".GetHashCode().ToString();
+        
+        if (_workflow == null || _workflowId != workflowSignature)
         {
-            var workflow = workflowBuilder.Build();
-            _workflow = workflow;
+            _workflow = workflowBuilder.Build();
+            _workflowId = workflowSignature;
         }
+
+        var checkpointManager = _checkpointManager;
+
         var workflowAgent = _workflow.AsAgent("workflow-agent", "Workflow Agent", checkpointManager: checkpointManager);
 
         var resumedThread = workflowAgent.GetNewThread();
