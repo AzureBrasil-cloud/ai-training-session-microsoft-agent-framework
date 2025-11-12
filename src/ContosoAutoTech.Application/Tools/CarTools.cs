@@ -238,8 +238,8 @@ public class CarTools(AppDbContext context)
         if (maxYear != null) activity?.SetTag("filter.max_year", maxYear);
         if (maxPrice != null) activity?.SetTag("filter.max_price", maxPrice);
         if (licensePlate != null) activity?.SetTag("filter.license_plate", licensePlate);
-        activity?.SetTag("filter.limit", limit);
         
+        activity?.SetTag("filter.limit", limit);
         try
         {
             var query = context.Cars.AsQueryable();
@@ -293,7 +293,7 @@ public class CarTools(AppDbContext context)
             activity?.SetTag("operation.success", false);
             activity?.SetTag("error.message", ex.Message);
             activity?.SetTag("error.type", ex.GetType().Name);
-            
+           
             return JsonSerializer.Serialize(new
             {
                 success = false,
