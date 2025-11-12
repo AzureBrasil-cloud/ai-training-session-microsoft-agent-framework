@@ -5,7 +5,6 @@ import { Role } from '@/models/messageResult';
 import type { Thread } from '@/models/thread';
 import agentService from '@/services/agent';
 import MarkdownIt from 'markdown-it';
-import MultiAgentSettingsModal from './MultiAgentSettingsModal.vue';
 import ThreadsListModal from './ThreadsListModal.vue';
 import TokenUsageModal from './TokenUsageModal.vue';
 

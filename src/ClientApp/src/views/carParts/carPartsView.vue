@@ -107,7 +107,7 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
   :feature-id="5"
   title="Workflow de Gestão de Peças"
   welcome-message="👋 Olá! Sou o Orquestrador de peças. Coordeno diversos agentes especializados para ajudá-lo com estoque e preços. O que você precisa?"
-  default-orchestrator-name="Orquestrador de Vendas"
+  default-orchestrator-name="Orquestrador de Peças"
   default-orchestrator-instructions="Você é o Orquestrador de Peças, responsável por coordenar agentes especializados em preços e estoque de peças automotivas.
 
 Quando o usuário fizer uma pergunta sobre **preço**, chame o **Agente de Preços**.
