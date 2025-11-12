@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarStockMcp", "src\CarStock
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalApps", "ExternalApps", "{840EFA3D-BD26-4BC9-920D-754EB14EB882}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarsSales", "src\CarsSales\CarsSales.csproj", "{32C00146-530F-4064-ADA9-6E7472ACA73C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarSales", "src\CarSales\CarSales.csproj", "{32C00146-530F-4064-ADA9-6E7472ACA73C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,9 +1,9 @@
 using System.Diagnostics;
+using CarSales.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using CarsSales.Models;
 
-namespace CarsSales.Controllers;
+namespace CarSales.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
