@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Azure.Monitor.OpenTelemetry.Exporter;
 using ContosoAutoTech.Application;
 using ContosoAutoTech.Application.Extensions;
+using ContosoAutoTech.Web.HostedServices;
 using PowerPilotChat.Web.Middlewares;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Resources;
@@ -67,6 +68,9 @@ public static class ConfigurationExtensions
         
         // Application
         services.AddApplication(configuration);
+        
+        // HostedServices
+        services.AddHostedService<CarSalesHostedService>();
     }
 
     public static void ConfigureApplication(this WebApplication app)
