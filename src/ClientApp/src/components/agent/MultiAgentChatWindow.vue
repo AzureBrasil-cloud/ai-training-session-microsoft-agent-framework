@@ -1,4 +1,3 @@
-<!-- WorkflowChatWindow.vue - Componente com agente orquestrador e múltiplos agentes especializados -->
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import type { MessageResult } from '@/models/messageResult';
@@ -6,7 +5,7 @@ import { Role } from '@/models/messageResult';
 import type { Thread } from '@/models/thread';
 import agentService from '@/services/agent';
 import MarkdownIt from 'markdown-it';
-import WorkflowSettingsModal from './WorkflowSettingsModal.vue';
+import MultiAgentSettingsModal from './MultiAgentSettingsModal.vue';
 import ThreadsListModal from './ThreadsListModal.vue';
 import TokenUsageModal from './TokenUsageModal.vue';
 
@@ -225,7 +224,7 @@ onMounted(async () => {
 
     <div v-if="isLoading" class="text-muted small mb-2">
       <span class="spinner-border spinner-border-sm me-2" role="status"></span>
-      Carregando workflow...
+      Carregando agentes...
     </div>
 
     <div v-else-if="isWaitingResponse" class="text-muted small mb-2">
@@ -298,15 +297,6 @@ onMounted(async () => {
       </button>
     </div>
 
-    <!-- Modais -->
-    <WorkflowSettingsModal
-      v-if="showSettingsModal"
-      :orchestrator-name="orchestratorSettings.name"
-      :orchestrator-instructions="orchestratorSettings.instructions"
-      :specialized-agents="specializedAgents"
-      @close="showSettingsModal = false"
-      @save="saveSettings"
-    />
 
     <ThreadsListModal
       v-if="showThreadsModal"

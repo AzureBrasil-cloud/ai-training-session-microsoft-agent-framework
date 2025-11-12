@@ -36,10 +36,6 @@ public partial class AiAgentService
 
         return (result, resumedThread);
     }
-
-    private static string? _workflowId;
-    private static Workflow? _workflow;
-    private static CheckpointManager _checkpointManager;
     
     public async Task<(AgentRunResponse, AgentThread Thread)> CreateWorkflowRunAsync(
         Credentials credentials,

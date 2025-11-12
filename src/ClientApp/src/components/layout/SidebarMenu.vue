@@ -109,7 +109,7 @@ const logo = `${window.location.origin}/images/logo-acai.png`;
               <li class="nav-item">
                 <RouterLink to="/car-parts" class="dropdown-item">
                  <i class="bi bi-robot px-3"></i>
-                  <span>Agente Orquestrador</span>
+                  <span>Multi Agentes</span>
                 </RouterLink>
               </li>
             </ul>
