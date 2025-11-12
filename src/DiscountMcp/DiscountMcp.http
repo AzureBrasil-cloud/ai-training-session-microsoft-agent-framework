@@ -1,0 +1,6 @@
+@DiscountMcp_HostAddress = http://localhost:5129
+
+GET {{DiscountMcp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
