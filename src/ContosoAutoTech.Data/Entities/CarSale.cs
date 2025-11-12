@@ -10,8 +10,7 @@ public class CarSale : IEntity
     public string Color { get; set; } = null!;
     public decimal Price { get; set; }
     public string Description { get; set; } = null!;
-    public List<string> Strengths { get; set; } = null!;
-    public List<string> Weaknesses { get; set; } = null!;
+    public Features CarFeatures { get; set; } = null!;
     public DateTime CreatedAt { get; set; }
 
     // EF
@@ -32,27 +31,18 @@ public class CarSale : IEntity
         Color = color;
         Price = price;
         Description = description;
-        Strengths = strengths;
-        Weaknesses = weaknesses;
+        CarFeatures = new Features
+        {
+            Strengths = strengths,
+            Weaknesses = weaknesses
+        };
         CreatedAt = DateTime.UtcNow;
     }
 
-    public void Update(
-        string? model = null,
-        string? licensePlate = null,
-        string? color = null,
-        decimal? price = null,
-        string? description = null,
-        List<string>? strengths = null,
-        List<string>? weaknesses = null)
+    public class Features
     {
-        if (model != null) Model = model;
-        if (licensePlate != null) LicensePlate = licensePlate;
-        if (color != null) Color = color;
-        if (price.HasValue) Price = price.Value;
-        if (description != null) Description = description;
-        if (strengths != null) Strengths = strengths;
-        if (weaknesses != null) Weaknesses = weaknesses;
+        public List<string> Strengths { get; set; } = null!;
+        public List<string> Weaknesses { get; set; } = null!;
     }
 }
 

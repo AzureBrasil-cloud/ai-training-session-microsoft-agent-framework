@@ -6,6 +6,7 @@ using ContosoAutoTech.Data.Entities;
 using ContosoAutoTech.Infrastructure.AIAgent;
 using ContosoAutoTech.Infrastructure.AiInference;
 using ContosoAutoTech.Infrastructure.Shared;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 
@@ -93,7 +94,7 @@ public class CarSalesTool
         try
         {
 
-            JsonElement schema = AIJsonUtilities.CreateJsonSchema(typeof(Features));
+            JsonElement schema = AIJsonUtilities.CreateJsonSchema(typeof(CarSale.Features));
             
             ChatOptions chatOptions = new()
             {
@@ -114,7 +115,7 @@ public class CarSalesTool
                 PropertyNameCaseInsensitive = true
             };
 
-            var features = JsonSerializer.Deserialize<Features>(inferenceResult.Text, jsonOptions);
+            var features = JsonSerializer.Deserialize<CarSale.Features>(inferenceResult.Text, jsonOptions);
 
             if (features == null)
             {
@@ -134,7 +135,7 @@ public class CarSalesTool
 
             await _context.CarSales.AddAsync(carSale);
             await _context.SaveChangesAsync();
-
+            
             activity?.SetTag("operation.success", true);
             activity?.SetTag("car.id", carSale.Id);
 
@@ -152,8 +153,8 @@ public class CarSalesTool
                     carSale.Price,
                     ImageUrl = imageUrl,
                     carSale.Description,
-                    carSale.Strengths,
-                    carSale.Weaknesses,
+                    carSale.CarFeatures.Strengths,
+                    carSale.CarFeatures.Weaknesses,
                     carSale.CreatedAt
                 }
             });
@@ -168,12 +169,6 @@ public class CarSalesTool
 
             return $"Error processing car information: {ex.Message}";
         }
-    }
-
-    class Features
-    {
-        public List<string> Strengths { get; set; } = null!;
-        public List<string> Weaknesses { get; set; } = null!;
     }
 }
 
