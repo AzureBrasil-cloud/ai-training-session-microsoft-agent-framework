@@ -4,6 +4,7 @@ using ContosoAutoTech.Application.Tools;
 using ContosoAutoTech.Data;
 using ContosoAutoTech.Data.Entities;
 using ContosoAutoTech.Infrastructure.AIAgent;
+using ContosoAutoTech.Infrastructure.AiInference;
 using ContosoAutoTech.Infrastructure.Mcps;
 using ContosoAutoTech.Infrastructure.AiSearch;
 using ContosoAutoTech.Infrastructure.Shared;
@@ -22,7 +23,9 @@ public partial class AgentService(
     McpService mcpService,
     AiAgentService aiAgentService,
     AiSearchService aiSearchService,
-    BasicRagService basicRagService)
+    BasicRagService basicRagService,
+    IHttpClientFactory httpClientFactory,
+    AiInferenceService aiInferenceService)
 {
     private static readonly ActivitySource ActivitySource =  InstrumentationConfig.ActivitySource;
 
@@ -59,8 +62,7 @@ public partial class AgentService(
         return (tools, mcpClients);
     }
 
-    private Func<ChatClientAgentOptions.AIContextProviderFactoryContext, AIContextProvider>?
-        GetAiContextProviderByFeature(Feature requestFeature)
+    private Func<ChatClientAgentOptions.AIContextProviderFactoryContext, AIContextProvider>? GetAiContextProviderByFeature(Feature requestFeature)
     {
         switch (requestFeature)
         {
@@ -90,28 +92,49 @@ public partial class AgentService(
 
         switch (requestFeature)
         {
+            case Feature.CarSales:
+                var carSalesTools = new CarSalesTool(
+                    configuration, 
+                    httpClientFactory,
+                    aiInferenceService,
+                    context,
+                    GetCredentials());
+                
+                var getAvailableCarsForSaleTool = AIFunctionFactory.Create(
+                    typeof(CarSalesTool).GetMethod(nameof(CarSalesTool.GetAvailableCarsForSale))!,
+                    carSalesTools);
+                
+                var processCarInformationTool = AIFunctionFactory.Create(
+                    typeof(CarSalesTool).GetMethod(nameof(CarSalesTool.ProcessCarInformation))!,
+                    carSalesTools);
+                
+                tools.Add(getAvailableCarsForSaleTool);
+                tools.Add(processCarInformationTool);
+                
+                break;
+            
             case Feature.CarRegistration:
-                var carTools = new CarTools(context);
+                var carRegistrationTools = new CarTools(context);
 
                 var createCarTool = AIFunctionFactory.Create(
                     typeof(CarTools).GetMethod(nameof(CarTools.CreateCar))!,
-                    carTools);
+                    carRegistrationTools);
 
                 var updateCarTool = AIFunctionFactory.Create(
                     typeof(CarTools).GetMethod(nameof(CarTools.UpdateCar))!,
-                    carTools);
+                    carRegistrationTools);
 
                 var listCarsTool = AIFunctionFactory.Create(
                     typeof(CarTools).GetMethod(nameof(CarTools.ListCars))!,
-                    carTools);
+                    carRegistrationTools);
 
                 var getCarTool = AIFunctionFactory.Create(
                     typeof(CarTools).GetMethod(nameof(CarTools.GetCarById))!,
-                    carTools);
+                    carRegistrationTools);
 
                 var deleteCarTool = AIFunctionFactory.Create(
                     typeof(CarTools).GetMethod(nameof(CarTools.DeleteCar))!,
-                    carTools);
+                    carRegistrationTools);
 
                 tools.Add(createCarTool);
                 tools.Add(updateCarTool);
