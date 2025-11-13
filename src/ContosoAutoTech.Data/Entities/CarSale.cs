@@ -10,8 +10,10 @@ public class CarSale : IEntity
     public string LicensePlate { get; set; } = null!;
     public string Color { get; set; } = null!;
     public decimal Price { get; set; }
+    public decimal? ReferencePrice { get; set; }
     public string Description { get; set; } = null!;
     public Features CarFeatures { get; set; } = null!;
+    public string AgentConsideration { get; set; } = null!;
     public DateTime CreatedAt { get; set; }
 
     // EF
@@ -24,6 +26,8 @@ public class CarSale : IEntity
         string color,
         decimal price,
         string description,
+        decimal? referencePrice,
+        string agentConsideration,
         List<string> strengths,
         List<string> weaknesses)
     {
@@ -34,6 +38,8 @@ public class CarSale : IEntity
         Color = color;
         Price = price;
         Description = description;
+        ReferencePrice = referencePrice;
+        AgentConsideration = agentConsideration;
         CarFeatures = new Features
         {
             Strengths = strengths,
