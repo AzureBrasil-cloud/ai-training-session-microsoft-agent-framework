@@ -15,6 +15,19 @@ export interface CreateRunRequest {
   agentInstructions: string;
 }
 
+export interface RunMultiAgentsRequest {
+  feature: number;
+  agentName: string;
+  agentInstructions: string;
+  threadId: string;
+  message: string;
+  agents: Array<{
+    agentName: string;
+    agentInstructions: string;
+    feature: number;}>
+}
+
+
 export interface RunResponse {
   role: number;
   content: string;
@@ -69,19 +82,8 @@ const agentService = {
       throw axiosError?.response?.data
     }
   },
-  runWorkflow: async (params: {
-  feature: number;
-  agentName: string;
-  agentInstructions: string;
-  threadId: string;
-  message: string;
-  agents: Array<{
-    agentName: string;
-    agentInstructions: string;
-    feature: number;
-  }>;
-}): Promise<MessageResult> => {
-  const response = await axios.post('api/agents/run-workflow', params);
+  runMultiAgents: async (params: RunMultiAgentsRequest): Promise<MessageResult> => {
+  const response = await axios.post('api/agents/run-multi-agent', params);
   return response.data;
 }
 }

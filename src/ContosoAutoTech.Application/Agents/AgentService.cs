@@ -46,6 +46,7 @@ public partial class AgentService(
         switch (feature)
         {
             case Feature.CarPartPrice:
+                var carPartPriceUrl = configuration["Application:CarPartPriceMcpUrl"];
                 var (carPartPriceTools, stdioMcpClient) = await mcpService
                     .GetHttpMcpToolAsync("CarPartPriceMcp", "http://localhost:5000/mcp");
                 tools.AddRange(carPartPriceTools);
@@ -56,6 +57,27 @@ public partial class AgentService(
                     .GetHttpMcpToolAsync("CarPartStockMcp", "http://localhost:5122/mcp");
                 tools.AddRange(carPartStockTools);
                 mcpClients.Add(httpMcpClient);
+                break;
+            case Feature.HumanInLoopClient :
+                 var humanInLoopClientUrl = configuration["Application:CarDiscountMcpRemoteUrl"];
+                 var (humanInLoopClientTools, humanInLoopMcpClient) = await mcpService
+                     .GetHttpMcpToolAsync("HumanInLoopClientMcp", humanInLoopClientUrl!);
+                 tools.AddRange(humanInLoopClientTools);
+                 mcpClients.Add(humanInLoopMcpClient);
+                 break;
+            case Feature.HumanInLoopManager :
+                var humanInLoopManagerUrl = configuration["Application:CarDiscountMcpRemoteUrl"];
+                var (humanInLoopManagerTools, humanInLoopManagerMcpClient) = await mcpService
+                    .GetHttpMcpToolAsync("HumanInLoopManagerMcp", humanInLoopManagerUrl!);
+                var selectedTools = humanInLoopManagerTools.Where(x => x.Name is "decide_approval" or "get_pending_approvals");
+                tools.AddRange(selectedTools);
+                mcpClients.Add(humanInLoopManagerMcpClient);
+                break;
+            case Feature.CarPartProduct: 
+                var (carPartProductTools, carPartProductMcpClient) = await mcpService
+                    .GetHttpMcpToolAsync("CarPartStockMcp", configuration["Application:CarProductMcpRemoteUrl"]!);
+                tools.AddRange(carPartProductTools);
+                mcpClients.Add(carPartProductMcpClient);
                 break;
         }
 

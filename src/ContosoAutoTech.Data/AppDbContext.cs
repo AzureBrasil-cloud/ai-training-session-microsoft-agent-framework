@@ -8,6 +8,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Thread> Threads { get; set; } = null!;
     public DbSet<Entities.Car> Cars { get; set; } = null!;
     public DbSet<Entities.CarSale> CarSales { get; set; } = null!;
+    public DbSet<Entities.CarReferencePrice> CarReferencePrices { get; set; } = null!;
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

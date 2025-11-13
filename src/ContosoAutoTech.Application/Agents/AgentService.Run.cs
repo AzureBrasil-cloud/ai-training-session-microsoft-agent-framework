@@ -40,7 +40,7 @@ public partial class AgentService
         }
 
         var credentials = GetCredentials();
-
+        
         var (mcpTools, mcpClients) = await GetToolsWithMcpClient(request.Feature);
 
         var tools = GetToolsByFeature(request.Feature).ToList();

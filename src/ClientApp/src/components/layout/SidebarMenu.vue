@@ -112,6 +112,18 @@ const logo = `${window.location.origin}/images/logo-acai.png`;
                   <span>Multi Agentes</span>
                 </RouterLink>
               </li>
+               <li class="nav-item">
+                <RouterLink to="/discounts-client" class="dropdown-item">
+                 <i class="bi bi-robot px-3"></i>
+                  <span>Desconto Cliente</span>
+                </RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink to="/discounts-manager" class="dropdown-item">
+                 <i class="bi bi-robot px-3"></i>
+                  <span>Desconto Gerente</span>
+                </RouterLink>
+              </li>
             </ul>
           </div>
         </div>
@@ -172,6 +184,12 @@ const logo = `${window.location.origin}/images/logo-acai.png`;
                 <RouterLink to="/feedback-classifier" class="dropdown-item">
                   <i class="bi bi-chat-square-text px-3"></i>
                   <span>Feedbacks</span>
+                </RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink to="/car-sales" class="dropdown-item">
+                  <i class="bi bi-car-front-fill px-3"></i>
+                  <span>Anúncios de Carros</span>
                 </RouterLink>
               </li>
             </ul>

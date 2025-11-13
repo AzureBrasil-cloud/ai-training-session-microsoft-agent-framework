@@ -5,7 +5,6 @@ import { Role } from '@/models/messageResult';
 import type { Thread } from '@/models/thread';
 import agentService from '@/services/agent';
 import MarkdownIt from 'markdown-it';
-import MultiAgentSettingsModal from './MultiAgentSettingsModal.vue';
 import ThreadsListModal from './ThreadsListModal.vue';
 import TokenUsageModal from './TokenUsageModal.vue';
 
@@ -111,7 +110,7 @@ async function sendMessage() {
 
   try {
     // Monta o request completo com orquestrador e agentes especializados
-    const response = await agentService.runWorkflow({
+    const response = await agentService.runMultiAgents({
       feature: props.featureId,
       agentName: orchestratorSettings.value.name,
       agentInstructions: buildOrchestratorInstructions(),
