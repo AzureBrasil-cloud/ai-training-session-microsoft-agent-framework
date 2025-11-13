@@ -27,6 +27,8 @@ public enum Feature
     CustomerRelationsPolicies = 2,
     CarPartPrice = 3,
     CarPartStock = 4,
-    WorkflowCarPart = 5,
-    CarSales = 6
+    CarSales = 6,
+    HumanInLoopClient = 7,
+    HumanInLoopManager = 8,
+    CarPartProduct = 9
 }

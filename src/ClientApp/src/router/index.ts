@@ -74,6 +74,18 @@ const router = createRouter({
       component: () => import('../views/carParts/carPartsView.vue'),
       meta: { requiresAuth: true }
     },
+      {
+      path: '/discounts-client',
+      name: 'discounts-client',
+      component: () => import('../views/discounts/DiscountClientView.vue'),
+      meta: { requiresAuth: true }
+    },
+      {
+      path: '/discounts-manager',
+      name: 'discounts-manager',
+      component: () => import('../views/discounts/DiscountManagerView.vue'),
+      meta: { requiresAuth: true }
+    },
     {
       path: '/send-image-pre-order',
       name: 'send-image-pre-order',

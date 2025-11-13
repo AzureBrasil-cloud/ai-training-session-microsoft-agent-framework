@@ -112,6 +112,18 @@ const logo = `${window.location.origin}/images/logo-acai.png`;
                   <span>Multi Agentes</span>
                 </RouterLink>
               </li>
+               <li class="nav-item">
+                <RouterLink to="/discounts-client" class="dropdown-item">
+                 <i class="bi bi-robot px-3"></i>
+                  <span>Desconto Cliente</span>
+                </RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink to="/discounts-manager" class="dropdown-item">
+                 <i class="bi bi-robot px-3"></i>
+                  <span>Desconto Gerente</span>
+                </RouterLink>
+              </li>
             </ul>
           </div>
         </div>
