@@ -27,12 +27,6 @@ const router = createRouter({
       component: SignInView
     },
     {
-      path: '/orders-chat',
-      name: 'orders-chat',
-      component: () => import('../views/ordersChat/ordersChatView.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
       path: '/car-registration',
       name: 'car-registration',
       component: () => import('../views/carRegistration/carRegistrationView.vue'),
@@ -72,12 +66,6 @@ const router = createRouter({
       path: '/discounts-manager',
       name: 'discounts-manager',
       component: () => import('../views/discounts/DiscountManagerView.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/send-image-pre-order',
-      name: 'send-image-pre-order',
-      component: () => import('../views/orders/sendImagePreOrderView.vue'),
       meta: { requiresAuth: true }
     },
     {
