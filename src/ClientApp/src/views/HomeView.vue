@@ -90,6 +90,14 @@ onMounted(async () => {
                           <span class="fs-4 fs-md-2">Assistente de informações</span>
                         </RouterLink>
                       </div>
+                      <div class="col-12">
+                         <RouterLink to="/discounts-client"
+                         class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                         style="min-height: 90px;">
+                 <i class="bi bi-robot fs-1 fs-md-1"></i>
+                  <span>Agente de Desconto</span>
+                </RouterLink>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -132,6 +140,41 @@ onMounted(async () => {
                           <i class="bi bi-car-front-fill fs-1 fs-md-1"></i>
                           <span class="fs-4 fs-md-2">Anúncios de Carros</span>
                         </RouterLink>
+                      </div>
+                      <div class="col-12 mb-5 mb-md-0">
+                         <RouterLink to="/car-parts-product" class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                                    style="min-height: 90px;">
+                            <i class="bi bi-robot fs-1 fs-md-1"></i>
+                              <span class="fs-4 fs-md-2">Agente de Consulta de Produtos</span>
+                          </RouterLink>
+                      </div>
+                      <div class="col-12 mb-5 mb-md-0">
+                          <RouterLink to="/car-parts-price" class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                                    style="min-height: 90px;">
+                            <i class="bi bi-robot fs-1 fs-md-1"></i>
+                            <span class="fs-4 fs-md-2">Agente de Consulta de Preços</span>
+                          </RouterLink>
+                      </div>
+                      <div class="col-12 mb-5 mb-md-0">
+                          <RouterLink to="/car-parts-stock" class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                                    style="min-height: 90px;">
+                            <i class="bi bi-robot fs-1 fs-md-1"></i>
+                            <span class="fs-4 fs-md-2">Agente de Consulta de Estoque</span>
+                          </RouterLink>
+                      </div>
+                      <div class="col-12 mb-5 mb-md-0">
+                          <RouterLink to="/car-parts" class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                                    style="min-height: 90px;">
+                            <i class="bi bi-robot pfs-1 fs-1 fs-md-1"></i>
+                              <span class="fs-4 fs-md-2">Agente de Peças</span>
+                            </RouterLink>
+                      </div>
+                      <div class="col-12 mb-5 mb-md-0">
+                          <RouterLink to="/discounts-manager" class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                                    style="min-height: 90px;">
+                            <i class="bi bi-robot fs-1 fs-md-1"></i>
+                              <span class="fs-4 fs-md-2">Agente de Desconto</span>
+                            </RouterLink>
                       </div>
                     </div>
                   </div>
