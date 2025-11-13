@@ -99,42 +99,20 @@ onMounted(async () => {
                   <div>
                     <div class="row g-3 ps-0 ps-sm-4">
                       <div class="col-12">
-                        <RouterLink to="/orders"
+                        <RouterLink to="/car-registration"
                                     class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
                                     style="min-height: 90px;">
-                          <i class="bi bi-chat-square-dots fs-1 fs-md-1"></i>
-                          <span class="fs-4 fs-md-2">Meus pedidos</span>
+                          <i class="bi bi-car-front fs-1 fs-md-1"></i>
+                          <span class="fs-4 fs-md-2">Cadastro de Carros</span>
                         </RouterLink>
                       </div>
 
                       <div class="col-12">
-                        <RouterLink to="/image-pre-orders"
+                        <RouterLink to="/customer-policies"
                                     class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
                                     style="min-height: 90px;">
-                          <i class="bi bi-images fs-1 fs-md-1"></i>
-                          <span class="fs-4 fs-md-2">
-                          Pré-pedido <span class="badge bg-white item-purple ms-2 fs-6 fs-md-5">Imagem</span>
-                        </span>
-                        </RouterLink>
-                      </div>
-
-                      <div class="col-12">
-                        <RouterLink to="/audio-pre-orders"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                          <i class="bi bi-music-note-list fs-1 fs-md-1"></i>
-                          <span class="fs-4 fs-md-2">
-                          Pré-pedido <span class="badge bg-white item-purple ms-2 fs-6 fs-md-5">Áudio</span>
-                        </span>
-                        </RouterLink>
-                      </div>
-
-                      <div class="col-12">
-                        <RouterLink to="/reviews"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                          <i class="bi bi-card-checklist fs-1 fs-md-1"></i>
-                          <span class="fs-4 fs-md-2">Fazer avaliação</span>
+                          <i class="bi bi-shield-check fs-1 fs-md-1"></i>
+                          <span class="fs-4 fs-md-2">Políticas clientes</span>
                         </RouterLink>
                       </div>
 
@@ -143,16 +121,16 @@ onMounted(async () => {
                                     class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
                                     style="min-height: 90px;">
                           <i class="bi bi-chat-square-text fs-1 fs-md-1"></i>
-                          <span class="fs-4 fs-md-2">Classificador de Feedbacks</span>
+                          <span class="fs-4 fs-md-2">Feedbacks</span>
                         </RouterLink>
                       </div>
 
                       <div class="col-12 mb-5 mb-md-0">
-                        <RouterLink to="/orders-chat"
+                        <RouterLink to="/car-sales"
                                     class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
                                     style="min-height: 90px;">
-                          <i class="bi bi-robot fs-1 fs-md-1"></i>
-                          <span class="fs-4 fs-md-2">Assistente de informações</span>
+                          <i class="bi bi-car-front-fill fs-1 fs-md-1"></i>
+                          <span class="fs-4 fs-md-2">Anúncios de Carros</span>
                         </RouterLink>
                       </div>
                     </div>
