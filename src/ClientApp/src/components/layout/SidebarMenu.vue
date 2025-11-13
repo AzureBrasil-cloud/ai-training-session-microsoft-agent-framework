@@ -15,7 +15,7 @@ onBeforeMount(() => {
   userRole.value = loggedUser ? JSON.parse(loggedUser)?.role : "";
 });
 
-const logo = `${window.location.origin}/images/logo-acai.png`;
+const logo = `${window.location.origin}/images/Logo_AutoTech.svg`;
 </script>
 
 <template>
@@ -46,7 +46,7 @@ const logo = `${window.location.origin}/images/logo-acai.png`;
           @click="router.push('/')"
           style="cursor: pointer"
         >
-          <img :src="logo" alt="..." width="85" />
+          <img :src="logo" alt="..." width="60" />
           <div class="d-grid flex-grow-1 ls-tight text-sm">
             <span :class="[userIsAdmin ? 'text-white' : 'text-black', 'fw-semibold']">Contoso AutoTech</span>
             <span class="text-truncate text-xs text-body-secondary mt-n1">Web app</span>
@@ -58,7 +58,7 @@ const logo = `${window.location.origin}/images/logo-acai.png`;
         <div v-if="userRole === 'user'" class="vstack gap-5">
           <div>
             <div class="d-flex align-items-center px-3 px-lg-0 mb-3">
-      <span class="d-block text-sm item-purple fw-semibold bg-light px-3 py-2 rounded-3 w-100">
+      <span class="d-block text-sm text-black fw-semibold bg-light px-3 py-2 rounded-3 w-100">
         USUÁRIO
       </span>
             </div>
@@ -132,7 +132,7 @@ const logo = `${window.location.origin}/images/logo-acai.png`;
         <div v-else-if="userRole === 'admin'" class="vstack gap-5">
           <div>
             <div class="d-flex align-items-center px-3 px-lg-0 mb-3">
-      <span class="d-block text-sm item-purple fw-semibold bg-light px-3 py-2 rounded-3 w-100">
+      <span class="d-block text-sm text-black fw-semibold bg-light px-3 py-2 rounded-3 w-100">
         ADMIN
       </span>
             </div>
@@ -147,13 +147,13 @@ const logo = `${window.location.origin}/images/logo-acai.png`;
               <li class="nav-item">
                 <RouterLink to="/image-pre-orders" class="dropdown-item">
                   <i class="bi bi-images px-3"></i>
-                  <span>Pré-pedidos <span class="btn bg-purple rounded-pill text-white p-0 px-2 mx-1" style="font-size:13px"> Imagem </span></span>
+                  <span>Pré-pedidos <span class="btn btn-neutral rounded-pill text-white p-0 px-2 mx-1" style="font-size:13px"> Imagem </span></span>
                 </RouterLink>
               </li>
               <li class="nav-item">
                 <RouterLink to="/audio-pre-orders" class="dropdown-item">
                   <i class="bi bi-music-note-list px-3"></i>
-                  <span>Pré-pedidos <span class="btn btn-purple rounded-pill text-white p-0 px-2 mx-1" style="font-size:13px"> Áudio </span></span>
+                  <span>Pré-pedidos <span class="btn btn-neutral rounded-pill text-white p-0 px-2 mx-1" style="font-size:13px"> Áudio </span></span>
                 </RouterLink>
               </li>
               <li class="nav-item">

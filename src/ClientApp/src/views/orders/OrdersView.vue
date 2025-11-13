@@ -166,7 +166,7 @@ const videoUrl = `${window.location.origin}/videos/list-create-order.mp4`;
 
   <div class="row g-3 px-4 py-4 justify-content-between">
     <div class="col">
-      <h4 class="fw-semibold mb-1 item-purple s-h3">
+      <h4 class="fw-semibold mb-1 text-white s-h3">
         <i class="bi bi-chat-square-dots px-2"></i>Lista de pedidos de açaí
       </h4>
     </div>

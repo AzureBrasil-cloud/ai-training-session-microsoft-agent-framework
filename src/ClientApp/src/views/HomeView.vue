@@ -100,7 +100,7 @@ onMounted(async () => {
                     <div class="row g-3 ps-0 ps-sm-4">
                       <div class="col-12">
                         <RouterLink to="/orders"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                                    class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
                                     style="min-height: 90px;">
                           <i class="bi bi-chat-square-dots fs-1 fs-md-1"></i>
                           <span class="fs-4 fs-md-2">Meus pedidos</span>
@@ -109,7 +109,7 @@ onMounted(async () => {
 
                       <div class="col-12">
                         <RouterLink to="/image-pre-orders"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                                    class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
                                     style="min-height: 90px;">
                           <i class="bi bi-images fs-1 fs-md-1"></i>
                           <span class="fs-4 fs-md-2">
@@ -120,7 +120,7 @@ onMounted(async () => {
 
                       <div class="col-12">
                         <RouterLink to="/audio-pre-orders"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                                    class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
                                     style="min-height: 90px;">
                           <i class="bi bi-music-note-list fs-1 fs-md-1"></i>
                           <span class="fs-4 fs-md-2">
@@ -131,7 +131,7 @@ onMounted(async () => {
 
                       <div class="col-12">
                         <RouterLink to="/reviews"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                                    class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
                                     style="min-height: 90px;">
                           <i class="bi bi-card-checklist fs-1 fs-md-1"></i>
                           <span class="fs-4 fs-md-2">Fazer avaliação</span>
@@ -140,7 +140,7 @@ onMounted(async () => {
 
                       <div class="col-12">
                         <RouterLink to="/feedback-classifier"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                                    class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
                                     style="min-height: 90px;">
                           <i class="bi bi-chat-square-text fs-1 fs-md-1"></i>
                           <span class="fs-4 fs-md-2">Classificador de Feedbacks</span>
@@ -149,7 +149,7 @@ onMounted(async () => {
 
                       <div class="col-12 mb-5 mb-md-0">
                         <RouterLink to="/orders-chat"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                                    class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
                                     style="min-height: 90px;">
                           <i class="bi bi-robot fs-1 fs-md-1"></i>
                           <span class="fs-4 fs-md-2">Assistente de informações</span>
