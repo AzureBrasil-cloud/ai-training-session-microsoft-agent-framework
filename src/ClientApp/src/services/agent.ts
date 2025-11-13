@@ -83,7 +83,7 @@ const agentService = {
     }
   },
   runMultiAgents: async (params: RunMultiAgentsRequest): Promise<MessageResult> => {
-  const response = await axios.post('api/agents/run-run-multi-agent', params);
+  const response = await axios.post('api/agents/run-multi-agent', params);
   return response.data;
 }
 }

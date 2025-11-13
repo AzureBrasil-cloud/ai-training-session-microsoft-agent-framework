@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import HelpButton from "@/components/common/HelpButton.vue";
-import MultiAgentChatWindow from "@/components/agent/MultiAgentChatWindow.vue";
+import AgentChatWindow from "@/components/agent/AgentChatWindow.vue";
 
 const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
 </script>
@@ -103,43 +103,15 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
     </ul>
   </HelpButton>
 
-  <MultiAgentChatWindow
-  :feature-id="5"
-  title="Workflow de Gestão de Peças"
-  welcome-message="👋 Olá! Sou o Orquestrador de peças. Coordeno diversos agentes especializados para ajudá-lo com estoque e preços. O que você precisa?"
-  default-orchestrator-name="Orquestrador de Peças"
-  default-orchestrator-instructions="Você é o Orquestrador de Peças, responsável por coordenar agentes especializados em preços e estoque de peças automotivas.
-    Quando o usuário fizer uma pergunta sobre **preço**, chame o **Agente de Preços**.
-    Quando o usuário fizer uma pergunta sobre **estoque**, chame o **Agente de Estoque**.
-
-    Nunca tente responder diretamente — sempre delegue ao agente correto.
-    Responda SEMPRE em português brasileiro."
-  :default-specialized-agents="[
-    {
-      name: 'Agente de Estoque',
-      instructions: `
-Você é um assistente especializado em controle de estoque automotivo. Use apenas as ferramentas disponíveis para responder sobre disponibilidade de peças
-`,
-      featureId: 4
-    },
-    {
-      name: 'Agente de Precos',
-      instructions: `
-Você é um assistente especializado em catálogo automotivo. Use apenas as ferramentas disponíveis para responder sobre preços
-`,
-      featureId: 3
-    },
-    {
-      name: 'Agente de Produtos',
-      instructions: `
-        Você é um assistente especializado em catálogo de peças automotivas. Use s ferramentas disponiveis para listar peças, buscar por marca ou modelo, e fornecer detalhes completos. Mantenha as respostas claras e amigáveis. Sempre responda com o codigo do produto. o nome, marca, modelo.
-`,
-      featureId: 9
-    },
-  ]"
->
-  <template #icon>
-    <i class="bi bi-diagram-3 px-3"></i>
-  </template>
-</MultiAgentChatWindow>
+  <AgentChatWindow
+    :feature-id="8"
+    title="Agente de Catálogo de Peças de Carros"
+    welcome-message="👋 Olá! Sou o Agente de Catálogo de Peças Automotivas. Posso listar todas as peças disponíveis, buscar por marca, modelo ou exibir o catálogo completo. O que você deseja consultar?"
+    default-agent-name="Agente de Catálogo de Peças"
+    default-instructions="Voce é um assistente virtual especializado em ajudar o usuario a verificar e aprovar descontos em produtos automotivos. Utilize as ferramentas disponiveis para verificar e aprovar o desconto."
+  >
+    <template #icon>
+      <i class="bi bi-tools px-3"></i>
+    </template>
+  </AgentChatWindow>
 </template>
