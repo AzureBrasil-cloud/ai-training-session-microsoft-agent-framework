@@ -36,8 +36,6 @@ public partial class AiAgentService
 
         return (result, resumedThread);
     }
-
-    private static Workflow? _workflow;
     
     public async Task<(AgentRunResponse, AgentThread Thread)> CreateWorkflowRunAsync(
         Credentials credentials,
@@ -46,7 +44,6 @@ public partial class AiAgentService
         string userMessage,
         string thread,
         IList<Microsoft.Agents.AI.AIAgent> aiAgents,
-        IList<AITool>? tools = null,
         Func<ChatClientAgentOptions.AIContextProviderFactoryContext, AIContextProvider>? aiContextProviderFactory = null)
     {
         var client = CreateAgentsClient(credentials);
@@ -55,33 +52,13 @@ public partial class AiAgentService
             client,
             instructions,
             name,
-            tools,
+            aiAgents.Select(AITool (x) => x.AsAIFunction()).ToList(),
             aiContextProviderFactory);
-
-        var checkpointManager = CheckpointManager.Default;
-        var workflowBuilder = new WorkflowBuilder(orchestratorAgent);
-
-        foreach (var aiAgent in aiAgents)
-        {
-            workflowBuilder.AddEdge(orchestratorAgent, aiAgent);
-        }
-
-        if(_workflow is null)
-        {
-            var workflow = workflowBuilder.Build();
-            _workflow = workflow;
-        }
-        var workflowAgent = _workflow.AsAgent("workflow-agent", "Workflow Agent", checkpointManager: checkpointManager);
-
-        var resumedThread = workflowAgent.GetNewThread();
         
-        if (string.CompareOrdinal(thread, "{}") != 0)
-        {
-            var reloaded = JsonSerializer.Deserialize<JsonElement>(thread, JsonSerializerOptions.Web);
-            resumedThread = workflowAgent.DeserializeThread(reloaded, JsonSerializerOptions.Web);
-        }
-        
-        var result = await workflowAgent.RunAsync(
+        var reloaded = JsonSerializer.Deserialize<JsonElement>(thread, JsonSerializerOptions.Web);
+        var resumedThread = orchestratorAgent.DeserializeThread(reloaded, JsonSerializerOptions.Web);
+
+        var result = await orchestratorAgent.RunAsync(
             userMessage,
             resumedThread);
 

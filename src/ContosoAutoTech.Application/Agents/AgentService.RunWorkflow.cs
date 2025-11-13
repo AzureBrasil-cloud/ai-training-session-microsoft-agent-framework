@@ -3,7 +3,6 @@ using System.Text.Json;
 using ContosoAutoTech.Application.Agents.Models.Requests;
 using ContosoAutoTech.Application.Agents.Models.Requests.Validators;
 using ContosoAutoTech.Application.Agents.Models.Results;
-using ContosoAutoTech.Common;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.Logging;
 using ModelContextProtocol.Client;
@@ -13,11 +12,11 @@ namespace ContosoAutoTech.Application.Agents;
 
 public partial class AgentService
 {
-    public async Task<Result<MessageResult>> RunAsync(CreateRunRequest request)
+    public async Task<Result<MessageResult>> RunMultiAgentsAsync(CreateMultiAgentsRunRequest request)
     {
         using Activity? activity = ActivitySource.StartActivity();
         
-        var validationResult = await new CreateRunRequestValidator().ValidateAsync(request);
+        var validationResult = await new CreateMultiAgentsRunRequestValidator().ValidateAsync(request);
 
         if (!validationResult.IsValid)
         {
@@ -40,30 +39,32 @@ public partial class AgentService
         }
 
         var credentials = GetCredentials();
-        
-        var (mcpTools, mcpClients) = await GetToolsWithMcpClient(request.Feature);
 
-        var tools = GetToolsByFeature(request.Feature).ToList();
-        tools.AddRange(mcpTools);
-    
+        var agents = new List<AIAgent>();
+        var mcps = new List<McpClient>();
+        
+        foreach (var agentRequest in request.Agents)
+        {
+            var (mcpTools, mcpClients) = await GetToolsWithMcpClient(agentRequest.Feature);
+
+            var tools = GetToolsByFeature(request.Feature).ToList();
+            tools.AddRange(mcpTools);
+            var agent = aiAgentService.CreateAIAgent(credentials, agentRequest.AgentInstructions,
+                agentRequest.AgentName, tools);
+            agents.Add(agent);
+            mcps.AddRange(mcpClients);
+        }
+        
         try
         {
-            // Save the first message sent by the user for context
-            // if the thread is new
-            if (string.CompareOrdinal(thread.State, "{}") == 0)
-            {
-                thread.FirstTruncatedMessage = request.Message.Truncate();
-            }
-
             // Create and execute the run
-            var (runResult, updatedThread) = await aiAgentService.CreateRunAsync(
+            var (runResult, updatedThread) = await aiAgentService.CreateWorkflowRunAsync(
                 credentials,
                 request.AgentName.Trim(),
                 request.AgentInstructions.Trim(),
                 request.Message.Trim(),
                 thread.State,
-                tools,
-                GetAiContextProviderByFeature(request.Feature));
+                agents);
     
             // Save the new thread updated
             var serializedJson = updatedThread.Serialize(JsonSerializerOptions.Web).GetRawText();
@@ -82,7 +83,7 @@ public partial class AgentService
         }
         finally
         {
-            foreach (var mcpClient in mcpClients)
+            foreach (var mcpClient in mcps)
             {
                 await mcpClient.DisposeAsync();
             }

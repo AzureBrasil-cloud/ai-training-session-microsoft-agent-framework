@@ -7,11 +7,11 @@ namespace ContosoAutoTech.Web.Controllers.Agents;
 
 public partial class AgentsController
 {
-    [HttpPost("/api/agents/run-workflow")]
+    [HttpPost("/api/agents/run-multi-agent")]
     public async Task<IActionResult> RunWorkflow(
-        [FromBody] CreateWorkflowRunRequest request,
+        [FromBody] CreateMultiAgentsRunRequest request,
         [FromServices] AgentService service)
     {
-        return (await service.RunWorkflowAsync(request)).ToApiResponse();
+        return (await service.RunMultiAgentsAsync(request)).ToApiResponse();
     }
 }

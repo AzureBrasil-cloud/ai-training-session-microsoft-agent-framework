@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import HelpButton from "@/components/common/HelpButton.vue";
-import WorkflowChatWindow from "@/components/agent/WorkflowChatWindow.vue";
+import MultiAgentChatWindow from "@/components/agent/MultiAgentChatWindow.vue";
 
 const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
 </script>
@@ -103,11 +103,11 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
     </ul>
   </HelpButton>
 
-  <WorkflowChatWindow
+  <MultiAgentChatWindow
   :feature-id="5"
   title="Workflow de Gestão de Peças"
   welcome-message="👋 Olá! Sou o Orquestrador de peças. Coordeno diversos agentes especializados para ajudá-lo com estoque e preços. O que você precisa?"
-  default-orchestrator-name="Orquestrador de Vendas"
+  default-orchestrator-name="Orquestrador de Peças"
   default-orchestrator-instructions="Você é o Orquestrador de Peças, responsável por coordenar agentes especializados em preços e estoque de peças automotivas.
 
 Quando o usuário fizer uma pergunta sobre **preço**, chame o **Agente de Preços**.
@@ -135,5 +135,5 @@ Você é um assistente especializado em catálogo automotivo. Use apenas as ferr
   <template #icon>
     <i class="bi bi-diagram-3 px-3"></i>
   </template>
-</WorkflowChatWindow>
+</MultiAgentChatWindow>
 </template>

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using ContosoAutoTech.Application.ContextProviders;
 using ContosoAutoTech.Application.Tools;
 using ContosoAutoTech.Data;
@@ -26,6 +27,8 @@ public partial class AgentService(
     IHttpClientFactory httpClientFactory,
     AiInferenceService aiInferenceService)
 {
+    private static readonly ActivitySource ActivitySource =  InstrumentationConfig.ActivitySource;
+
     private Credentials GetCredentials()
     {
         var foundryEndpoint = configuration["AiFoundry:Endpoint"]!;
