@@ -8,6 +8,8 @@ builder.AddLogging();
 
 var app = builder.Build();
 
+await app.UseDatabaseSeeding();
+
 app.ConfigureApplication();
 
 app.Run();

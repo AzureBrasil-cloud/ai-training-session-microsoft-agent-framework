@@ -120,6 +120,7 @@ onUnmounted(() => {
                     <th scope="col">Placa</th>
                     <th scope="col">Cor</th>
                     <th scope="col">Preço</th>
+                    <th scope="col">Preço Referência</th>
                     <th scope="col">Detalhes</th>
                     <th scope="col">Data de Cadastro</th>
                   </tr>
@@ -150,6 +151,12 @@ onUnmounted(() => {
                     <td>{{ car.color }}</td>
                     <td>
                       <strong class="text-success">{{ formatPrice(car.price) }}</strong>
+                    </td>
+                    <td>
+                      <span v-if="car.referencePrice" class="text-muted">
+                        {{ formatPrice(car.referencePrice) }}
+                      </span>
+                      <span v-else class="text-muted small">-</span>
                     </td>
                     <td>
                       <button
@@ -221,6 +228,19 @@ onUnmounted(() => {
             </div>
 
             <div class="row">
+              <!-- Agent Consideration -->
+              <div v-if="selectedCar.agentConsideration" class="col-12 mb-3">
+                <div class="card border-info">
+                  <div class="card-header bg-info text-white">
+                    <i class="bi bi-lightbulb-fill me-2"></i>
+                    Considerações do Agente
+                  </div>
+                  <div class="card-body">
+                    <p class="mb-0">{{ selectedCar.agentConsideration }}</p>
+                  </div>
+                </div>
+              </div>
+
               <div class="col-md-6">
                 <div class="card border-success mb-3">
                   <div class="card-header bg-success text-white">

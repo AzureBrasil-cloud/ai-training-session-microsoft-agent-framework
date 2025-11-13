@@ -1,3 +1,4 @@
+using ContosoAutoTech.Data.Initialization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

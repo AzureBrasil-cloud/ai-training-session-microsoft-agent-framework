@@ -171,9 +171,9 @@ Now, analyze the following car:";
                 licensePlate: licensePlate,
                 color: color,
                 price: price,
-                agentConsideration: agentConsiderations,
                 description: description,
                 referencePrice: referencePrice,
+                agentConsideration: agentConsiderations,
                 strengths: features.Strengths,
                 weaknesses: features.Weaknesses
             );
