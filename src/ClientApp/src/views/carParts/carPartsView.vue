@@ -22,12 +22,12 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
 
     <h2 class="mb-5 mt-8">
       <i class="bi bi-car-front px-2"></i>
-      Descritivo da Página do Agente de Catálogo de Peças de Carros
+      Descritivo da Página do Multi Agente de Peças de Carros
     </h2>
     <p>
       Esta página apresenta um
-      <strong>assistente virtual especializado em consulta de peças automotivas</strong>.
-      Ele permite ao usuário buscar informações de peças com base em marca, modelo e categoria,
+      <strong>assistente virtual especializado em consulta de peças automotivas, preço, estoque.</strong>.
+      Ele permite ao usuário buscar informações de peças automotivas de forma conversacional,
       utilizando ferramentas integradas ao servidor MCP (<em>Model Context Protocol</em>).
     </p>
 
@@ -40,20 +40,12 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
         Retorna todas as peças disponíveis com nome, marca, modelo, categoria e preço.
       </li>
       <li>
-        <strong>Buscar por Marca:</strong>
-        Lista todas as peças de uma marca específica (ex: Honda, Toyota, Chevrolet).
+        <strong>Buscar preço</strong>
+        Busca o preço de uma peça específica a partir do código do produto (ex: <code>CM002</code>, <code>BS003</code>).
       </li>
       <li>
-        <strong>Buscar por Modelo:</strong>
-        Lista peças associadas a um modelo específico (ex: Civic, Onix, HB20).
-      </li>
-      <li>
-        <strong>Listar Marcas Disponíveis:</strong>
-        Mostra todas as marcas atualmente registradas no catálogo.
-      </li>
-      <li>
-        <strong>Listar Modelos Disponíveis:</strong>
-        Exibe todos os modelos de veículos disponíveis.
+        <strong>Buscar estoque:</strong>
+        Busca a disponibilidade em estoque de uma peça específica a partir do código do produto (ex: <code>CM002</code>, <code>BS003</code>).
       </li>
       <li>
         <strong>Interface Conversacional:</strong>
@@ -66,8 +58,7 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
     </h5>
     <p>
       O agente permite ajustar suas instruções de comportamento e ferramentas por meio do botão
-      <strong>"Instruções"</strong>, possibilitando adaptar o contexto de consulta conforme o cenário
-      (por exemplo, filtrar apenas peças de determinadas categorias ou faixas de preço).
+      <strong>"Instruções"</strong>, possibilitando adaptar o contexto de consulta conforme o cenário.
     </p>
 
     <h5 class="mt-6 mb-3 bg-gray-100 p-2 rounded bck-h">
@@ -105,13 +96,13 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
 
   <MultiAgentChatWindow
   :feature-id="5"
-  title="Workflow de Gestão de Peças"
-  welcome-message="👋 Olá! Sou o Orquestrador de peças. Coordeno diversos agentes especializados para ajudá-lo com estoque e preços. O que você precisa?"
-  default-orchestrator-name="Orquestrador de Peças"
+  title="Multi Agente de Peças de Carros"
+  welcome-message="👋 Olá! Sou o Multi Agente de Peças de Carros. Coordeno diversos agentes especializados para ajudá-lo com estoque e preços. O que você precisa?"
+  default-orchestrator-name="Multi Agente de Peças de Carros"
   default-orchestrator-instructions="Você é o Orquestrador de Peças, responsável por coordenar agentes especializados em preços e estoque de peças automotivas.
     Quando o usuário fizer uma pergunta sobre **preço**, chame o **Agente de Preços**.
     Quando o usuário fizer uma pergunta sobre **estoque**, chame o **Agente de Estoque**.
-
+    Para perguntas gerais sobre peças, chame o **Agente de Produtos**.
     Nunca tente responder diretamente — sempre delegue ao agente correto.
     Responda SEMPRE em português brasileiro."
   :default-specialized-agents="[
@@ -132,7 +123,7 @@ Você é um assistente especializado em catálogo automotivo. Use apenas as ferr
     {
       name: 'Agente de Produtos',
       instructions: `
-        Você é um assistente especializado em catálogo de peças automotivas. Use s ferramentas disponiveis para listar peças, buscar por marca ou modelo, e fornecer detalhes completos. Mantenha as respostas claras e amigáveis. Sempre responda com o codigo do produto. o nome, marca, modelo.
+        Você é um assistente especializado em catálogo de peças automotivas. Use as ferramentas disponiveis para listar peças e fornecer detalhes completos. Mantenha as respostas claras e amigáveis. Sempre responda com o codigo do produto. o nome, marca, modelo.
 `,
       featureId: 9
     }

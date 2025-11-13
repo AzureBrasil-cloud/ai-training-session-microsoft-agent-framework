@@ -27,7 +27,7 @@ const videoUrl = `${window.location.origin}/videos/car-stock.mp4`;
     <p>
       Esta página apresenta um
       <strong>assistente virtual especializado no controle de estoque de peças automotivas</strong>.
-      Ele permite consultar, filtrar e atualizar o estoque de forma natural, por meio de
+      Ele permite consultar utilizando código do produto o estoque dele, por meio de
       integração direta com o servidor MCP (<em>Model Context Protocol</em>).
     </p>
 
@@ -36,36 +36,12 @@ const videoUrl = `${window.location.origin}/videos/car-stock.mp4`;
     </h5>
     <ul>
       <li>
-        <strong>Listar Todo o Estoque:</strong>
-        Mostra todas as peças disponíveis com quantidades, status e localização.
+        <strong>Filtrar por Código do produto:</strong>
+        Retorna apenas as peças correspondentes ao código informado (ex: CM002, BS003).
       </li>
       <li>
-        <strong>Filtrar por Marca:</strong>
-        Retorna apenas as peças de uma marca específica (ex: Honda, Toyota, Chevrolet).
-      </li>
-      <li>
-        <strong>Filtrar por Modelo:</strong>
-        Exibe o estoque relacionado a um modelo específico (ex: Civic, Onix, HB20).
-      </li>
-      <li>
-        <strong>Listar Itens com Estoque Baixo:</strong>
-        Mostra todas as peças que atingiram ou estão abaixo do estoque mínimo.
-      </li>
-      <li>
-        <strong>Listar Itens Esgotados:</strong>
-        Retorna peças que estão completamente fora de estoque.
-      </li>
-      <li>
-        <strong>Consultar Peça por ID:</strong>
-        Busca informações detalhadas de uma peça específica.
-      </li>
-      <li>
-        <strong>Atualizar Quantidade:</strong>
-        Permite ajustar a quantidade em estoque de uma peça diretamente.
-      </li>
-      <li>
-        <strong>Listar Marcas e Modelos Disponíveis:</strong>
-        Exibe as opções registradas no sistema.
+        <strong>Interface Conversacional:</strong>
+        Toda a interação ocorre via chat, de forma natural e contextualizada.
       </li>
     </ul>
 
@@ -114,9 +90,9 @@ const videoUrl = `${window.location.origin}/videos/car-stock.mp4`;
   <AgentChatWindow
     :feature-id="4"
     title="Agente de Estoque de Peças Automotivas"
-    welcome-message="👋 Olá! Sou o Agente de Estoque de Peças. Posso listar o estoque completo, buscar por marca ou modelo, verificar itens com estoque baixo, atualizar quantidades e muito mais. O que você gostaria de fazer?"
+    welcome-message="👋 Olá! Sou o Agente de Estoque de Peças. Posso te informar o estoque com base no código do produto. O que você gostaria de fazer?"
     default-agent-name="Agente de Estoque"
-    default-instructions="Você é um assistente especializado em controle de estoque automotivo. Use apenas as ferramentas MCP disponíveis (ListAllStock, ListStockByBrand, ListStockByModel, ListLowStock, ListOutOfStock, GetStockByPartId, UpdateStock, ListAvailableBrands, ListAvailableModels) para responder. Sempre apresente respostas claras, com títulos e formatação legível."
+    default-instructions="Você é um assistente especializado em controle de estoque automotivo. Use apenas as ferramentas MCP disponíveis para responder. Sempre apresente respostas claras, com títulos e formatação legível."
   >
     <template #icon>
       <i class="bi bi-box2-heart px-3"></i>

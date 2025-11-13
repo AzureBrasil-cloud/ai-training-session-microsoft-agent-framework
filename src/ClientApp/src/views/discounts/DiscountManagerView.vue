@@ -22,12 +22,12 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
 
     <h2 class="mb-5 mt-8">
       <i class="bi bi-car-front px-2"></i>
-      Descritivo da Página do Agente de Catálogo de Peças de Carros
+      Descritivo da Página Agente de Gerenciamento de Descontos
     </h2>
     <p>
       Esta página apresenta um
-      <strong>assistente virtual especializado em consulta de peças automotivas</strong>.
-      Ele permite ao usuário buscar informações de peças com base em marca, modelo e categoria,
+      <strong>assistente virtual especializado em lidar com pedidos de desconto por clientes.</strong>.
+      Ele permite ao usuário gerenciar e aprovar descontos em produtos automotivos de forma conversacional,
       utilizando ferramentas integradas ao servidor MCP (<em>Model Context Protocol</em>).
     </p>
 
@@ -36,24 +36,12 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
     </h5>
     <ul>
       <li>
-        <strong>Listar Catálogo Completo:</strong>
-        Retorna todas as peças disponíveis com nome, marca, modelo, categoria e preço.
+        <strong>Lista as aprovações pendentes.</strong>
+        Retorna todas as informacoes das aprovações pendentes.
       </li>
       <li>
-        <strong>Buscar por Marca:</strong>
-        Lista todas as peças de uma marca específica (ex: Honda, Toyota, Chevrolet).
-      </li>
-      <li>
-        <strong>Buscar por Modelo:</strong>
-        Lista peças associadas a um modelo específico (ex: Civic, Onix, HB20).
-      </li>
-      <li>
-        <strong>Listar Marcas Disponíveis:</strong>
-        Mostra todas as marcas atualmente registradas no catálogo.
-      </li>
-      <li>
-        <strong>Listar Modelos Disponíveis:</strong>
-        Exibe todos os modelos de veículos disponíveis.
+        <strong>Aprovar/Rejeitar descontos</strong>
+        A partir de um ID de solicitação, aprova ou rejeita o desconto solicitado.
       </li>
       <li>
         <strong>Interface Conversacional:</strong>
@@ -66,16 +54,15 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
     </h5>
     <p>
       O agente permite ajustar suas instruções de comportamento e ferramentas por meio do botão
-      <strong>"Instruções"</strong>, possibilitando adaptar o contexto de consulta conforme o cenário
-      (por exemplo, filtrar apenas peças de determinadas categorias ou faixas de preço).
+      <strong>"Instruções"</strong>, possibilitando adaptar o contexto de consulta conforme o cenário.
     </p>
 
     <h5 class="mt-6 mb-3 bg-gray-100 p-2 rounded bck-h">
       <i class="bi bi-bullseye px-2"></i> Objetivo
     </h5>
     <p>
-      O objetivo deste agente é <strong>simplificar a busca e o gerenciamento de informações de peças automotivas</strong>,
-      oferecendo uma experiência conversacional eficiente e intuitiva que elimina a necessidade de navegação manual em catálogos extensos.
+      O objetivo deste agente é <strong>simplificar o gerenciamento de pedidos de desconto.</strong>,
+      oferecendo uma experiência conversacional eficiente e intuitiva que elimina a necessidade de processos manuais demorados.
     </p>
 
     <h5 class="mt-6 mb-3 bg-gray-100 p-2 rounded bck-h">
@@ -106,8 +93,8 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
   <AgentChatWindow
     :feature-id="8"
     title="Agente de Catálogo de Peças de Carros"
-    welcome-message="👋 Olá! Sou o Agente de Catálogo de Peças Automotivas. Posso listar todas as peças disponíveis, buscar por marca, modelo ou exibir o catálogo completo. O que você deseja consultar?"
-    default-agent-name="Agente de Catálogo de Peças"
+    welcome-message="👋 Olá! Sou o Agente de Gerenciamento de Descontos. Posso listar as solicitações pendentes e aprovar/rejeitar a solicitacao."
+    default-agent-name="Agente de Catálogo de Peças de Carros"
     default-instructions="Voce é um assistente virtual especializado em ajudar o usuario a verificar e aprovar descontos em produtos automotivos. Utilize as ferramentas disponiveis para verificar e aprovar o desconto."
   >
     <template #icon>

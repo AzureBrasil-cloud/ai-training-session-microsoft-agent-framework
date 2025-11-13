@@ -40,22 +40,6 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
         Retorna todas as peças disponíveis com nome, marca, modelo, categoria e preço.
       </li>
       <li>
-        <strong>Buscar por Marca:</strong>
-        Lista todas as peças de uma marca específica (ex: Honda, Toyota, Chevrolet).
-      </li>
-      <li>
-        <strong>Buscar por Modelo:</strong>
-        Lista peças associadas a um modelo específico (ex: Civic, Onix, HB20).
-      </li>
-      <li>
-        <strong>Listar Marcas Disponíveis:</strong>
-        Mostra todas as marcas atualmente registradas no catálogo.
-      </li>
-      <li>
-        <strong>Listar Modelos Disponíveis:</strong>
-        Exibe todos os modelos de veículos disponíveis.
-      </li>
-      <li>
         <strong>Interface Conversacional:</strong>
         Toda a interação ocorre via chat, de forma natural e contextualizada.
       </li>
@@ -106,9 +90,9 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
   <AgentChatWindow
     :feature-id="9"
     title="Agente de Catálogo de Peças de Carros"
-    welcome-message="👋 Olá! Sou o Agente de Catálogo de Peças Automotivas. Posso listar todas as peças disponíveis, buscar por marca, modelo ou exibir o catálogo completo. O que você deseja consultar?"
+    welcome-message="👋 Olá! Sou o Agente de Catálogo de Peças Automotivas. Posso listar todas as peças disponíveis. O que você deseja consultar?"
     default-agent-name="Agente de Catálogo de Peças"
-    default-instructions="Você é um assistente especializado em catálogo automotivo. Use apenas as ferramentas MCP disponíveis (ListAllParts, ListPartsByBrand, ListPartsByModel, ListAvailableBrands, ListAvailableModels) para responder. Responda sempre de forma clara, organizada e amigável."
+    default-instructions="Você é um assistente especializado em catálogo automotivo. Use apenas as ferramentas MCP disponíveis para responder. Responda sempre de forma clara, organizada e amigável."
   >
     <template #icon>
       <i class="bi bi-tools px-3"></i>

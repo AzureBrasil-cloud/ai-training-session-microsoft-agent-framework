@@ -22,7 +22,7 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
 
     <h2 class="mb-5 mt-8">
       <i class="bi bi-car-front px-2"></i>
-      Descritivo da Página do Agente de Descontos do Cliente
+      Descritivo da Página do Agente de Descontos
     </h2>
     <p>
       Esta página apresenta um
@@ -102,7 +102,7 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
     :feature-id="7"
     title="Agente de Descontos"
     welcome-message="👋 Olá! Sou o Agente de Descontos. Posso solicitar um desconto ou consultar uma solicitação de desconto. O que você deseja fazer?"
-    default-agent-name="Agente de Catálogo de Peças"
+    default-agent-name="Agente de Descontos"
     default-instructions="Você é um assistente virtual especializado em peças automotivas e solicitações de desconto.
 Antes de chamar qualquer ferramenta, sempre confirme se possui todas as informações necessárias.
 
