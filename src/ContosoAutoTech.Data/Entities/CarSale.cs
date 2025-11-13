@@ -5,6 +5,7 @@ namespace ContosoAutoTech.Data.Entities;
 public class CarSale : IEntity
 {
     public Guid Id { get; set; }
+    public string ImageUrl { get; set; } = null!;
     public string Model { get; set; } = null!;
     public string LicensePlate { get; set; } = null!;
     public string Color { get; set; } = null!;
@@ -17,6 +18,7 @@ public class CarSale : IEntity
     private CarSale() { }
 
     public CarSale(
+        string imageUrl,
         string model,
         string licensePlate,
         string color,
@@ -26,6 +28,7 @@ public class CarSale : IEntity
         List<string> weaknesses)
     {
         Id = Guid.NewGuid();
+        ImageUrl = imageUrl;
         Model = model;
         LicensePlate = licensePlate;
         Color = color;

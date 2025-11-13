@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import carSalesService, { type CarSale } from '@/services/carSales'
 
 const carSales = ref<CarSale[]>([])
 const loading = ref(false)
 const error = ref('')
+const selectedImage = ref<{ url: string; model: string } | null>(null)
+const selectedCar = ref<CarSale | null>(null)
 
 const loadCarSales = async () => {
   loading.value = true
@@ -20,16 +22,47 @@ const loadCarSales = async () => {
   }
 }
 
-onMounted(() => {
-  loadCarSales()
-})
-
 const formatPrice = (price: number) => {
   return new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL'
   }).format(price)
 }
+
+const openImageModal = (imageUrl: string, model: string) => {
+  selectedImage.value = { url: imageUrl, model }
+}
+
+const closeImageModal = () => {
+  selectedImage.value = null
+}
+
+const openDetailsModal = (car: CarSale) => {
+  selectedCar.value = car
+}
+
+const closeDetailsModal = () => {
+  selectedCar.value = null
+}
+
+const handleEscape = (e: KeyboardEvent) => {
+  if (e.key === 'Escape') {
+    if (selectedImage.value) {
+      closeImageModal()
+    } else if (selectedCar.value) {
+      closeDetailsModal()
+    }
+  }
+}
+
+onMounted(() => {
+  loadCarSales()
+  window.addEventListener('keydown', handleEscape)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleEscape)
+})
 </script>
 
 <template>
@@ -39,7 +72,7 @@ const formatPrice = (price: number) => {
         <div class="d-flex justify-content-between align-items-center">
           <h2>
             <i class="bi bi-car-front-fill me-2"></i>
-            Vendas de Carros
+            Anúncios de carros
           </h2>
           <button
             class="btn btn-primary"
@@ -82,18 +115,33 @@ const formatPrice = (price: number) => {
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">Modelo</th>
+                    <th scope="col">Imagem</th>
+                    <th scope="col" class="col-modelo">Modelo</th>
                     <th scope="col">Placa</th>
                     <th scope="col">Cor</th>
                     <th scope="col">Preço</th>
-                    <th scope="col">Pontos Fortes</th>
-                    <th scope="col">Pontos Fracos</th>
+                    <th scope="col">Detalhes</th>
                     <th scope="col">Data de Cadastro</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="car in carSales" :key="car.id">
                     <td>
+                      <div class="image-cell">
+                        <img
+                          :src="car.imageUrl"
+                          :alt="car.model"
+                          class="car-image"
+                        />
+                        <button
+                          class="btn btn-sm btn-outline-primary mt-1 w-100"
+                          @click="openImageModal(car.imageUrl, car.model)"
+                        >
+                          Ver
+                        </button>
+                      </div>
+                    </td>
+                    <td class="col-modelo">
                       <strong>{{ car.model }}</strong>
                     </td>
                     <td>
@@ -104,20 +152,13 @@ const formatPrice = (price: number) => {
                       <strong class="text-success">{{ formatPrice(car.price) }}</strong>
                     </td>
                     <td>
-                      <ul class="mb-0 ps-3" v-if="car.strengths && car.strengths.length > 0">
-                        <li v-for="(strength, idx) in car.strengths" :key="idx" class="small text-success">
-                          {{ strength }}
-                        </li>
-                      </ul>
-                      <span v-else class="text-muted small">-</span>
-                    </td>
-                    <td>
-                      <ul class="mb-0 ps-3" v-if="car.weaknesses && car.weaknesses.length > 0">
-                        <li v-for="(weakness, idx) in car.weaknesses" :key="idx" class="small text-danger">
-                          {{ weakness }}
-                        </li>
-                      </ul>
-                      <span v-else class="text-muted small">-</span>
+                      <button
+                        class="btn btn-sm btn-outline-info"
+                        @click="openDetailsModal(car)"
+                      >
+                        <i class="bi bi-info-circle me-1"></i>
+                        Detalhes
+                      </button>
                     </td>
                     <td class="small text-muted">
                       {{ new Date(car.createdAt).toLocaleString('pt-BR') }}
@@ -129,58 +170,97 @@ const formatPrice = (price: number) => {
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Detailed Cards View (Optional) -->
-      <div class="col-12 mt-4">
-        <h4 class="mb-3">Detalhes</h4>
-        <div class="row">
-          <div v-for="car in carSales" :key="car.id" class="col-md-6 col-lg-4 mb-4">
-            <div class="card h-100 shadow-sm">
-              <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">{{ car.model }}</h5>
-              </div>
-              <div class="card-body">
-                <p class="mb-2">
-                  <strong>Placa:</strong>
-                  <span class="badge bg-secondary ms-2">{{ car.licensePlate }}</span>
-                </p>
-                <p class="mb-2"><strong>Cor:</strong> {{ car.color }}</p>
-                <p class="mb-3">
-                  <strong>Preço:</strong>
-                  <span class="text-success fs-5">{{ formatPrice(car.price) }}</span>
-                </p>
+    <!-- Image Modal -->
+    <div v-if="selectedImage" class="modal d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="bi bi-image me-2"></i>
+              {{ selectedImage.model }}
+            </h5>
+            <button type="button" class="btn-close" @click="closeImageModal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body text-center">
+            <img
+              :src="selectedImage.url"
+              :alt="selectedImage.model"
+              class="img-fluid"
+              style="max-height: 70vh;"
+            />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" @click="closeImageModal">
+              <i class="bi bi-x-circle me-2"></i>
+              Fechar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-                <p class="mb-2"><strong>Descrição:</strong></p>
-                <p class="text-muted small">{{ car.description }}</p>
-
-                <div v-if="car.strengths && car.strengths.length > 0" class="mt-3">
-                  <strong class="text-success">
-                    <i class="bi bi-check-circle-fill me-1"></i>
-                    Pontos Fortes:
-                  </strong>
-                  <ul class="mt-2">
-                    <li v-for="(strength, idx) in car.strengths" :key="idx" class="small text-success">
-                      {{ strength }}
-                    </li>
-                  </ul>
-                </div>
-
-                <div v-if="car.weaknesses && car.weaknesses.length > 0" class="mt-3">
-                  <strong class="text-danger">
-                    <i class="bi bi-x-circle-fill me-1"></i>
-                    Pontos Fracos:
-                  </strong>
-                  <ul class="mt-2">
-                    <li v-for="(weakness, idx) in car.weaknesses" :key="idx" class="small text-danger">
-                      {{ weakness }}
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="card-footer text-muted small">
-                Cadastrado em: {{ new Date(car.createdAt).toLocaleString('pt-BR') }}
+    <!-- Details Modal -->
+    <div v-if="selectedCar" class="modal d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="bi bi-info-circle me-2"></i>
+              Detalhes do Veículo
+            </h5>
+            <button type="button" class="btn-close" @click="closeDetailsModal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row mb-3">
+              <div class="col-12">
+                <h6 class="fw-bold">{{ selectedCar.model }}</h6>
+                <p class="text-muted mb-0">{{ selectedCar.description }}</p>
               </div>
             </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card border-success mb-3">
+                  <div class="card-header bg-success text-white">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    Pontos Fortes
+                  </div>
+                  <div class="card-body">
+                    <ul v-if="selectedCar.strengths && selectedCar.strengths.length > 0" class="mb-0">
+                      <li v-for="(strength, idx) in selectedCar.strengths" :key="idx" class="text-success">
+                        {{ strength }}
+                      </li>
+                    </ul>
+                    <p v-else class="text-muted mb-0">Nenhum ponto forte registrado.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="card border-warning mb-3">
+                  <div class="card-header bg-warning text-dark">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    Pontos Fracos
+                  </div>
+                  <div class="card-body">
+                    <ul v-if="selectedCar.weaknesses && selectedCar.weaknesses.length > 0" class="mb-0">
+                      <li v-for="(weakness, idx) in selectedCar.weaknesses" :key="idx" class="text-warning">
+                        {{ weakness }}
+                      </li>
+                    </ul>
+                    <p v-else class="text-muted mb-0">Nenhum ponto fraco registrado.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" @click="closeDetailsModal">
+              <i class="bi bi-x-circle me-2"></i>
+              Fechar
+            </button>
           </div>
         </div>
       </div>
@@ -194,12 +274,21 @@ const formatPrice = (price: number) => {
   overflow-y: auto;
 }
 
-.card {
-  transition: transform 0.2s;
+.image-cell {
+  width: 120px;
 }
 
-.card:hover {
-  transform: translateY(-2px);
+.car-image {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 4px;
+  display: block;
+}
+
+.col-modelo {
+  max-width: 200px;
+  word-wrap: break-word;
+  white-space: normal;
 }
 </style>
-

@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios'
 
 export interface CarSale {
   id: string
+  imageUrl: string
   model: string
   licensePlate: string
   color: string
