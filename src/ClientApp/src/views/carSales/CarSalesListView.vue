@@ -91,7 +91,7 @@ onUnmounted(() => {
       <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Carregando...</span>
       </div>
-      <p class="mt-3 text-muted">Carregando vendas de carros...</p>
+      <p class="mt-3 text-muted">Carregando carros...</p>
     </div>
 
     <!-- Error State -->

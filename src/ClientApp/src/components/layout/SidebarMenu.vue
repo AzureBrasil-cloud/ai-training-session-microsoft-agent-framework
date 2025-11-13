@@ -177,7 +177,7 @@ const logo = `${window.location.origin}/images/logo-acai.png`;
               <li class="nav-item">
                 <RouterLink to="/car-sales" class="dropdown-item">
                   <i class="bi bi-car-front-fill px-3"></i>
-                  <span>Vendas de Carros</span>
+                  <span>Anúncios de Carros</span>
                 </RouterLink>
               </li>
             </ul>
