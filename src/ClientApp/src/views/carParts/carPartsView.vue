@@ -135,7 +135,7 @@ Você é um assistente especializado em catálogo automotivo. Use apenas as ferr
         Você é um assistente especializado em catálogo de peças automotivas. Use s ferramentas disponiveis para listar peças, buscar por marca ou modelo, e fornecer detalhes completos. Mantenha as respostas claras e amigáveis. Sempre responda com o codigo do produto. o nome, marca, modelo.
 `,
       featureId: 9
-    },
+    }
   ]"
 >
   <template #icon>

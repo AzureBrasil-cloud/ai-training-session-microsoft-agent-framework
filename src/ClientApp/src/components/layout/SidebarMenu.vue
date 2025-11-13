@@ -95,6 +95,12 @@ const logo = `${window.location.origin}/images/logo-acai.png`;
                 </RouterLink>
               </li>
               <li class="nav-item">
+                <RouterLink to="/car-parts-product" class="dropdown-item">
+                  <i class="bi bi-robot px-3"></i>
+                  <span>Agente de Consulta de Produtos</span>
+                </RouterLink>
+              </li>
+              <li class="nav-item">
                 <RouterLink to="/car-parts-price" class="dropdown-item">
                   <i class="bi bi-robot px-3"></i>
                   <span>Agente de Consulta de Preços</span>
@@ -116,12 +122,6 @@ const logo = `${window.location.origin}/images/logo-acai.png`;
                 <RouterLink to="/discounts-client" class="dropdown-item">
                  <i class="bi bi-robot px-3"></i>
                   <span>Desconto Cliente</span>
-                </RouterLink>
-              </li>
-              <li class="nav-item">
-                <RouterLink to="/discounts-manager" class="dropdown-item">
-                 <i class="bi bi-robot px-3"></i>
-                  <span>Desconto Gerente</span>
                 </RouterLink>
               </li>
             </ul>
@@ -190,6 +190,12 @@ const logo = `${window.location.origin}/images/logo-acai.png`;
                 <RouterLink to="/car-sales" class="dropdown-item">
                   <i class="bi bi-car-front-fill px-3"></i>
                   <span>Anúncios de Carros</span>
+                </RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink to="/discounts-manager" class="dropdown-item">
+                 <i class="bi bi-robot px-3"></i>
+                  <span>Desconto Gerente</span>
                 </RouterLink>
               </li>
             </ul>

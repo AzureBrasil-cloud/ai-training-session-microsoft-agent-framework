@@ -59,19 +59,25 @@ const router = createRouter({
     {
       path: '/car-parts-price',
       name: 'car-parts-price',
-      component: () => import('../views/carParts/carPartPriceView.vue'),
+      component: () => import('../views/carParts/CarPartPriceView.vue'),
       meta: { requiresAuth: true }
     },
     {
       path: '/car-parts-stock',
       name: 'car-parts-stock',
-      component: () => import('../views/carParts/carPartStockView.vue'),
+      component: () => import('../views/carParts/CarPartStockView.vue'),
       meta: { requiresAuth: true }
     },
     {
       path: '/car-parts',
       name: 'car-parts',
-      component: () => import('../views/carParts/carPartsView.vue'),
+      component: () => import('../views/carParts/CarPartsView.vue'),
+      meta: { requiresAuth: true }
+    },
+     {
+      path: '/car-parts-product',
+      name: 'car-parts-product',
+      component: () => import('../views/carParts/CarPartProductView.vue'),
       meta: { requiresAuth: true }
     },
       {

@@ -22,39 +22,44 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
 
     <h2 class="mb-5 mt-8">
       <i class="bi bi-car-front px-2"></i>
-      Descritivo da Página do Agente de Descontos do Cliente
+      Descritivo da Página do Agente de Catálogo de Peças de Carros
     </h2>
     <p>
       Esta página apresenta um
-      <strong>assistente virtual especializado em solicitação de descontos.</strong>.
-      Ele permite ao usuario solicitar descontos em produtos e consultar o status de suas solicitações,
+      <strong>assistente virtual especializado em consulta de peças automotivas</strong>.
+      Ele permite ao usuário buscar informações de peças com base em marca, modelo e categoria,
       utilizando ferramentas integradas ao servidor MCP (<em>Model Context Protocol</em>).
     </p>
 
     <h5 class="mt-6 mb-3 bg-gray-100 p-2 rounded bck-h">
-  <i class="bi bi-list-task px-2"></i> Funcionalidades
-</h5>
-<ul>
-  <li>
-    <strong>Solicitar Desconto</strong>
-    Permite ao usuário solicitar um desconto em um produto, informando:
+      <i class="bi bi-list-task px-2"></i> Funcionalidades
+    </h5>
     <ul>
-      <li>Nome do produto</li>
-      <li>Preço original</li>
-      <li>Percentual de desconto desejado (0.0 a 1.0)</li>
-      <li>Código do cliente</li>
-      <li>Motivo do pedido de desconto</li>
+      <li>
+        <strong>Listar Catálogo Completo:</strong>
+        Retorna todas as peças disponíveis com nome, marca, modelo, categoria e preço.
+      </li>
+      <li>
+        <strong>Buscar por Marca:</strong>
+        Lista todas as peças de uma marca específica (ex: Honda, Toyota, Chevrolet).
+      </li>
+      <li>
+        <strong>Buscar por Modelo:</strong>
+        Lista peças associadas a um modelo específico (ex: Civic, Onix, HB20).
+      </li>
+      <li>
+        <strong>Listar Marcas Disponíveis:</strong>
+        Mostra todas as marcas atualmente registradas no catálogo.
+      </li>
+      <li>
+        <strong>Listar Modelos Disponíveis:</strong>
+        Exibe todos os modelos de veículos disponíveis.
+      </li>
+      <li>
+        <strong>Interface Conversacional:</strong>
+        Toda a interação ocorre via chat, de forma natural e contextualizada.
+      </li>
     </ul>
-  </li>
-  <li>
-    <strong>Consultar Status de Desconto</strong>
-    Informa o status atual de uma solicitação de desconto previamente feita utilizando o código.
-  </li>
-  <li>
-    <strong>Interface Conversacional:</strong>
-    Toda a interação ocorre via chat, de forma natural e contextualizada.
-  </li>
-</ul>
 
     <h5 class="mt-6 mb-3 bg-gray-100 p-2 rounded bck-h">
       <i class="bi bi-gear px-2"></i> Personalização
@@ -99,25 +104,11 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
   </HelpButton>
 
   <AgentChatWindow
-    :feature-id="7"
-    title="Agente de Descontos"
-    welcome-message="👋 Olá! Sou o Agente de Descontos. Posso solicitar um desconto ou consultar uma solicitação de desconto. O que você deseja fazer?"
+    :feature-id="9"
+    title="Agente de Catálogo de Peças de Carros"
+    welcome-message="👋 Olá! Sou o Agente de Catálogo de Peças Automotivas. Posso listar todas as peças disponíveis, buscar por marca, modelo ou exibir o catálogo completo. O que você deseja consultar?"
     default-agent-name="Agente de Catálogo de Peças"
-    default-instructions="Você é um assistente virtual especializado em peças automotivas e solicitações de desconto.
-Antes de chamar qualquer ferramenta, sempre confirme se possui todas as informações necessárias.
-
-Para solicitar um desconto (RequestDiscount), pergunte e valide as seguintes informações:
-1. Nome do produto
-2. Preço original
-3. Percentual de desconto solicitado (0.0 a 1.0) ou o preco final desejado e calcule o percentual
-4. Código do cliente
-5. Motivo da solicitação
-
-Se alguma dessas informações estiver faltando, pergunte ao usuário de forma clara e natural.
-Quando tiver tudo, chame a ferramenta RequestDiscount e retorne para o usuário a confirmação do pedido e o ID do pedido.
-
-Use GetDiscountStatus apenas quando o usuário pedir para verificar o andamento de uma solicitação anterior."
-
+    default-instructions="Você é um assistente especializado em catálogo automotivo. Use apenas as ferramentas MCP disponíveis (ListAllParts, ListPartsByBrand, ListPartsByModel, ListAvailableBrands, ListAvailableModels) para responder. Responda sempre de forma clara, organizada e amigável."
   >
     <template #icon>
       <i class="bi bi-tools px-3"></i>

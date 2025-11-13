@@ -1,12 +1,9 @@
 using System.Collections.Concurrent;
 using ModelContextProtocol.Server;
-
-namespace DiscountMcp;
-
-// Copyright (c) Microsoft. All rights reserved.
-
 using System.ComponentModel;
 using Microsoft.Agents.AI.Workflows;
+
+namespace DiscountMcp;
 [McpServerToolType]
 public class DiscountTools(ILogger<DiscountTools> logger)
 {
@@ -21,7 +18,7 @@ public class DiscountTools(ILogger<DiscountTools> logger)
         [Description("Product name")] string productName,
         [Description("Original price")] decimal originalPrice,
         [Description("Requested discount (0.0 to 1.0)")] decimal requestedDiscount,
-        [Description("Customer name")] string customerName,
+        [Description("Customer code")] string customerCode,
         [Description("Reason for discount request")] string reason)
     {
         logger.LogInformation("Discount request received for {ProductName}", productName);
@@ -33,7 +30,7 @@ public class DiscountTools(ILogger<DiscountTools> logger)
             ProductName = productName,
             OriginalPrice = originalPrice,
             RequestedDiscount = requestedDiscount,
-            CustomerName = customerName,
+            CustomerCode = customerCode,
             Reason = reason
         };
         
@@ -45,12 +42,6 @@ public class DiscountTools(ILogger<DiscountTools> logger)
 
         // Aguarda o resultado inicial
         var result = await session.WaitForResultAsync();
-
-        // Se foi aprovado automaticamente ou rejeitado na validação, remove a sessão
-        //if (!result.RequiresApproval)
-        //{
-        //    _sessions.TryRemove(sessionId, out _);
-       // }
 
         return new DiscountResponseDto
         {
@@ -89,7 +80,7 @@ public class DiscountTools(ILogger<DiscountTools> logger)
                 ProductName = session.Request.ProductName,
                 OriginalPrice = session.Request.OriginalPrice,
                 RequestedDiscount = session.Request.RequestedDiscount,
-                CustomerName = session.Request.CustomerName,
+                CustomerCode = session.Request.CustomerCode,
                 Reason = session.Request.Reason
             }
         };
@@ -105,14 +96,14 @@ public class DiscountTools(ILogger<DiscountTools> logger)
         logger.LogInformation("Fetching pending approvals");
 
         var pendingRequests = _sessions.Values
-            .Where(s => s.RequiresApproval && !s.IsCompleted)
+            .Where(s => s is { RequiresApproval: true, IsCompleted: false })
             .Select(s => new PendingApprovalDto
             {
                 SessionId = s.SessionId,
                 ProductName = s.Request.ProductName,
                 OriginalPrice = s.Request.OriginalPrice,
                 RequestedDiscount = s.Request.RequestedDiscount,
-                CustomerName = s.Request.CustomerName,
+                CustomerCode = s.Request.CustomerCode,
                 Reason = s.Request.Reason,
                 RequestedAt = s.CreatedAt,
                 DiscountAmount = s.Request.OriginalPrice * s.Request.RequestedDiscount,
@@ -156,10 +147,7 @@ public class DiscountTools(ILogger<DiscountTools> logger)
 
         // Aguarda o resultado final
         var result = await session.WaitForFinalResultAsync();
-
-        // Remove a sessão após conclusão
-        //_sessions.TryRemove(sessionId, out _);
-
+        
         return new DiscountResponseDto
         {
             SessionId = sessionId,
@@ -262,7 +250,7 @@ public record DiscountRequestDto
     public string ProductName { get; init; } = "";
     public decimal OriginalPrice { get; init; }
     public decimal RequestedDiscount { get; init; }
-    public string CustomerName { get; init; } = "";
+    public string CustomerCode { get; init; } = "";
     public string Reason { get; init; } = "";
 }
 
@@ -292,7 +280,7 @@ public record PendingApprovalDto
     public string ProductName { get; init; } = "";
     public decimal OriginalPrice { get; init; }
     public decimal RequestedDiscount { get; init; }
-    public string CustomerName { get; init; } = "";
+    public string CustomerCode { get; init; } = "";
     public string Reason { get; init; } = "";
     public DateTime RequestedAt { get; init; }
     public decimal DiscountAmount { get; init; }
