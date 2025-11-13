@@ -7,7 +7,9 @@ export interface CarSale {
   licensePlate: string
   color: string
   price: number
+  referencePrice?: number
   description: string
+  agentConsideration: string
   strengths: string[]
   weaknesses: string[]
   createdAt: string

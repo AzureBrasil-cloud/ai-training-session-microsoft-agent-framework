@@ -19,7 +19,9 @@ public partial class CarSalesService
             cs.LicensePlate,
             cs.Color,
             cs.Price,
+            cs.ReferencePrice,
             cs.Description,
+            cs.AgentConsideration,
             cs.CarFeatures.Strengths,
             cs.CarFeatures.Weaknesses,
             cs.CreatedAt
