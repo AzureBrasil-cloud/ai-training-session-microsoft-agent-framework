@@ -124,6 +124,7 @@ public class CarSalesTool
             }
 
             var carSale = new CarSale(
+                imageUrl: imageUrl,
                 model: model,
                 licensePlate: licensePlate,
                 color: color,

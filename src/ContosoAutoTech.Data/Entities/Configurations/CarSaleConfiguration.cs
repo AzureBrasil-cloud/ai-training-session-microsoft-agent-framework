@@ -29,6 +29,10 @@ public class CarSaleConfiguration : IEntityTypeConfiguration<CarSale>
         builder
             .Property(x => x.Description)
             .IsRequired();
+        
+        builder
+            .Property(x => x.ImageUrl)
+            .IsRequired();
 
         builder
             .OwnsOne(x => x.CarFeatures, features =>
