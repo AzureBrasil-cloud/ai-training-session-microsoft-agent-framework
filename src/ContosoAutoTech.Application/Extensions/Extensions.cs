@@ -1,6 +1,7 @@
 using ContosoAutoTech.Data.Extensions;
 using ContosoAutoTech.Application.Agents;
 using ContosoAutoTech.Application.AiInference;
+using ContosoAutoTech.Application.CarSales;
 using ContosoAutoTech.Infrastructure.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,7 @@ public static class Extensions
         // Services
         services.AddScoped<AgentService>();
         services.AddScoped<AiInferenceApplicationService>();
+        services.AddScoped<CarSalesService>();
         
         // Domain
         services.AddData(configuration);
