@@ -186,3 +186,39 @@ th {
   }
 }
 
+#bg-vidro {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Opcional: Melhorar inputs no efeito de vidro */
+#bg-vidro .form-control {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+#bg-vidro .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+#bg-vidro .form-control:focus {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.1);
+}
+
+#bg-vidro .form-label {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+#bg-vidro .text-body-secondary {
+  color: rgba(255, 255, 255, 0.7) !important;
+}

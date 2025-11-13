@@ -9,7 +9,7 @@ defineExpose({ showModal })
 <template>
   <div class="tooltip-container position-fixed bottom-0 end-0 m-3 z-3">
     <button
-      class="btn btn-sm btn-purple"
+      class="btn btn-neutral"
       @click="showModal = true"
       aria-label="Ajuda"
     >
