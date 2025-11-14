@@ -67,8 +67,8 @@ const logoLight = `${window.location.origin}/images/Logo_AutoTechLight.svg`;
           style="cursor: pointer">
           <img :src="theme === 'dark' ? logo : logoLight" alt="..." width="60" />
           <div class="d-grid flex-grow-1 ls-tight text-sm">
-            <span :class="[userIsAdmin ? 'text-white' : 'text-black', 'fw-semibold']">Contoso AutoTech</span>
-            <span class="text-truncate text-xs text-body-secondary mt-n1">Web app</span>
+            <span :class="[userIsAdmin ? 'text-muted' : 'text-muted', 'fw-semibold']">Contoso AutoTech</span>
+            <span class="text-truncate  text-xs text-body-secondary mt-n1">Web app</span>
           </div>
         </div>
       </div>

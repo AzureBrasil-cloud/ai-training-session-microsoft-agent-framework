@@ -198,7 +198,7 @@ onMounted(async () => {
 
 <template>
   <div class="d-flex flex-column p-3" style="height: 95vh;">
-    <h4 class="mb-3 item-purple s-h3">
+    <h4 class="mb-3 text-black s-h3">
       <slot name="icon"></slot>
       {{ title }}
     </h4>
