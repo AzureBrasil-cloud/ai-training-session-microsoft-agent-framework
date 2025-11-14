@@ -60,7 +60,8 @@ const videoUrl = `${window.location.origin}/videos/price-agent.mp4`;
 
     <h6 class="mt-4 mb-2"><i class="bi bi-diagram-3 px-2"></i> Arquitetura MCP:</h6>
     <div class="bg-light p-4 rounded">
-      <pre class="mb-0 text-dark" style="font-size: 0.9rem;"><code>┌─────────────────┐
+      <pre class="mb-0 text-dark" style="font-size: 0.9rem;"><code>
+┌─────────────────┐
 │   AI Agent      │ (Cliente MCP - este agente de preços)
 │  (Cliente MCP)  │
 └────────┬────────┘
