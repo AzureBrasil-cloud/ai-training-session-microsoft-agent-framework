@@ -40,18 +40,16 @@ onMounted(async () => {
 
               <div class="w-100 w-md-50 d-flex flex-column justify-content-center px-5">
                 <div v-if="userRole === 'user'">
-                  <div class="row g-3 ps-0 ps-sm-4">
-                    <div class="col-12 col-md-6 col-lg-4">
-                      <RouterLink to="/discounts-client" class="text-decoration-none">
-                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
-                          <div class="card-body text-center p-4">
-                            <div class="mb-3">
-                              <i class="bi bi-percent text-danger" style="font-size: 3rem;"></i>
-                            </div>
-                            <h5 class="card-title fw-semibold mb-0">Desconto</h5>
-                          </div>
-                        </div>
-                      </RouterLink>
+                  <div>
+                    <div class="row g-3 s-0 ps-sm-4">
+                      <div class="col-12">
+                         <RouterLink to="/discounts-client"
+                         class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                         style="min-height: 90px;">
+                 <i class="bi bi-robot fs-1 fs-md-1"></i>
+                  <span>Desconto</span>
+                </RouterLink>
+                      </div>
                     </div>
                   </div>
                 </div>
