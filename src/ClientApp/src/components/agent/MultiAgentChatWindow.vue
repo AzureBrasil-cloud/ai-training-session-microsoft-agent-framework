@@ -7,6 +7,7 @@ import agentService from '@/services/agent';
 import MarkdownIt from 'markdown-it';
 import ThreadsListModal from './ThreadsListModal.vue';
 import TokenUsageModal from './TokenUsageModal.vue';
+import MultiAgentSettingsModal from './MultiAgentSettingsModal.vue';
 
 const md = new MarkdownIt();
 
@@ -296,6 +297,15 @@ onMounted(async () => {
       </button>
     </div>
 
+<!-- Modais -->
+    <MultiAgentSettingsModal
+      v-if="showSettingsModal"
+      :orchestrator-name="orchestratorSettings.name"
+      :orchestrator-instructions="orchestratorSettings.instructions"
+      :specialized-agents="specializedAgents"
+      @close="showSettingsModal = false"
+      @save="saveSettings"
+    />
 
     <ThreadsListModal
       v-if="showThreadsModal"

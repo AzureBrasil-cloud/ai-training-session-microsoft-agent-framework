@@ -5,6 +5,7 @@ import { ref } from 'vue';
 interface SpecializedAgent {
   name: string;
   instructions: string;
+  featureId: number;
 }
 
 interface Props {
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+
 const emit = defineEmits<{
   close: [];
   save: [settings: {
@@ -27,22 +29,6 @@ const localOrchestratorName = ref(props.orchestratorName);
 const localOrchestratorInstructions = ref(props.orchestratorInstructions);
 const localAgents = ref<SpecializedAgent[]>(JSON.parse(JSON.stringify(props.specializedAgents)));
 
-// Adicionar novo agente
-function addAgent() {
-  localAgents.value.push({
-    name: `Agente ${localAgents.value.length + 1}`,
-    instructions: 'Instruções do agente...'
-  });
-}
-
-// Remover agente
-function removeAgent(index: number) {
-  if (localAgents.value.length > 1) {
-    localAgents.value.splice(index, 1);
-  } else {
-    alert('É necessário ter pelo menos um agente especializado.');
-  }
-}
 
 // Salvar configurações
 function save() {
@@ -117,57 +103,37 @@ function save() {
             </div>
           </div>
 
-          <!-- Agentes Especializados -->
-          <div>
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <h6 class="mb-0">
-                <i class="bi bi-robot"></i> Agentes Especializados
-              </h6>
-              <button
-                @click="addAgent"
-                class="btn btn-success btn-sm"
-              >
-                <i class="bi bi-plus-circle"></i> Adicionar Agente
-              </button>
-            </div>
+          <!-- Configuração dos Agentes Especializados -->
+<div class="mb-4 p-3 border rounded bg-light">
+  <h6 class="mb-3">
+    <i class="bi bi-robot"></i> Agentes Especializados
+  </h6>
 
-            <div
-              v-for="(agent, index) in localAgents"
-              :key="index"
-              class="mb-3 p-3 border rounded"
-            >
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <h6 class="mb-0">Agente {{ index + 1 }}</h6>
-                <button
-                  @click="removeAgent(index)"
-                  class="btn btn-danger btn-sm"
-                  :disabled="localAgents.length === 1"
-                >
-                  <i class="bi bi-trash"></i> Remover
-                </button>
-              </div>
+  <div
+    v-for="(agent, index) in localAgents"
+    :key="index"
+    class="border rounded bg-white p-3 mb-3"
+  >
+    <h6 class="fw-bold">Agente {{ index + 1 }} — {{ agent.name }}</h6>
 
-              <div class="mb-2">
-                <label class="form-label">Nome:</label>
-                <input
-                  v-model="agent.name"
-                  type="text"
-                  class="form-control"
-                  placeholder="Ex: Agente de Estoque"
-                />
-              </div>
+    <label class="form-label fw-bold mt-2">Nome:</label>
+    <input
+      v-model="agent.name"
+      type="text"
+      class="form-control"
+      placeholder="Nome do agente"
+    />
 
-              <div>
-                <label class="form-label">Instruções:</label>
-                <textarea
-                  v-model="agent.instructions"
-                  class="form-control"
-                  rows="4"
-                  placeholder="Descreva as responsabilidades e capacidades deste agente..."
-                ></textarea>
-              </div>
-            </div>
-          </div>
+    <label class="form-label fw-bold mt-3">Instruções:</label>
+    <textarea
+      v-model="agent.instructions"
+      rows="5"
+      class="form-control"
+      placeholder="Prompt / Instruções do agente"
+    ></textarea>
+  </div>
+</div>
+
         </div>
 
         <div class="modal-footer">
