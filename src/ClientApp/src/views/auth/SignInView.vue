@@ -55,6 +55,7 @@ const handleSubmit = async () => {
         return;
       }
 
+      darkTheme();
       sessionStorage.setItem("loggedUser", JSON.stringify({
         role: "user",
         email: email.value

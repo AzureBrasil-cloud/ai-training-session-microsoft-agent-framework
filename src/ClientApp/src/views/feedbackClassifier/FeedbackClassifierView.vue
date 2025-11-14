@@ -334,11 +334,11 @@ function saveSettings(settings: { name: string; instructions: string }) {
           <table class="table table-hover mb-0">
             <thead class="table-light">
               <tr>
-                <th scope="col" style="width: 5%;">#</th>
-                <th scope="col" style="width: 45%;">Feedback</th>
-                <th scope="col" style="width: 15%;">Ação</th>
-                <th scope="col" style="width: 25%;">Classificação</th>
-                <th scope="col" style="width: 10%;">Tokens</th>
+                <th scope="col" class="text-muted" style="width: 5%;">#</th>
+                <th scope="col" class="text-muted" style="width: 45%;">Feedback</th>
+                <th scope="col" class="text-muted" style="width: 15%;">Ação</th>
+                <th scope="col" class="text-muted" style="width: 25%;">Classificação</th>
+                <th scope="col" class="text-muted" style="width: 10%;">Tokens</th>
               </tr>
             </thead>
             <tbody>

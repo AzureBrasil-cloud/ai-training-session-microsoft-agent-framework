@@ -32,7 +32,7 @@ onMounted(async () => {
             <div class="col-12 d-flex flex-column flex-md-row h-100">
 
               <div class="w-100 w-md-50 d-flex flex-column justify-content-center align-items-start px-5 py-5 py-md-0 mb-4 mb-md-0 end-border">
-                <h1 class="home-text-light text-start fw-bold lh-1 display-6 display-md-3 display-lg-1">
+                <h1 class="text-muted text-start fw-bold lh-1 display-6 display-md-3 display-lg-1">
                   Seja muito <br> bem-vindo(a) ao <u>Contoso AutoTech</u>
                 </h1>
                 <div class="mt-4 w-100">
