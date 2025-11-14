@@ -61,7 +61,7 @@ const emit = defineEmits<{
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="emit('close')">Fechar</button>
+          <button type="button" class="btn btn-neutral" @click="emit('close')">Fechar</button>
         </div>
       </div>
     </div>
