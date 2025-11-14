@@ -319,11 +319,11 @@ function saveSettings(settings: { name: string; instructions: string }) {
         Classificador de Feedback de Atendimentos
       </h2>
       <button
-        class="btn btn-warning"
+        class="btn btn-warning btn-sm"
         @click="showSettingsModal = true"
         title="Configurar instruções do classificador"
       >
-        <i class="bi bi-gear"></i> Instruções
+        <i class="bi bi-gear me-1"></i> Instruções
       </button>
     </div>
 

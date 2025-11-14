@@ -267,11 +267,11 @@ onUnmounted(() => {
             Anúncios de carros
           </h2>
           <button
-            class="btn btn-primary"
+            class="btn btn-primary btn-sm"
             @click="loadCarSales"
             :disabled="loading"
           >
-            <i class="bi bi-arrow-clockwise me-2"></i>
+            <i class="bi bi-arrow-clockwise me-1"></i>
             Atualizar
           </button>
         </div>
