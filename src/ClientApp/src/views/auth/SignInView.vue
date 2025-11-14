@@ -4,6 +4,7 @@ import {validators} from '@/utils/validators';
 import {onMounted, ref} from 'vue';
 import {useRouter} from 'vue-router';
 import HelpButton from "@/components/common/HelpButton.vue";
+import AzureBrasilLogo from '@/components/common/AzureBrasilLogo.vue';
 
 const router = useRouter();
 
@@ -87,13 +88,8 @@ const clearErrors = () => {
   passwordError.value = "";
 };
 
-const openAzureBrasil = () => {
-  window.open('https://www.azurebrasil.cloud/', '_blank');
-};
-
 const videoUrl = `${window.location.origin}/videos/login.mp4`;
 const logo = `${window.location.origin}/images/Logo.svg`;
-const logoAzBr = `${window.location.origin}/images/byAzbr.png`;
 
 const canvasRef = ref<HTMLCanvasElement | null>(null);
 
@@ -384,9 +380,7 @@ onMounted(() => {
                 Entrar
               </button>
             </div>
-            <div class="d-flex justify-content-center align-items-center mt-4">
-              <img :src="logoAzBr" alt="Logo Azure Brasil" class="azure-logo-hover" style="max-height: 120px; cursor: pointer;" @click="openAzureBrasil">
-            </div>
+            <AzureBrasilLogo />
           </form>
         </div>
       </div>
@@ -409,16 +403,6 @@ onMounted(() => {
 
 .logo-animation {
   animation: 1s ease-out 0s 1 slideInFromLeft;
-}
-
-.azure-logo-hover {
-  transition: all 0.3s ease;
-  filter: brightness(1);
-}
-
-.azure-logo-hover:hover {
-  transform: scale(1.05);
-  filter: brightness(1.2);
 }
 </style>
 

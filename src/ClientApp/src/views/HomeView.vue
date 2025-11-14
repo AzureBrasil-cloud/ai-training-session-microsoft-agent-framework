@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
-import {useRouter} from "vue-router";
+import AzureBrasilLogo from '@/components/common/AzureBrasilLogo.vue';
 
 let userRole = ref("");
-const router = useRouter();
 
 onMounted(async () => {
   const loggedUser = sessionStorage.getItem("loggedUser");
@@ -36,146 +35,165 @@ onMounted(async () => {
                 <h1 class="home-text-light text-start fw-bold lh-1 display-6 display-md-3 display-lg-1">
                   Seja muito <br> bem-vindo(a) ao <u>Contoso AutoTech</u>
                 </h1>
+                <div class="mt-4 w-100">
+                  <AzureBrasilLogo align="start" />
+                </div>
               </div>
 
               <div class="w-100 w-md-50 d-flex flex-column justify-content-center px-5">
                 <div v-if="userRole === 'user'">
-                  <div>
-                    <div class="row g-3 s-0 ps-sm-4">
-                      <div class="col-12">
-                        <RouterLink to="/orders"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                          <i class="bi bi-chat-square-dots fs-1 fs-md-1"></i>
-                          <span class="fs-4 fs-md-2">Meus pedidos</span>
-                        </RouterLink>
-                      </div>
-
-                      <div class="col-12">
-                        <RouterLink to="/send-image-pre-order"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                          <i class="bi bi-images fs-1 fs-md-1"></i>
-                          <span class="fs-4 fs-md-2">
-                          Pré-pedido <span class="badge bg-white item-purple ms-2 fs-6 fs-md-5">Imagem</span>
-                        </span>
-                        </RouterLink>
-                      </div>
-
-                      <div class="col-12">
-                        <RouterLink to="/send-audio-pre-order"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                          <i class="bi bi-music-note-list fs-1 fs-md-1"></i>
-                          <span class="fs-4 fs-md-2">
-                          Pré-pedido <span class="badge bg-white item-purple ms-2 fs-6 fs-md-5">Áudio</span>
-                        </span>
-                        </RouterLink>
-                      </div>
-
-                      <div class="col-12">
-                        <RouterLink to="/send-review"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                          <i class="bi bi-card-checklist fs-1 fs-md-1"></i>
-                          <span class="fs-4 fs-md-2">Fazer avaliação</span>
-                        </RouterLink>
-                      </div>
-
-                      <div class="col-12 mb-5 mb-md-0">
-                        <RouterLink to="/info-chat"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                          <i class="bi bi-robot fs-1 fs-md-1"></i>
-                          <span class="fs-4 fs-md-2">Assistente de informações</span>
-                        </RouterLink>
-                      </div>
-                      <div class="col-12">
-                         <RouterLink to="/discounts-client"
-                         class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                         style="min-height: 90px;">
-                 <i class="bi bi-robot fs-1 fs-md-1"></i>
-                  <span>Agente de Desconto</span>
-                </RouterLink>
-                      </div>
+                  <div class="row g-3 ps-0 ps-sm-4">
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/discounts-client" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-percent text-danger" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-2">Desconto</h5>
+                            <p class="text-muted small mb-0">Solicite descontos especiais</p>
+                          </div>
+                        </div>
+                      </RouterLink>
                     </div>
                   </div>
                 </div>
 
                 <div v-else-if="userRole === 'admin'">
+                  <div class="row g-3 ps-0 ps-sm-4">
+                    <!-- Card: Cadastro de Carros -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/car-registration" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-car-front text-primary" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-2">Cadastro de Carros</h5>
+                            <p class="text-muted small mb-0">Agente com tools para cadastrar veículos</p>
+                          </div>
+                        </div>
+                      </RouterLink>
+                    </div>
 
-                  <div>
-                    <div class="row g-3 ps-0 ps-sm-4">
-                      <div class="col-12">
-                        <RouterLink to="/car-registration"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                          <i class="bi bi-car-front fs-1 fs-md-1"></i>
-                          <span class="fs-4 fs-md-2">Cadastro de Carros</span>
-                        </RouterLink>
-                      </div>
+                    <!-- Card: Políticas Clientes -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/customer-policies" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-shield-check text-success" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-2">Políticas Clientes</h5>
+                            <p class="text-muted small mb-0">Agente com RAG sobre políticas privadas</p>
+                          </div>
+                        </div>
+                      </RouterLink>
+                    </div>
 
-                      <div class="col-12">
-                        <RouterLink to="/customer-policies"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                          <i class="bi bi-shield-check fs-1 fs-md-1"></i>
-                          <span class="fs-4 fs-md-2">Políticas clientes</span>
-                        </RouterLink>
-                      </div>
+                    <!-- Card: Feedbacks -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/feedback-classifier" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-chat-square-text text-info" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-2">Feedbacks</h5>
+                            <p class="text-muted small mb-0">Classificador de sentimento com few-shot</p>
+                          </div>
+                        </div>
+                      </RouterLink>
+                    </div>
 
-                      <div class="col-12">
-                        <RouterLink to="/feedback-classifier"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                          <i class="bi bi-chat-square-text fs-1 fs-md-1"></i>
-                          <span class="fs-4 fs-md-2">Feedbacks</span>
-                        </RouterLink>
-                      </div>
+                    <!-- Card: Anúncios de Carros -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/car-sales" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-megaphone text-warning" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-2">Anúncios de Carros</h5>
+                            <p class="text-muted small mb-0">Agente que analisa anúncios de veículos</p>
+                          </div>
+                        </div>
+                      </RouterLink>
+                    </div>
 
-                      <div class="col-12 mb-5 mb-md-0">
-                        <RouterLink to="/car-sales"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                          <i class="bi bi-car-front-fill fs-1 fs-md-1"></i>
-                          <span class="fs-4 fs-md-2">Anúncios de Carros</span>
-                        </RouterLink>
-                      </div>
-                      <div class="col-12 mb-5 mb-md-0">
-                         <RouterLink to="/car-parts-product" class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                            <i class="bi bi-robot fs-1 fs-md-1"></i>
-                              <span class="fs-4 fs-md-2">Agente de Consulta de Produtos</span>
-                          </RouterLink>
-                      </div>
-                      <div class="col-12 mb-5 mb-md-0">
-                          <RouterLink to="/car-parts-price" class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                            <i class="bi bi-robot fs-1 fs-md-1"></i>
-                            <span class="fs-4 fs-md-2">Agente de Consulta de Preços</span>
-                          </RouterLink>
-                      </div>
-                      <div class="col-12 mb-5 mb-md-0">
-                          <RouterLink to="/car-parts-stock" class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                            <i class="bi bi-robot fs-1 fs-md-1"></i>
-                            <span class="fs-4 fs-md-2">Agente de Consulta de Estoque</span>
-                          </RouterLink>
-                      </div>
-                      <div class="col-12 mb-5 mb-md-0">
-                          <RouterLink to="/car-parts" class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                            <i class="bi bi-robot pfs-1 fs-1 fs-md-1"></i>
-                              <span class="fs-4 fs-md-2">Agente de Peças</span>
-                            </RouterLink>
-                      </div>
-                      <div class="col-12 mb-5 mb-md-0">
-                          <RouterLink to="/discounts-manager" class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                            <i class="bi bi-robot fs-1 fs-md-1"></i>
-                              <span class="fs-4 fs-md-2">Agente de Desconto</span>
-                            </RouterLink>
-                      </div>
+                    <!-- Card: Produtos -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/car-parts-product" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-box-seam text-danger" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-2">Produtos</h5>
+                            <p class="text-muted small mb-0">Consulta produtos via MCP</p>
+                          </div>
+                        </div>
+                      </RouterLink>
+                    </div>
+
+                    <!-- Card: Preços -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/car-parts-price" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-tags text-primary" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-2">Preços</h5>
+                            <p class="text-muted small mb-0">Consulta preços via MCP</p>
+                          </div>
+                        </div>
+                      </RouterLink>
+                    </div>
+
+                    <!-- Card: Estoque -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/car-parts-stock" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-boxes text-success" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-2">Estoque</h5>
+                            <p class="text-muted small mb-0">Consulta estoque via MCP</p>
+                          </div>
+                        </div>
+                      </RouterLink>
+                    </div>
+
+                    <!-- Card: Peças -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/car-parts" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-gear text-info" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-2">Peças</h5>
+                            <p class="text-muted small mb-0">Agente orquestrador multi-MCP</p>
+                          </div>
+                        </div>
+                      </RouterLink>
+                    </div>
+
+                    <!-- Card: Desconto -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/discounts-manager" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-percent text-danger" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-2">Desconto</h5>
+                            <p class="text-muted small mb-0">Agente de aprovação de descontos</p>
+                          </div>
+                        </div>
+                      </RouterLink>
                     </div>
                   </div>
                 </div>
@@ -190,11 +208,42 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.text-left {
-  text-align: left;
+.hover-shadow-lg {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 }
 
-.text-right {
-  text-align: right;
+.hover-shadow-lg:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+}
+
+.hover-shadow-lg:hover .card-body i {
+  transform: scale(1.1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-all {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card {
+  min-height: 180px;
+  border: 2px solid transparent;
+}
+
+.card:hover {
+  border-color: rgba(109, 40, 217, 0.2);
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-body i {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 </style>
