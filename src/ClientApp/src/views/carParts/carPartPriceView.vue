@@ -229,9 +229,6 @@ DIRETRIZES DE COMUNICAÇÃO:
 4. Se o produto não for encontrado, informe claramente e sugira verificação do código
 5. Inclua informações completas: código do produto e valor
 
-FERRAMENTAS DISPONÍVEIS:
-- GetPriceByProductCode: Para consultar preço exato por código de produto (parâmetro obrigatório: code)
-
 FORMATO DE RESPOSTA:
 - Para produto encontrado: Informar código e preço formatado
 - Para produto não encontrado: Sugerir verificação do código e oferecer ajuda adicional
