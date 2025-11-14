@@ -60,7 +60,7 @@ onMounted(async () => {
                     <div class="row g-3 ps-0 ps-sm-4">
                       <div class="col-12">
                         <RouterLink to="/car-registration"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                                    class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
                                     style="min-height: 90px;">
                           <i class="bi bi-car-front fs-1 fs-md-1"></i>
                           <span class="fs-4 fs-md-2">Cadastro de Carros</span>
@@ -69,7 +69,7 @@ onMounted(async () => {
 
                       <div class="col-12">
                         <RouterLink to="/customer-policies"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                                    class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
                                     style="min-height: 90px;">
                           <i class="bi bi-shield-check fs-1 fs-md-1"></i>
                           <span class="fs-4 fs-md-2">Políticas Clientes</span>
@@ -78,7 +78,7 @@ onMounted(async () => {
 
                       <div class="col-12">
                         <RouterLink to="/feedback-classifier"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                                    class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
                                     style="min-height: 90px;">
                           <i class="bi bi-chat-square-text fs-1 fs-md-1"></i>
                           <span class="fs-4 fs-md-2">Feedbacks</span>
@@ -87,42 +87,42 @@ onMounted(async () => {
 
                       <div class="col-12 mb-5 mb-md-0">
                         <RouterLink to="/car-sales"
-                                    class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                                    class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
                                     style="min-height: 90px;">
                           <i class="bi bi-megaphone fs-1 fs-md-1"></i>
                           <span class="fs-4 fs-md-2">Anúncios de Carros</span>
                         </RouterLink>
                       </div>
                       <div class="col-12 mb-5 mb-md-0">
-                         <RouterLink to="/car-parts-product" class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                         <RouterLink to="/car-parts-product" class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
                                     style="min-height: 90px;">
                             <i class="bi bi-box-seam fs-1 fs-md-1"></i>
                               <span class="fs-4 fs-md-2">Produtos</span>
                           </RouterLink>
                       </div>
                       <div class="col-12 mb-5 mb-md-0">
-                          <RouterLink to="/car-parts-price" class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                          <RouterLink to="/car-parts-price" class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
                                     style="min-height: 90px;">
                             <i class="bi bi-tags fs-1 fs-md-1"></i>
                             <span class="fs-4 fs-md-2">Preços</span>
                           </RouterLink>
                       </div>
                       <div class="col-12 mb-5 mb-md-0">
-                          <RouterLink to="/car-parts-stock" class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                          <RouterLink to="/car-parts-stock" class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
                                     style="min-height: 90px;">
                             <i class="bi bi-boxes fs-1 fs-md-1"></i>
                             <span class="fs-4 fs-md-2">Estoque</span>
                           </RouterLink>
                       </div>
                       <div class="col-12 mb-5 mb-md-0">
-                          <RouterLink to="/car-parts" class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                          <RouterLink to="/car-parts" class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
                                     style="min-height: 90px;">
                             <i class="bi bi-gear fs-1 fs-md-1"></i>
                               <span class="fs-4 fs-md-2">Peças</span>
                             </RouterLink>
                       </div>
                       <div class="col-12 mb-5 mb-md-0">
-                          <RouterLink to="/discounts-manager" class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
+                          <RouterLink to="/discounts-manager" class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
                                     style="min-height: 90px;">
                             <i class="bi bi-percent fs-1 fs-md-1"></i>
                               <span class="fs-4 fs-md-2">Desconto</span>
