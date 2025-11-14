@@ -29,10 +29,9 @@ const alignmentClass = computed(() => {
 const theme = ref('');
 
 const logoAzBr = `${window.location.origin}/images/byAzbr.png`
-const logoAzBrLight = `${window.location.origin}/images/byAzbrLight.png`
 
 const logoSrc = computed(() => {
-  return theme.value === 'dark' ? logoAzBr : logoAzBrLight
+  return theme.value === 'dark' ? logoAzBr : logoAzBr
 })
 
 let observer: MutationObserver | null = null;

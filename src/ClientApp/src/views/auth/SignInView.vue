@@ -4,7 +4,7 @@ import {validators} from '@/utils/validators';
 import {onMounted, ref} from 'vue';
 import {useRouter} from 'vue-router';
 import HelpButton from "@/components/common/HelpButton.vue";
-import AzureBrasilLogo from '@/components/common/AzureBrasilLogo.vue';
+import AzureBrasilSignIn from '@/components/common/AzureBrasilSignIn.vue';
 
 const router = useRouter();
 
@@ -381,7 +381,7 @@ onMounted(() => {
                 Entrar
               </button>
             </div>
-            <AzureBrasilLogo />
+            <AzureBrasilSignIn />
           </form>
         </div>
       </div>
