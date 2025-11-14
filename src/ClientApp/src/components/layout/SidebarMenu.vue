@@ -1,25 +1,50 @@
 <script setup lang="ts">
 import { auth } from '@/utils/auth';
 import UserMenu from './UserMenu.vue';
-import {onBeforeMount, ref} from 'vue';
+import {onBeforeMount, onMounted, ref} from 'vue';
 import { useRouter } from 'vue-router';
 
 const userIsAdmin = auth.userIsAdmin();
 
 let userRole = ref("");
 const router = useRouter();
+const theme = ref('');
 
 onBeforeMount(() => {
   const loggedUser = sessionStorage.getItem("loggedUser");
 
   userRole.value = loggedUser ? JSON.parse(loggedUser)?.role : "";
 });
+
+onMounted(() => {
+  const savedTheme = sessionStorage.getItem('theme');
+  if (savedTheme) {
+    theme.value = savedTheme;
+    document.documentElement.setAttribute('data-bs-theme', savedTheme);
+  }
+
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.attributeName === 'data-bs-theme') {
+        theme.value = document.documentElement.getAttribute('data-bs-theme')!;
+      }
+    });
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    childList: false,
+    subtree: false
+  });
+});
+
 const logo = `${window.location.origin}/images/Logo_AutoTech.svg`;
+const logoLight = `${window.location.origin}/images/Logo_AutoTechLight.svg`;
 </script>
 
 <template>
   <div class="d-flex justify-content-between align-items-center d-lg-none p-3" @click="router.push('/')">
-    <img :src="logo" alt="Logo" width="85" />
+    <img :src="theme === 'dark' ? logo : logoLight" alt="Logo" width="85" />
     <button
       class="btn btn-purple"
       type="button"
@@ -40,7 +65,7 @@ const logo = `${window.location.origin}/images/Logo_AutoTech.svg`;
           class="w-100 px-2 py-2 text-start border-0 bg-transparent shadow-none bg-accent-hover rounded d-flex gap-3 align-items-center"
           @click="router.push('/')"
           style="cursor: pointer">
-          <img :src="logo" alt="..." width="60" />
+          <img :src="theme === 'dark' ? logo : logoLight" alt="..." width="60" />
           <div class="d-grid flex-grow-1 ls-tight text-sm">
             <span :class="[userIsAdmin ? 'text-white' : 'text-black', 'fw-semibold']">Contoso AutoTech</span>
             <span class="text-truncate text-xs text-body-secondary mt-n1">Web app</span>

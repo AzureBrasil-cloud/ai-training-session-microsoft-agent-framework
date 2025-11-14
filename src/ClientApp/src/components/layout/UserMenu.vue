@@ -6,6 +6,7 @@ import {onBeforeMount, onMounted, ref} from 'vue';
 
 let userEmail = ref("");
 const router = useRouter();
+const theme = ref('dark'); // default theme
 
 onBeforeMount(() => {
   const loggedUser = sessionStorage.getItem("loggedUser");
@@ -15,19 +16,19 @@ onBeforeMount(() => {
 });
 
 onMounted(() => {
-  const savedTheme = sessionStorage.getItem('theme');
-  if (savedTheme) {
-    document.documentElement.setAttribute('data-bs-theme', savedTheme);
-  }
+  const savedTheme = sessionStorage.getItem('theme') || 'dark';
+  theme.value = savedTheme;
+  document.documentElement.setAttribute('data-bs-theme', savedTheme);
 });
 
-const lightTheme = () => {
-  document.documentElement.setAttribute('data-bs-theme', 'light');
-  sessionStorage.setItem('theme', 'light');
+const toggleTheme = () => {
+  const newTheme = theme.value === 'light' ? 'dark' : 'light';
+  theme.value = newTheme;
+  sessionStorage.setItem('theme', newTheme);
+  document.documentElement.setAttribute('data-bs-theme', newTheme);
 }
 
 const handleLogout = () => {
-  lightTheme();
   sessionStorage.removeItem("loggedUser");
   router.push({ name: 'signin' });
 };
@@ -58,8 +59,13 @@ const handleLogout = () => {
           <span class="d-block text-heading fw-semibold">{{ userEmail }}</span>
         </div>
         <div class="dropdown-divider"></div>
+        <a @click="toggleTheme" class="dropdown-item" style="cursor: pointer;">
+          <i :class="theme === 'dark' ? 'bi bi-sun mx-3' : 'bi bi-moon mx-3'"></i>
+          <span>{{ theme === 'dark' ? 'Light Mode' : 'Dark Mode' }}</span>
+        </a>
+        <div class="dropdown-divider"></div>
         <a @click="handleLogout" class="dropdown-item" style="cursor: pointer;">
-          <i class="bi bi-person me-3"></i>Sair
+          <i class="bi bi-person mx-3"></i>Sair
         </a>
       </div>
 
