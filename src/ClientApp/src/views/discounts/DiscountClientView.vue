@@ -79,20 +79,20 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
     <ul>
       <li>
         <a
-          href="https://learn.microsoft.com/en-us/azure/ai-services/agents/overview"
+          href="https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/overview"
           target="_blank"
           rel="noopener"
         >
-          Azure AI Agent Service – Visão Geral
+          Workflow - Visão Geral do Microsoft Agent Framework
         </a>
       </li>
       <li>
         <a
-          href="https://tallesvaliatti.com/criando-uma-aplica%C3%A7%C3%A3o-com-o-azure-ai-agent-service-parte-1-1d4fef7901a4"
+          href="https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/requests-and-responses?pivots=programming-language-csharp"
           target="_blank"
           rel="noopener"
         >
-          Azure AI Agent Service – Tutorial em Português
+          Workflow - Requests and Responses no Microsoft Agent Framework
         </a>
       </li>
     </ul>

@@ -75,20 +75,20 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
     <ul>
       <li>
         <a
-          href="https://learn.microsoft.com/en-us/azure/ai-services/agents/overview"
+          href="https://learn.microsoft.com/en-us/agent-framework/tutorials/agents/agent-as-function-tool?pivots=programming-language-csharp"
           target="_blank"
           rel="noopener"
         >
-          Azure AI Agent Service – Visão Geral
+         Microsoft Agent Framework - AI Agents as Tools
         </a>
       </li>
       <li>
         <a
-          href="https://tallesvaliatti.com/criando-uma-aplica%C3%A7%C3%A3o-com-o-azure-ai-agent-service-parte-1-1d4fef7901a4"
+          href="https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/orchestrations/handoff?pivots=programming-language-csharp#differences-between-handoff-and-agent-as-tools"
           target="_blank"
           rel="noopener"
         >
-          Azure AI Agent Service – Tutorial em Português
+          Microsoft Agent Framework - Handoff vs Agents as Tools
         </a>
       </li>
     </ul>
