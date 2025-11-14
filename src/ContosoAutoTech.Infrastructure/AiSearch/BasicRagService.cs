@@ -20,7 +20,7 @@ public class BasicRagService(ILogger<BasicRagService> logger)
             results.Add(new SearchResult
             {
                 SourceName = policy.SourceName,
-                SourceLink = policy.SourceLink,
+                SourceLink = policy.SourceName,
                 Text = policy.Text
             });
 
@@ -38,7 +38,6 @@ public class BasicRagService(ILogger<BasicRagService> logger)
             new PolicyDocument
             {
                 SourceName = "politica-devolucoes-reembolsos.pdf",
-                SourceLink = "https://contosoautotech.com/policies/returns",
                 Text = "Os clientes podem devolver qualquer item dentro de 30 dias após a entrega. " +
                        "Os itens devem estar sem uso e incluir a embalagem original. " +
                        "Os reembolsos são emitidos no método de pagamento original dentro de 5 dias úteis após a inspeção. " +
@@ -48,7 +47,6 @@ public class BasicRagService(ILogger<BasicRagService> logger)
             new PolicyDocument
             {
                 SourceName = "politica-garantia.pdf",
-                SourceLink = "https://contosoautotech.com/policies/warranty",
                 Text = "Todos os veículos vendidos pela Contoso AutoTech incluem garantia de fábrica. " +
                        "Veículos novos: 3 anos ou 100.000 km. Veículos seminovos: 1 ano ou 20.000 km. " +
                        "A garantia cobre defeitos de fabricação e problemas mecânicos não causados por uso inadequado. " +
@@ -58,7 +56,6 @@ public class BasicRagService(ILogger<BasicRagService> logger)
             new PolicyDocument
             {
                 SourceName = "politica-atendimento-cliente.pdf",
-                SourceLink = "https://contosoautotech.com/policies/customer-service",
                 Text = "A Contoso AutoTech oferece atendimento ao cliente 24/7 através de telefone, email e chat online. " +
                        "Todas as reclamações são analisadas em até 48 horas úteis. " +
                        "Clientes têm direito a acompanhar o status de suas solicitações através do portal online. " +
@@ -68,7 +65,6 @@ public class BasicRagService(ILogger<BasicRagService> logger)
             new PolicyDocument
             {
                 SourceName = "politica-trocas.pdf",
-                SourceLink = "https://contosoautotech.com/policies/exchange",
                 Text = "Peças e acessórios podem ser trocados dentro de 15 dias, mediante apresentação da nota fiscal. " +
                        "A troca está sujeita à disponibilidade em estoque. " +
                        "Produtos com defeito de fabricação podem ser trocados independente do prazo, mediante análise técnica. " +
@@ -78,7 +74,6 @@ public class BasicRagService(ILogger<BasicRagService> logger)
             new PolicyDocument
             {
                 SourceName = "politica-privacidade-lgpd.pdf",
-                SourceLink = "https://contosoautotech.com/policies/privacy",
                 Text = "A Contoso AutoTech está em conformidade com a LGPD (Lei Geral de Proteção de Dados). " +
                        "Dados pessoais são coletados apenas para fins de vendas e atendimento. " +
                        "Clientes podem solicitar acesso, correção ou exclusão de seus dados a qualquer momento. " +
@@ -88,7 +83,6 @@ public class BasicRagService(ILogger<BasicRagService> logger)
             new PolicyDocument
             {
                 SourceName = "politica-entrega.pdf",
-                SourceLink = "https://contosoautotech.com/policies/delivery",
                 Text = "Peças e acessórios: entrega em até 7 dias úteis para capitais e 15 dias para demais regiões. " +
                        "Veículos: entrega agendada em até 30 dias após aprovação do financiamento. " +
                        "Frete grátis para compras acima de R$ 500,00. " +
@@ -98,7 +92,6 @@ public class BasicRagService(ILogger<BasicRagService> logger)
             new PolicyDocument
             {
                 SourceName = "politica-financiamento.pdf",
-                SourceLink = "https://contosoautotech.com/policies/financing",
                 Text = "A Contoso AutoTech oferece opções de financiamento com taxas competitivas. " +
                        "Financiamento disponível em até 60 meses para veículos novos e 48 meses para seminovos. " +
                        "Entrada mínima de 20% do valor do veículo. " +
@@ -108,7 +101,6 @@ public class BasicRagService(ILogger<BasicRagService> logger)
             new PolicyDocument
             {
                 SourceName = "politica-manutencao-preventiva.pdf",
-                SourceLink = "https://contosoautotech.com/policies/maintenance",
                 Text = "Recomendamos manutenção preventiva a cada 10.000 km ou 6 meses, o que ocorrer primeiro. " +
                        "Manutenções incluem troca de óleo, filtros, verificação de freios e suspensão. " +
                        "Clientes com plano de manutenção têm desconto de 15% em peças e serviços. " +
