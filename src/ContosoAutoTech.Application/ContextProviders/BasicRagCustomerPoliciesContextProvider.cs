@@ -42,7 +42,7 @@ public class BasicRagCustomerPoliciesContextProvider(BasicRagService basicRagSer
             textSearchResults.Add(new TextSearchProvider.TextSearchResult
             {
                 SourceName = result.SourceName,
-                SourceLink = result.SourceLink,
+                SourceLink = "basic-rag",
                 Text = result.Text
             });
         }
