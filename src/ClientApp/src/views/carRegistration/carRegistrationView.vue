@@ -39,6 +39,20 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
       O agente permite personalizar suas instruções e comportamento através do botão "Instruções", possibilitando ajustar o contexto e a forma como ele interage com o usuário.
     </p>
 
+    <h5 class="mt-6 mb-3 bg-gray-100 p-2 rounded bck-h"><i class="bi bi-tools px-2"></i> Ferramentas (Tools) Disponíveis</h5>
+    <p>
+      Este agente utiliza <strong>Function Tools</strong> para executar operações no sistema. Durante a conversa, ele pode invocar automaticamente as seguintes ferramentas:
+    </p>
+    <ul>
+      <li><strong>CreateCar:</strong> Cria um novo registro de veículo no sistema com informações como nome, proprietário, ano, modelo, preço e placa.</li>
+      <li><strong>UpdateCar:</strong> Atualiza as informações de um veículo existente, permitindo modificar qualquer campo cadastrado.</li>
+      <li><strong>DeleteCar:</strong> Remove um veículo do sistema com base em critérios específicos.</li>
+      <li><strong>ListCars:</strong> Consulta e lista veículos cadastrados, permitindo filtros por diversos parâmetros (nome, ano, modelo, placa, etc.).</li>
+    </ul>
+    <p>
+      Essas ferramentas são chamadas automaticamente pelo agente quando necessário, tornando a interação transparente e natural para o usuário. Por exemplo, quando você solicita "cadastre um Toyota Corolla 2022", o agente identifica a intenção e chama a tool <code>CreateCar</code> com os parâmetros apropriados.
+    </p>
+
     <h5 class="mt-6 mb-3 bg-gray-100 p-2 rounded bck-h"><i class="bi bi-bullseye px-2"></i> Objetivo</h5>
     <p>
       O objetivo deste agente é <strong>simplificar o processo de cadastro e gerenciamento de veículos</strong>, oferecendo uma interface intuitiva e conversacional que elimina a necessidade de formulários complexos.

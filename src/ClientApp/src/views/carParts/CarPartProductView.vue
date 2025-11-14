@@ -65,23 +65,23 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
     <h5 class="mt-6 mb-3 bg-gray-100 p-2 rounded bck-h">
       <i class="bi bi-link-45deg px-2"></i> Links Úteis
     </h5>
-    <ul>
+     <ul>
       <li>
         <a
-          href="https://learn.microsoft.com/en-us/azure/ai-services/agents/overview"
+          href="https://learn.microsoft.com/en-us/agent-framework/overview/agent-framework-overview#ai-agents"
           target="_blank"
           rel="noopener"
         >
-          Azure AI Agent Service – Visão Geral
+         Microsoft Agent Framework - AI Agents – Visão Geral
         </a>
       </li>
       <li>
         <a
-          href="https://tallesvaliatti.com/criando-uma-aplica%C3%A7%C3%A3o-com-o-azure-ai-agent-service-parte-1-1d4fef7901a4"
+          href="https://medium.com/@carlosmachel_46688/entendendo-model-context-protocol-mcp-4026f3bcc3af"
           target="_blank"
           rel="noopener"
         >
-          Azure AI Agent Service – Tutorial em Português
+          Entendendo Model Context Protocol (MCP)
         </a>
       </li>
     </ul>
