@@ -69,8 +69,8 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
       <i class="bi bi-bullseye px-2"></i> Objetivo
     </h5>
     <p>
-      O objetivo deste agente é <strong>simplificar a busca e o gerenciamento de informações de peças automotivas</strong>,
-      oferecendo uma experiência conversacional eficiente e intuitiva que elimina a necessidade de navegação manual em catálogos extensos.
+      O objetivo deste agente é <strong>simplificar a solicitação de desconto.</strong>,
+      oferecendo uma experiência conversacional eficiente e intuitiva que elimina a necessidade de processos manuais demorados.
     </p>
 
     <h5 class="mt-6 mb-3 bg-gray-100 p-2 rounded bck-h">

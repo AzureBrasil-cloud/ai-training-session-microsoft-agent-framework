@@ -49,7 +49,7 @@ public partial class AgentService
 
             var tools = GetToolsByFeature(request.Feature).ToList();
             tools.AddRange(mcpTools);
-            var agent = aiAgentService.CreateAIAgent(credentials, agentRequest.AgentInstructions,
+            var agent = aiAgentService.CreateAiAgent(credentials, agentRequest.AgentInstructions,
                 agentRequest.AgentName, tools);
             agents.Add(agent);
             mcps.AddRange(mcpClients);
@@ -58,7 +58,7 @@ public partial class AgentService
         try
         {
             // Create and execute the run
-            var (runResult, updatedThread) = await aiAgentService.CreateWorkflowRunAsync(
+            var (runResult, updatedThread) = await aiAgentService.CreateRunMultiAgentsAsync(
                 credentials,
                 request.AgentName.Trim(),
                 request.AgentInstructions.Trim(),

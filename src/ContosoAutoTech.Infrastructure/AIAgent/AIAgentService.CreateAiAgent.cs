@@ -9,31 +9,21 @@ namespace ContosoAutoTech.Infrastructure.AIAgent;
 
 public partial class AiAgentService
 {
-    public async Task<(AgentRunResponse, AgentThread Thread)> CreateRunAsync(
+    public Microsoft.Agents.AI.AIAgent CreateAiAgent(
         Credentials credentials,
-        string name,
         string instructions,
-        string userMessage,
-        string thread,
+        string name,
         IList<AITool>? tools = null,
-        Func<ChatClientAgentOptions.AIContextProviderFactoryContext, AIContextProvider>? aiContextProviderFactory = null)
+        Func<ChatClientAgentOptions.AIContextProviderFactoryContext, AIContextProvider>? aiContextProviderFactory =
+            null)
     {
         var client = CreateAgentsClient(credentials);
-
         var agent = CreateAiAgent(
             client,
             instructions,
             name,
             tools,
             aiContextProviderFactory);
-
-        var reloaded = JsonSerializer.Deserialize<JsonElement>(thread, JsonSerializerOptions.Web);
-        var resumedThread = agent.DeserializeThread(reloaded, JsonSerializerOptions.Web);
-
-        var result = await agent.RunAsync(
-            userMessage,
-            resumedThread);
-
-        return (result, resumedThread);
+        return agent;
     }
 }
