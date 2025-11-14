@@ -199,7 +199,7 @@ onMounted(async () => {
     </div>
 
     <!-- Barra de Ações -->
-    <div class="d-flex gap-2">
+    <div class="d-flex flex-column flex-md-row gap-2">
       <input
         class="form-control"
         v-model="userInput"
