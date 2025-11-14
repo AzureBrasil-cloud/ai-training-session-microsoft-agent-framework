@@ -58,7 +58,7 @@ const handleLogout = () => {
           <span class="d-block text-heading fw-semibold">{{ userEmail }}</span>
         </div>
         <div class="dropdown-divider"></div>
-        <a @click="handleLogout" class="dropdown-item">
+        <a @click="handleLogout" class="dropdown-item" style="cursor: pointer;">
           <i class="bi bi-person me-3"></i>Sair
         </a>
       </div>

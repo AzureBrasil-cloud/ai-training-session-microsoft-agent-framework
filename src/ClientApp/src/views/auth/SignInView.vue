@@ -87,6 +87,10 @@ const clearErrors = () => {
   passwordError.value = "";
 };
 
+const openAzureBrasil = () => {
+  window.open('https://www.azurebrasil.cloud/', '_blank');
+};
+
 const videoUrl = `${window.location.origin}/videos/login.mp4`;
 const logo = `${window.location.origin}/images/Logo.svg`;
 const logoAzBr = `${window.location.origin}/images/byAzbr.png`;
@@ -381,7 +385,7 @@ onMounted(() => {
               </button>
             </div>
             <div class="d-flex justify-content-center align-items-center mt-4">
-              <img :src="logoAzBr" alt="Logo Azure Brasil" style="max-height: 90px;">
+              <img :src="logoAzBr" alt="Logo Azure Brasil" class="azure-logo-hover" style="max-height: 120px; cursor: pointer;" @click="openAzureBrasil">
             </div>
           </form>
         </div>
@@ -405,6 +409,16 @@ onMounted(() => {
 
 .logo-animation {
   animation: 1s ease-out 0s 1 slideInFromLeft;
+}
+
+.azure-logo-hover {
+  transition: all 0.3s ease;
+  filter: brightness(1);
+}
+
+.azure-logo-hover:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
 }
 </style>
 

@@ -40,11 +40,11 @@ public class CarSalesHostedService(
         
         if (!execute)
         {
-            logger.LogInformation("CarSales agent execution is disabled.");
+            logger.LogInformation("CarSalesWebApp agent execution is disabled.");
             return;
         }
 
-        logger.LogInformation("CarSales background service started.");
+        logger.LogInformation("CarSalesWebApp background service started.");
 
         try
         {
@@ -57,7 +57,7 @@ public class CarSalesHostedService(
 
             var result = await agentService.RunAsync(new CreateRunRequest(
                 Feature.CarSales,
-                "CarSales",
+                "CarSalesWebApp",
                 Instructions,
                 thread.Value.Id.ToString(),
                 "Run it"));
@@ -71,11 +71,11 @@ public class CarSalesHostedService(
                 logger.LogError("Car Sales Agent execution failed. Error: {Error}", result.Error);
             }
             
-            logger.LogInformation("CarSales agent execution completed.");
+            logger.LogInformation("CarSalesWebApp agent execution completed.");
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Fatal error during CarSales agent execution");
+            logger.LogError(ex, "Fatal error during CarSalesWebApp agent execution");
             throw;
         }
     }

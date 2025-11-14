@@ -22,27 +22,9 @@ const router = createRouter({
       meta: { requiresAuth: true }
     },
     {
-      path: '/orders',
-      name: 'orders',
-      component: () => import('../views/orders/OrdersView.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
       path: "/sign-in",
       name: "signin",
       component: SignInView
-    },
-    {
-      path: '/info-chat',
-      name: 'info-chat',
-      component: () => import('../views/infoChat/infoChatView.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/orders-chat',
-      name: 'orders-chat',
-      component: () => import('../views/ordersChat/ordersChatView.vue'),
-      meta: { requiresAuth: true }
     },
     {
       path: '/car-registration',
@@ -59,19 +41,25 @@ const router = createRouter({
     {
       path: '/car-parts-price',
       name: 'car-parts-price',
-      component: () => import('../views/carParts/carPartPriceView.vue'),
+      component: () => import('../views/carParts/CarPartPriceView.vue'),
       meta: { requiresAuth: true }
     },
     {
       path: '/car-parts-stock',
       name: 'car-parts-stock',
-      component: () => import('../views/carParts/carPartStockView.vue'),
+      component: () => import('../views/carParts/CarPartStockView.vue'),
       meta: { requiresAuth: true }
     },
     {
       path: '/car-parts',
       name: 'car-parts',
-      component: () => import('../views/carParts/carPartsView.vue'),
+      component: () => import('../views/carParts/CarPartsView.vue'),
+      meta: { requiresAuth: true }
+    },
+     {
+      path: '/car-parts-product',
+      name: 'car-parts-product',
+      component: () => import('../views/carParts/CarPartProductView.vue'),
       meta: { requiresAuth: true }
     },
       {
@@ -84,42 +72,6 @@ const router = createRouter({
       path: '/discounts-manager',
       name: 'discounts-manager',
       component: () => import('../views/discounts/DiscountManagerView.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/send-image-pre-order',
-      name: 'send-image-pre-order',
-      component: () => import('../views/orders/sendImagePreOrderView.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/image-pre-orders',
-      name: 'image-pre-orders',
-      component: () => import('../views/orders/imagePreOrderView.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/audio-pre-orders',
-      name: 'audio-pre-orders',
-      component: () => import('../views/orders/audioPreOrderView.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/send-audio-pre-order',
-      name: 'send-audio-pre-order',
-      component: () => import('../views/orders/sendAudioPreOrderView.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/reviews',
-      name: 'reviews',
-      component: () => import('../views/reviews/reviews.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/send-review',
-      name: 'send-review',
-      component: () => import('../views/reviews/sendReview.vue'),
       meta: { requiresAuth: true }
     },
     {

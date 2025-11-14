@@ -1,7 +1,6 @@
 using ContosoAutoTech.Infrastructure.AIAgent;
 using ContosoAutoTech.Infrastructure.AiInference;
 using ContosoAutoTech.Infrastructure.AiSearch;
-using ContosoAutoTech.Infrastructure.Email;
 using ContosoAutoTech.Infrastructure.Mcps;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

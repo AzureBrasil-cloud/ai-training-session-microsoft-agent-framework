@@ -62,66 +62,11 @@ const logo = `${window.location.origin}/images/Logo_AutoTech.svg`;
         USUÁRIO
       </span>
             </div>
-
             <ul class="navbar-nav navbar-vertical-nav d-flex flex-column mx-lg-n2">
-              <li class="nav-item">
-                <RouterLink to="/orders" class="dropdown-item">
-                  <i class="bi bi-chat-square-dots px-3"></i>
-                  <span>Meus pedidos</span>
-                </RouterLink>
-              </li>
-              <li class="nav-item">
-                <RouterLink to="/send-image-pre-order" class="dropdown-item">
-                  <i class="bi bi-images px-3"></i>
-                  <span>Pré-pedido <span class="btn btn-purple rounded-pill text-white p-0 px-2 mx-1" style="font-size:12px"> Imagem </span></span>
-                </RouterLink>
-              </li>
-              <li class="nav-item">
-                <RouterLink to="/send-audio-pre-order" class="dropdown-item">
-                  <i class="bi bi-music-note-list px-3"></i>
-                  <span>Pré-pedido <span class="btn btn-purple rounded-pill text-white p-0 px-2 mx-1" style="font-size:12px"> Áudio </span></span>
-                </RouterLink>
-              </li>
-              <li class="nav-item">
-                <RouterLink to="/send-review" class="dropdown-item">
-                  <i class="bi bi-card-checklist px-3"></i>
-                  <span>Fazer avaliação</span>
-                </RouterLink>
-              </li>
-              <li class="nav-item">
-                <RouterLink to="/info-chat" class="dropdown-item">
-                  <i class="bi bi-robot px-3"></i>
-                  <span>Assistente de informações</span>
-                </RouterLink>
-              </li>
-              <li class="nav-item">
-                <RouterLink to="/car-parts-price" class="dropdown-item">
-                  <i class="bi bi-robot px-3"></i>
-                  <span>Agente de Consulta de Preços</span>
-                </RouterLink>
-              </li>
-              <li class="nav-item">
-                <RouterLink to="/car-parts-stock" class="dropdown-item">
-                  <i class="bi bi-robot px-3"></i>
-                  <span>Agente de Consulta de Estoque</span>
-                </RouterLink>
-              </li>
-              <li class="nav-item">
-                <RouterLink to="/car-parts" class="dropdown-item">
-                 <i class="bi bi-robot px-3"></i>
-                  <span>Multi Agentes</span>
-                </RouterLink>
-              </li>
                <li class="nav-item">
                 <RouterLink to="/discounts-client" class="dropdown-item">
                  <i class="bi bi-robot px-3"></i>
-                  <span>Desconto Cliente</span>
-                </RouterLink>
-              </li>
-              <li class="nav-item">
-                <RouterLink to="/discounts-manager" class="dropdown-item">
-                 <i class="bi bi-robot px-3"></i>
-                  <span>Desconto Gerente</span>
+                  <span>Assistente de Desconto</span>
                 </RouterLink>
               </li>
             </ul>
@@ -136,38 +81,7 @@ const logo = `${window.location.origin}/images/Logo_AutoTech.svg`;
         ADMIN
       </span>
             </div>
-
             <ul class="navbar-nav navbar-vertical-nav d-flex flex-column mx-lg-n2">
-              <li class="nav-item">
-                <RouterLink to="/orders" class="dropdown-item">
-                  <i class="bi bi-chat-square-dots px-3"></i>
-                  <span>Todos os pedidos</span>
-                </RouterLink>
-              </li>
-              <li class="nav-item">
-                <RouterLink to="/image-pre-orders" class="dropdown-item">
-                  <i class="bi bi-images px-3"></i>
-                  <span>Pré-pedidos <span class="btn btn-neutral rounded-pill text-white p-0 px-2 mx-1" style="font-size:13px"> Imagem </span></span>
-                </RouterLink>
-              </li>
-              <li class="nav-item">
-                <RouterLink to="/audio-pre-orders" class="dropdown-item">
-                  <i class="bi bi-music-note-list px-3"></i>
-                  <span>Pré-pedidos <span class="btn btn-neutral rounded-pill text-white p-0 px-2 mx-1" style="font-size:13px"> Áudio </span></span>
-                </RouterLink>
-              </li>
-              <li class="nav-item">
-                <RouterLink to="/reviews" class="dropdown-item">
-                  <i class="bi bi-card-checklist px-3"></i>
-                  <span>Avaliações</span>
-                </RouterLink>
-              </li>
-              <li class="nav-item">
-                <RouterLink to="/orders-chat" class="dropdown-item">
-                  <i class="bi bi-robot px-3"></i>
-                  <span>Assistente de pedidos</span>
-                </RouterLink>
-              </li>
               <li class="nav-item">
                 <RouterLink to="/car-registration" class="dropdown-item">
                   <i class="bi bi-car-front px-3"></i>
@@ -190,6 +104,36 @@ const logo = `${window.location.origin}/images/Logo_AutoTech.svg`;
                 <RouterLink to="/car-sales" class="dropdown-item">
                   <i class="bi bi-car-front-fill px-3"></i>
                   <span>Anúncios de Carros</span>
+                </RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink to="/car-parts-product" class="dropdown-item">
+                  <i class="bi bi-robot px-3"></i>
+                  <span>Agente de Consulta de Produtos</span>
+                </RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink to="/car-parts-price" class="dropdown-item">
+                  <i class="bi bi-robot px-3"></i>
+                  <span>Agente de Consulta de Preços</span>
+                </RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink to="/car-parts-stock" class="dropdown-item">
+                  <i class="bi bi-robot px-3"></i>
+                  <span>Agente de Consulta de Estoque</span>
+                </RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink to="/car-parts" class="dropdown-item">
+                 <i class="bi bi-robot px-3"></i>
+                  <span>Multi Agentes</span>
+                </RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink to="/discounts-manager" class="dropdown-item">
+                 <i class="bi bi-robot px-3"></i>
+                  <span>Desconto Gerente</span>
                 </RouterLink>
               </li>
             </ul>
