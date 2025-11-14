@@ -14,16 +14,12 @@ onBeforeMount(() => {
 
   userRole.value = loggedUser ? JSON.parse(loggedUser)?.role : "";
 });
-
 const logo = `${window.location.origin}/images/Logo_AutoTech.svg`;
 </script>
 
 <template>
-
   <div class="d-flex justify-content-between align-items-center d-lg-none p-3" @click="router.push('/')">
-
     <img :src="logo" alt="Logo" width="85" />
-
     <button
       class="btn btn-purple"
       type="button"
@@ -39,13 +35,11 @@ const logo = `${window.location.origin}/images/Logo_AutoTech.svg`;
        id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel">
     <nav
       class="sidebar w-100 w-rem-lg-64 d-flex flex-column flex-shrink-0 position-relative z-2 h-100">
-
       <div class="dropdown-center px-4 py-2 mx-n2 position-relative">
         <div
           class="w-100 px-2 py-2 text-start border-0 bg-transparent shadow-none bg-accent-hover rounded d-flex gap-3 align-items-center"
           @click="router.push('/')"
-          style="cursor: pointer"
-        >
+          style="cursor: pointer">
           <img :src="logo" alt="..." width="60" />
           <div class="d-grid flex-grow-1 ls-tight text-sm">
             <span :class="[userIsAdmin ? 'text-white' : 'text-black', 'fw-semibold']">Contoso AutoTech</span>
@@ -53,7 +47,6 @@ const logo = `${window.location.origin}/images/Logo_AutoTech.svg`;
           </div>
         </div>
       </div>
-
       <div class="px-4 py-2 flex-fill overflow-y-auto scrollbar">
         <div v-if="userRole === 'user'" class="vstack gap-5">
           <div>
@@ -72,8 +65,6 @@ const logo = `${window.location.origin}/images/Logo_AutoTech.svg`;
             </ul>
           </div>
         </div>
-
-
         <div v-else-if="userRole === 'admin'" class="vstack gap-5">
           <div>
             <div class="d-flex align-items-center px-3 px-lg-0 mb-3">
@@ -91,7 +82,7 @@ const logo = `${window.location.origin}/images/Logo_AutoTech.svg`;
               <li class="nav-item">
                 <RouterLink to="/customer-policies" class="dropdown-item">
                   <i class="bi bi-shield-check px-3"></i>
-                  <span>Políticas clientes</span>
+                  <span>Políticas Clientes</span>
                 </RouterLink>
               </li>
               <li class="nav-item">
@@ -102,50 +93,46 @@ const logo = `${window.location.origin}/images/Logo_AutoTech.svg`;
               </li>
               <li class="nav-item">
                 <RouterLink to="/car-sales" class="dropdown-item">
-                  <i class="bi bi-car-front-fill px-3"></i>
+                  <i class="bi bi-megaphone px-3"></i>
                   <span>Anúncios de Carros</span>
                 </RouterLink>
               </li>
               <li class="nav-item">
                 <RouterLink to="/car-parts-product" class="dropdown-item">
-                  <i class="bi bi-robot px-3"></i>
-                  <span>Agente de Consulta de Produtos</span>
+                  <i class="bi bi-box-seam px-3"></i>
+                  <span>Produtos</span>
                 </RouterLink>
               </li>
               <li class="nav-item">
                 <RouterLink to="/car-parts-price" class="dropdown-item">
-                  <i class="bi bi-robot px-3"></i>
-                  <span>Agente de Consulta de Preços</span>
+                  <i class="bi bi-tags px-3"></i>
+                  <span>Preços</span>
                 </RouterLink>
               </li>
               <li class="nav-item">
                 <RouterLink to="/car-parts-stock" class="dropdown-item">
-                  <i class="bi bi-robot px-3"></i>
-                  <span>Agente de Consulta de Estoque</span>
+                  <i class="bi bi-boxes px-3"></i>
+                  <span>Estoque</span>
                 </RouterLink>
               </li>
               <li class="nav-item">
                 <RouterLink to="/car-parts" class="dropdown-item">
-                 <i class="bi bi-robot px-3"></i>
-                  <span>Multi Agentes</span>
+                 <i class="bi bi-gear px-3"></i>
+                  <span>Peças</span>
                 </RouterLink>
               </li>
               <li class="nav-item">
                 <RouterLink to="/discounts-manager" class="dropdown-item">
-                 <i class="bi bi-robot px-3"></i>
-                  <span>Desconto Gerente</span>
+                 <i class="bi bi-percent px-3"></i>
+                  <span>Desconto</span>
                 </RouterLink>
               </li>
             </ul>
           </div>
         </div>
-
-
       </div>
-
       <UserMenu/>
     </nav>
   </div>
 </template>
-
 <style scoped></style>
