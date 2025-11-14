@@ -288,7 +288,7 @@ onMounted(async () => {
         <i class="bi bi-list-ul"></i> Threads
       </button>
       <button
-        class="btn btn-purple"
+        class="btn btn-neutral"
         @click="sendMessage"
         :disabled="isLoading || isWaitingResponse"
       >
