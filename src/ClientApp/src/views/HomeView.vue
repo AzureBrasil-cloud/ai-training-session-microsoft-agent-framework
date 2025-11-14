@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
-import {useRouter} from "vue-router";
 import AzureBrasilLogo from '@/components/common/AzureBrasilLogo.vue';
 
 let userRole = ref("");
-const router = useRouter();
 
 onMounted(async () => {
   const loggedUser = sessionStorage.getItem("loggedUser");
@@ -37,6 +35,9 @@ onMounted(async () => {
                 <h1 class="home-text-light text-start fw-bold lh-1 display-6 display-md-3 display-lg-1">
                   Seja muito <br> bem-vindo(a) ao <u>Contoso AutoTech</u>
                 </h1>
+                <div class="mt-4 w-100">
+                  <AzureBrasilLogo align="start" />
+                </div>
               </div>
 
               <div class="w-100 w-md-50 d-flex flex-column justify-content-center px-5">
@@ -50,6 +51,7 @@ onMounted(async () => {
                               <i class="bi bi-percent text-danger" style="font-size: 3rem;"></i>
                             </div>
                             <h5 class="card-title fw-semibold mb-2">Desconto</h5>
+                            <p class="text-muted small mb-0">Solicite descontos especiais</p>
                           </div>
                         </div>
                       </RouterLink>
@@ -67,7 +69,8 @@ onMounted(async () => {
                             <div class="mb-3">
                               <i class="bi bi-car-front text-primary" style="font-size: 3rem;"></i>
                             </div>
-                            <h5 class="card-title fw-semibold mb-0">Cadastro de Carros</h5>
+                            <h5 class="card-title fw-semibold mb-2">Cadastro de Carros</h5>
+                            <p class="text-muted small mb-0">Agente com tools para cadastrar veículos</p>
                           </div>
                         </div>
                       </RouterLink>
@@ -81,7 +84,8 @@ onMounted(async () => {
                             <div class="mb-3">
                               <i class="bi bi-shield-check text-success" style="font-size: 3rem;"></i>
                             </div>
-                            <h5 class="card-title fw-semibold mb-0">Políticas Clientes</h5>
+                            <h5 class="card-title fw-semibold mb-2">Políticas Clientes</h5>
+                            <p class="text-muted small mb-0">Agente com RAG sobre políticas privadas</p>
                           </div>
                         </div>
                       </RouterLink>
@@ -95,7 +99,8 @@ onMounted(async () => {
                             <div class="mb-3">
                               <i class="bi bi-chat-square-text text-info" style="font-size: 3rem;"></i>
                             </div>
-                            <h5 class="card-title fw-semibold mb-0">Feedbacks</h5>
+                            <h5 class="card-title fw-semibold mb-2">Feedbacks</h5>
+                            <p class="text-muted small mb-0">Classificador de sentimento com few-shot</p>
                           </div>
                         </div>
                       </RouterLink>
@@ -109,7 +114,8 @@ onMounted(async () => {
                             <div class="mb-3">
                               <i class="bi bi-megaphone text-warning" style="font-size: 3rem;"></i>
                             </div>
-                            <h5 class="card-title fw-semibold mb-0">Anúncios de Carros</h5>
+                            <h5 class="card-title fw-semibold mb-2">Anúncios de Carros</h5>
+                            <p class="text-muted small mb-0">Agente que analisa anúncios de veículos</p>
                           </div>
                         </div>
                       </RouterLink>
@@ -123,7 +129,8 @@ onMounted(async () => {
                             <div class="mb-3">
                               <i class="bi bi-box-seam text-danger" style="font-size: 3rem;"></i>
                             </div>
-                            <h5 class="card-title fw-semibold mb-0">Produtos</h5>
+                            <h5 class="card-title fw-semibold mb-2">Produtos</h5>
+                            <p class="text-muted small mb-0">Consulta produtos via MCP</p>
                           </div>
                         </div>
                       </RouterLink>
@@ -137,7 +144,8 @@ onMounted(async () => {
                             <div class="mb-3">
                               <i class="bi bi-tags text-primary" style="font-size: 3rem;"></i>
                             </div>
-                            <h5 class="card-title fw-semibold mb-0">Preços</h5>
+                            <h5 class="card-title fw-semibold mb-2">Preços</h5>
+                            <p class="text-muted small mb-0">Consulta preços via MCP</p>
                           </div>
                         </div>
                       </RouterLink>
@@ -151,7 +159,8 @@ onMounted(async () => {
                             <div class="mb-3">
                               <i class="bi bi-boxes text-success" style="font-size: 3rem;"></i>
                             </div>
-                            <h5 class="card-title fw-semibold mb-0">Estoque</h5>
+                            <h5 class="card-title fw-semibold mb-2">Estoque</h5>
+                            <p class="text-muted small mb-0">Consulta estoque via MCP</p>
                           </div>
                         </div>
                       </RouterLink>
@@ -165,7 +174,8 @@ onMounted(async () => {
                             <div class="mb-3">
                               <i class="bi bi-gear text-info" style="font-size: 3rem;"></i>
                             </div>
-                            <h5 class="card-title fw-semibold mb-0">Peças</h5>
+                            <h5 class="card-title fw-semibold mb-2">Peças</h5>
+                            <p class="text-muted small mb-0">Agente orquestrador multi-MCP</p>
                           </div>
                         </div>
                       </RouterLink>
@@ -179,7 +189,8 @@ onMounted(async () => {
                             <div class="mb-3">
                               <i class="bi bi-percent text-danger" style="font-size: 3rem;"></i>
                             </div>
-                            <h5 class="card-title fw-semibold mb-0">Desconto</h5>
+                            <h5 class="card-title fw-semibold mb-2">Desconto</h5>
+                            <p class="text-muted small mb-0">Agente de aprovação de descontos</p>
                           </div>
                         </div>
                       </RouterLink>
@@ -197,30 +208,32 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.text-left {
-  text-align: left;
-}
-
-.text-right {
-  text-align: right;
-}
-
 .hover-shadow-lg {
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
 }
 
 .hover-shadow-lg:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+}
+
+.hover-shadow-lg:hover .card-body i {
+  transform: scale(1.1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .transition-all {
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card {
-  min-height: 150px;
+  min-height: 180px;
+  border: 2px solid transparent;
+}
+
+.card:hover {
+  border-color: rgba(109, 40, 217, 0.2);
 }
 
 .card-body {
@@ -228,5 +241,9 @@ onMounted(async () => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.card-body i {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 </style>

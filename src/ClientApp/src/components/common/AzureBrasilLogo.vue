@@ -1,10 +1,31 @@
 <template>
-  <div class="d-flex justify-content-center align-items-center mt-4">
+  <div class="d-flex align-items-center mt-4" :class="alignmentClass">
     <img :src="logoAzBr" alt="Logo Azure Brasil" class="azure-logo-hover" style="max-height: 120px; cursor: pointer;" @click="openAzureBrasil">
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+
+interface Props {
+  align?: 'start' | 'center' | 'end'
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  align: 'center'
+})
+
+const alignmentClass = computed(() => {
+  switch (props.align) {
+    case 'start':
+      return 'justify-content-start'
+    case 'end':
+      return 'justify-content-end'
+    default:
+      return 'justify-content-center'
+  }
+})
+
 const logoAzBr = `${window.location.origin}/images/byAzbr.png`
 
 const openAzureBrasil = () => {
