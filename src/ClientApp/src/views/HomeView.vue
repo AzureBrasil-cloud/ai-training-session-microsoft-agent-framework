@@ -40,94 +40,148 @@ onMounted(async () => {
 
               <div class="w-100 w-md-50 d-flex flex-column justify-content-center px-5">
                 <div v-if="userRole === 'user'">
-                  <div>
-                    <div class="row g-3 s-0 ps-sm-4">
-                      <div class="col-12">
-                         <RouterLink to="/discounts-client"
-                         class="btn btn-purple w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                         style="min-height: 90px;">
-                 <i class="bi bi-robot fs-1 fs-md-1"></i>
-                  <span>Desconto</span>
-                </RouterLink>
-                      </div>
+                  <div class="row g-3 ps-0 ps-sm-4">
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/discounts-client" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-percent text-danger" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-0">Desconto</h5>
+                          </div>
+                        </div>
+                      </RouterLink>
                     </div>
                   </div>
                 </div>
 
                 <div v-else-if="userRole === 'admin'">
+                  <div class="row g-3 ps-0 ps-sm-4">
+                    <!-- Card: Cadastro de Carros -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/car-registration" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-car-front text-primary" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-0">Cadastro de Carros</h5>
+                          </div>
+                        </div>
+                      </RouterLink>
+                    </div>
 
-                  <div>
-                    <div class="row g-3 ps-0 ps-sm-4">
-                      <div class="col-12">
-                        <RouterLink to="/car-registration"
-                                    class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                          <i class="bi bi-car-front fs-1 fs-md-1"></i>
-                          <span class="fs-4 fs-md-2">Cadastro de Carros</span>
-                        </RouterLink>
-                      </div>
+                    <!-- Card: Políticas Clientes -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/customer-policies" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-shield-check text-success" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-0">Políticas Clientes</h5>
+                          </div>
+                        </div>
+                      </RouterLink>
+                    </div>
 
-                      <div class="col-12">
-                        <RouterLink to="/customer-policies"
-                                    class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                          <i class="bi bi-shield-check fs-1 fs-md-1"></i>
-                          <span class="fs-4 fs-md-2">Políticas Clientes</span>
-                        </RouterLink>
-                      </div>
+                    <!-- Card: Feedbacks -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/feedback-classifier" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-chat-square-text text-info" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-0">Feedbacks</h5>
+                          </div>
+                        </div>
+                      </RouterLink>
+                    </div>
 
-                      <div class="col-12">
-                        <RouterLink to="/feedback-classifier"
-                                    class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                          <i class="bi bi-chat-square-text fs-1 fs-md-1"></i>
-                          <span class="fs-4 fs-md-2">Feedbacks</span>
-                        </RouterLink>
-                      </div>
+                    <!-- Card: Anúncios de Carros -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/car-sales" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-megaphone text-warning" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-0">Anúncios de Carros</h5>
+                          </div>
+                        </div>
+                      </RouterLink>
+                    </div>
 
-                      <div class="col-12 mb-5 mb-md-0">
-                        <RouterLink to="/car-sales"
-                                    class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                          <i class="bi bi-megaphone fs-1 fs-md-1"></i>
-                          <span class="fs-4 fs-md-2">Anúncios de Carros</span>
-                        </RouterLink>
-                      </div>
-                      <div class="col-12 mb-5 mb-md-0">
-                         <RouterLink to="/car-parts-product" class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                            <i class="bi bi-box-seam fs-1 fs-md-1"></i>
-                              <span class="fs-4 fs-md-2">Produtos</span>
-                          </RouterLink>
-                      </div>
-                      <div class="col-12 mb-5 mb-md-0">
-                          <RouterLink to="/car-parts-price" class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                            <i class="bi bi-tags fs-1 fs-md-1"></i>
-                            <span class="fs-4 fs-md-2">Preços</span>
-                          </RouterLink>
-                      </div>
-                      <div class="col-12 mb-5 mb-md-0">
-                          <RouterLink to="/car-parts-stock" class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                            <i class="bi bi-boxes fs-1 fs-md-1"></i>
-                            <span class="fs-4 fs-md-2">Estoque</span>
-                          </RouterLink>
-                      </div>
-                      <div class="col-12 mb-5 mb-md-0">
-                          <RouterLink to="/car-parts" class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                            <i class="bi bi-gear fs-1 fs-md-1"></i>
-                              <span class="fs-4 fs-md-2">Peças</span>
-                            </RouterLink>
-                      </div>
-                      <div class="col-12 mb-5 mb-md-0">
-                          <RouterLink to="/discounts-manager" class="btn btn-neutral w-100 py-4 d-flex align-items-center justify-content-center gap-3 flex-wrap text-center"
-                                    style="min-height: 90px;">
-                            <i class="bi bi-percent fs-1 fs-md-1"></i>
-                              <span class="fs-4 fs-md-2">Desconto</span>
-                            </RouterLink>
-                      </div>
+                    <!-- Card: Produtos -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/car-parts-product" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-box-seam text-danger" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-0">Produtos</h5>
+                          </div>
+                        </div>
+                      </RouterLink>
+                    </div>
+
+                    <!-- Card: Preços -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/car-parts-price" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-tags text-primary" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-0">Preços</h5>
+                          </div>
+                        </div>
+                      </RouterLink>
+                    </div>
+
+                    <!-- Card: Estoque -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/car-parts-stock" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-boxes text-success" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-0">Estoque</h5>
+                          </div>
+                        </div>
+                      </RouterLink>
+                    </div>
+
+                    <!-- Card: Peças -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/car-parts" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-gear text-info" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-0">Peças</h5>
+                          </div>
+                        </div>
+                      </RouterLink>
+                    </div>
+
+                    <!-- Card: Desconto -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <RouterLink to="/discounts-manager" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                          <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                              <i class="bi bi-percent text-danger" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title fw-semibold mb-0">Desconto</h5>
+                          </div>
+                        </div>
+                      </RouterLink>
                     </div>
                   </div>
                 </div>
@@ -148,5 +202,30 @@ onMounted(async () => {
 
 .text-right {
   text-align: right;
+}
+
+.hover-shadow-lg {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.hover-shadow-lg:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+.card {
+  min-height: 150px;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>

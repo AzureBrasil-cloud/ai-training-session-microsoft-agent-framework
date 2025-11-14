@@ -58,8 +58,8 @@ const logo = `${window.location.origin}/images/Logo_AutoTech.svg`;
             <ul class="navbar-nav navbar-vertical-nav d-flex flex-column mx-lg-n2">
                <li class="nav-item">
                 <RouterLink to="/discounts-client" class="dropdown-item">
-                 <i class="bi bi-robot px-3"></i>
-                  <span>Assistente de Desconto</span>
+                 <i class="bi bi-percent px-3"></i>
+                  <span>Desconto</span>
                 </RouterLink>
               </li>
             </ul>
