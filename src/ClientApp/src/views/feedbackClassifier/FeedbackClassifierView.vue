@@ -338,7 +338,7 @@ function saveSettings(settings: { name: string; instructions: string }) {
                 <th scope="col" class="text-muted" style="width: 45%;">Feedback</th>
                 <th scope="col" class="text-muted" style="width: 15%;">Ação</th>
                 <th scope="col" class="text-muted" style="width: 25%;">Classificação</th>
-                <th scope="col" class="text-muted" style="width: 10%;">Tokens</th>
+                <th scope="col" class="text-muted text-center"  style="width: 10%;">Tokens</th>
               </tr>
             </thead>
             <tbody>
