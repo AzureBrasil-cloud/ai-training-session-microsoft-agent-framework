@@ -311,13 +311,13 @@ function saveSettings(settings: { name: string; instructions: string }) {
     </ul>
   </HelpButton>
 
-  <div class="container-fluid p-4">
+  <div class="container-fluid p-3">
     <!-- Cabeçalho -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="s-h2">
-        <i class="bi bi-chat-square-text me-2"></i>
+    <div class="d-flex justify-content-between align-items-center mb-4 s-h3">
+      <h4 class="text-black  ">
+        <i class="bi bi-chat-square-text mx-4"></i>
         Classificador de Feedback de Atendimentos
-      </h2>
+      </h4>
       <button
         class="btn btn-warning btn-sm"
         @click="showSettingsModal = true"
@@ -423,9 +423,10 @@ function saveSettings(settings: { name: string; instructions: string }) {
   border-radius: 0.5rem;
 }
 
-.s-h2 {
-  font-size: 1.75rem;
-  font-weight: 600;
+.s-h3 {
+  background: #e9ecef;
+  padding: 6px;
+  border-radius: 8px;
 }
 </style>
 

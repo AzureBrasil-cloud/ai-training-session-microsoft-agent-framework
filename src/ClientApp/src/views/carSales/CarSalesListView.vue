@@ -258,14 +258,14 @@ onUnmounted(() => {
     </ul>
   </HelpButton>
 
-  <div class="container-fluid py-4">
+  <div class="container-fluid p-3">
     <div class="row mb-4">
       <div class="col-12">
-        <div class="d-flex justify-content-between align-items-center">
-          <h2>
-            <i class="bi bi-car-front-fill me-2"></i>
+        <div class="d-flex justify-content-between align-items-center s-h3">
+          <h4 class="text-black">
+            <i class="bi bi-car-front-fill mx-4"></i>
             Anúncios de carros
-          </h2>
+          </h4>
           <button
             class="btn btn-primary btn-sm"
             @click="loadCarSales"
@@ -502,5 +502,11 @@ onUnmounted(() => {
   max-width: 200px;
   word-wrap: break-word;
   white-space: normal;
+}
+
+.s-h3 {
+  background: #e9ecef;
+  padding: 6px;
+  border-radius: 8px;
 }
 </style>
