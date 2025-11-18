@@ -210,7 +210,7 @@ const videoUrl = `${window.location.origin}/videos/price-agent.mp4`;
   </HelpButton>
 
   <AgentChatWindow
-    :feature-id="4"
+    :feature-id="3"
     title="Agente de Consulta de Preços"
     welcome-message="👋 Olá! Sou o Agente de Consulta de Preços de Peças Automotivas. Informe o código da peça (ex: WB005) e eu lhe direi o preço correspondente. Como posso ajudá-lo?"
     default-agent-name="Agente de Consulta de Preços"
