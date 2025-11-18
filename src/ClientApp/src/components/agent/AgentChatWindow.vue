@@ -199,7 +199,7 @@ onMounted(async () => {
     </div>
 
     <!-- Barra de Ações -->
-    <div class="d-flex gap-2">
+    <div class="d-flex flex-column flex-md-row gap-2">
       <input
         class="form-control"
         v-model="userInput"
@@ -208,7 +208,7 @@ onMounted(async () => {
         placeholder="Digite sua mensagem..."
       />
       <button
-        class="btn btn-secondary"
+        class="btn btn-secondary btn-sm d-flex align-items-center gap-2"
         @click="resetThread"
         :disabled="isLoading"
         title="Criar nova thread e resetar chat"
@@ -216,7 +216,7 @@ onMounted(async () => {
         <i class="bi bi-arrow-clockwise"></i> Resetar
       </button>
       <button
-        class="btn btn-warning"
+        class="btn btn-warning btn-sm d-flex align-items-center gap-2"
         @click="showSettingsModal = true"
         :disabled="isLoading"
         title="Configurar instruções do agente"
@@ -224,7 +224,7 @@ onMounted(async () => {
         <i class="bi bi-gear"></i> Instruções
       </button>
       <button
-        class="btn btn-info"
+        class="btn btn-info btn-sm d-flex align-items-center gap-2"
         @click="openThreadsModal"
         :disabled="isLoading"
         title="Ver threads anteriores"
@@ -232,7 +232,7 @@ onMounted(async () => {
         <i class="bi bi-list-ul"></i> Threads
       </button>
       <button
-        class="btn btn-purple"
+        class="btn btn-neutral btn-sm d-flex align-items-center gap-2"
         @click="sendMessage"
         :disabled="isLoading || isWaitingResponse"
       >

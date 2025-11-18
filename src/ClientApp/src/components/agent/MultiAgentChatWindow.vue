@@ -208,13 +208,13 @@ onMounted(async () => {
     <div class="mb-2 p-2 rounded border bg-light">
       <div class="d-flex justify-content-between align-items-center">
         <div>
-          <strong>🎯 Orquestrador:</strong>
+          <strong class="text-black"><i class="bi bi-bullseye me-1"></i> Orquestrador:</strong>
           <span class="badge bg-primary ms-2">
             {{ orchestratorSettings.name }}
           </span>
         </div>
         <div>
-          <strong>🤖 Agentes:</strong>
+          <strong class="text-black"><i class="bi bi-robot me-1"></i> Agentes:</strong>
           <span class="badge bg-secondary ms-2">
             {{ specializedAgents.length }} especializado(s)
           </span>
@@ -265,7 +265,7 @@ onMounted(async () => {
         placeholder="Digite sua mensagem..."
       />
       <button
-        class="btn btn-secondary"
+        class="btn btn-secondary btn-sm d-flex align-items-center gap-2"
         @click="resetThread"
         :disabled="isLoading"
         title="Criar nova thread e resetar chat"
@@ -273,7 +273,7 @@ onMounted(async () => {
         <i class="bi bi-arrow-clockwise"></i> Resetar
       </button>
       <button
-        class="btn btn-warning"
+        class="btn btn-warning btn-sm d-flex align-items-center gap-2"
         @click="showSettingsModal = true"
         :disabled="isLoading"
         title="Configurar orquestrador e agentes"
@@ -281,7 +281,7 @@ onMounted(async () => {
         <i class="bi bi-gear"></i> Configurar
       </button>
       <button
-        class="btn btn-info"
+        class="btn btn-info btn-sm d-flex align-items-center gap-2"
         @click="openThreadsModal"
         :disabled="isLoading"
         title="Ver threads anteriores"
@@ -289,7 +289,7 @@ onMounted(async () => {
         <i class="bi bi-list-ul"></i> Threads
       </button>
       <button
-        class="btn btn-purple"
+        class="btn btn-neutral btn-sm d-flex align-items-center gap-2"
         @click="sendMessage"
         :disabled="isLoading || isWaitingResponse"
       >

@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex align-items-center mt-4" :class="alignmentClass">
-    <img :src="logoSrc" alt="Logo Azure Brasil" class="azure-logo-hover" style="max-height: 120px; cursor: pointer;" @click="openAzureBrasil">
+    <img :src="logoSrc" alt="Logo Azure Brasil" class="azure-logo-hover" style="max-height: 90px; cursor: pointer;" @click="openAzureBrasil">
   </div>
 </template>
 

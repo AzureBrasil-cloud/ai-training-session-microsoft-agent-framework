@@ -19,7 +19,7 @@ const emit = defineEmits<{
   <div class="modal d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content border-0 shadow-lg">
-        <div class="modal-header border-0 bg-purple text-white">
+        <div class="modal-header border-0 bg-neutral border-bottom text-white">
           <h5 class="modal-title fw-bold">
             <i class="bi bi-lightning-charge-fill me-2"></i>
             Consumo de Tokens
@@ -36,7 +36,7 @@ const emit = defineEmits<{
                   <div class="card-body p-3">
                     <div class="d-flex align-items-center justify-content-between">
                       <div class="d-flex align-items-center">
-                        <div class="rounded-circle bg-primary p-2 me-3">
+                        <div class="rounded-circle bg-primary me-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
                           <i class="bi bi-arrow-down-circle text-white fs-4"></i>
                         </div>
                         <div>
@@ -58,7 +58,7 @@ const emit = defineEmits<{
                   <div class="card-body p-3">
                     <div class="d-flex align-items-center justify-content-between">
                       <div class="d-flex align-items-center">
-                        <div class="rounded-circle bg-success p-2 me-3">
+                        <div class="rounded-circle bg-success me-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
                           <i class="bi bi-arrow-up-circle text-white fs-4"></i>
                         </div>
                         <div>
@@ -80,7 +80,7 @@ const emit = defineEmits<{
                   <div class="card-body p-3">
                     <div class="d-flex align-items-center justify-content-between">
                       <div class="d-flex align-items-center">
-                        <div class="rounded-circle bg-warning p-2 me-3">
+                        <div class="rounded-circle bg-warning me-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
                           <i class="bi bi-calculator-fill text-white fs-4"></i>
                         </div>
                         <div>
@@ -98,8 +98,8 @@ const emit = defineEmits<{
             </div>
           </div>
         </div>
-        <div class="modal-footer border-0">
-          <button type="button" class="btn btn-secondary px-4" @click="emit('close')">
+        <div class="modal-footer border-top">
+          <button type="button" class="btn btn-neutral px-4" @click="emit('close')">
             <i class="bi bi-x-circle me-2"></i>Fechar
           </button>
         </div>

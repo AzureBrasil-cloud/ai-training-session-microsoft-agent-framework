@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-//import { useUserStore } from '@/stores/user';
+import { useUserStore } from '@/stores/user';
 import { useRouter } from 'vue-router';
 import {onBeforeMount, onMounted, ref} from 'vue';
 
@@ -16,17 +16,16 @@ onBeforeMount(() => {
 });
 
 onMounted(() => {
-  const savedTheme = sessionStorage.getItem('theme') || 'dark';
-  theme.value = savedTheme;
-  document.documentElement.setAttribute('data-bs-theme', savedTheme);
+  const loggedUser = sessionStorage.getItem("loggedUser");
+  if (loggedUser) {
+    const user = JSON.parse(loggedUser);
+    const userRole = user?.role; // Assumes role is stored in session
+    const newTheme = userRole === 'admin' ? 'dark' : 'light';
+    theme.value = newTheme;
+    sessionStorage.setItem('theme', newTheme);
+    document.documentElement.setAttribute('data-bs-theme', newTheme);
+  }
 });
-
-const toggleTheme = () => {
-  const newTheme = theme.value === 'light' ? 'dark' : 'light';
-  theme.value = newTheme;
-  sessionStorage.setItem('theme', newTheme);
-  document.documentElement.setAttribute('data-bs-theme', newTheme);
-}
 
 const handleLogout = () => {
   sessionStorage.removeItem("loggedUser");
@@ -58,11 +57,6 @@ const handleLogout = () => {
           <span class="d-block text-xs text-muted mb-1">Logado(a) como:</span>
           <span class="d-block text-heading fw-semibold">{{ userEmail }}</span>
         </div>
-        <div class="dropdown-divider"></div>
-        <a @click="toggleTheme" class="dropdown-item" style="cursor: pointer;">
-          <i :class="theme === 'dark' ? 'bi bi-sun mx-3' : 'bi bi-moon mx-3'"></i>
-          <span>{{ theme === 'dark' ? 'Light Mode' : 'Dark Mode' }}</span>
-        </a>
         <div class="dropdown-divider"></div>
         <a @click="handleLogout" class="dropdown-item" style="cursor: pointer;">
           <i class="bi bi-person mx-3"></i>Sair

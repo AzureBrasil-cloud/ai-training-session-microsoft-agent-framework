@@ -74,7 +74,7 @@ function save() {
 
         <div class="modal-body">
           <!-- Configuração do Orquestrador -->
-          <div class="mb-4 p-3 border rounded bg-light">
+          <div class="mb-4 p-3 border rounded bg-neutral">
             <h6 class="mb-3">
               <i class="bi bi-diagram-3"></i> Agente Orquestrador
             </h6>
@@ -104,7 +104,7 @@ function save() {
           </div>
 
           <!-- Configuração dos Agentes Especializados -->
-<div class="mb-4 p-3 border rounded bg-light">
+<div class="mb-4 p-3 border rounded bg-neutral">
   <h6 class="mb-3">
     <i class="bi bi-robot"></i> Agentes Especializados
   </h6>
@@ -112,7 +112,7 @@ function save() {
   <div
     v-for="(agent, index) in localAgents"
     :key="index"
-    class="border rounded bg-white p-3 mb-3"
+    class="border rounded bg-neutral p-3 mb-3"
   >
     <h6 class="fw-bold">Agente {{ index + 1 }} — {{ agent.name }}</h6>
 
@@ -137,11 +137,11 @@ function save() {
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="emit('close')">
+          <button type="button" class="btn btn-neutral" @click="emit('close')">
             Cancelar
           </button>
           <button type="button" class="btn btn-primary" @click="save">
-            <i class="bi bi-check-circle"></i> Salvar Configurações
+            <i class="bi bi-check-circle me-1"></i> Salvar Configurações
           </button>
         </div>
       </div>

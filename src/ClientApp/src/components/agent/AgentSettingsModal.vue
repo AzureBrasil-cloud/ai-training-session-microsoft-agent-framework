@@ -64,7 +64,7 @@ function save() {
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="emit('close')">Cancelar</button>
+          <button type="button" class="btn btn-neutral" @click="emit('close')">Cancelar</button>
           <button type="button" class="btn btn-primary" @click="save">Salvar</button>
         </div>
       </div>

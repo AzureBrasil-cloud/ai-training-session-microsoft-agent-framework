@@ -44,9 +44,9 @@ const logoLight = `${window.location.origin}/images/Logo_AutoTechLight.svg`;
 
 <template>
   <div class="d-flex justify-content-between align-items-center d-lg-none p-3" @click="router.push('/')">
-    <img :src="theme === 'dark' ? logo : logoLight" alt="Logo" width="85" />
+    <img :src="theme === 'dark' ? logo : logoLight" alt="Logo" width="60" />
     <button
-      class="btn btn-purple"
+      class="btn btn-sm btn-neutral"
       type="button"
       data-bs-toggle="offcanvas"
       data-bs-target="#sidebarOffcanvas"
