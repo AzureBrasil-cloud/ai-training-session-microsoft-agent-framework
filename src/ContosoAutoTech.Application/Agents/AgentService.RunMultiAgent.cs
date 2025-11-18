@@ -48,9 +48,15 @@ public partial class AgentService
             var (mcpTools, mcpClients) = await GetToolsWithMcpClient(agentRequest.Feature);
 
             var tools = GetToolsByFeature(request.Feature).ToList();
+            
             tools.AddRange(mcpTools);
-            var agent = aiAgentService.CreateAiAgent(credentials, agentRequest.AgentInstructions,
-                agentRequest.AgentName, tools);
+            
+            var agent = aiAgentService.CreateAiAgent(
+                credentials, 
+                agentRequest.AgentInstructions,
+                agentRequest.AgentName, 
+                tools);
+            
             agents.Add(agent);
             mcps.AddRange(mcpClients);
         }

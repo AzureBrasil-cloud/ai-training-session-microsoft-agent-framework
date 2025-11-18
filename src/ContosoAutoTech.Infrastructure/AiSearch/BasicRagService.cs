@@ -33,8 +33,8 @@ public class BasicRagService(ILogger<BasicRagService> logger)
     
     private List<PolicyDocument> InitializePolicyDocuments()
     {
-        return new List<PolicyDocument>
-        {
+        return
+        [
             new PolicyDocument
             {
                 SourceName = "politica-devolucoes-reembolsos.pdf",
@@ -42,8 +42,9 @@ public class BasicRagService(ILogger<BasicRagService> logger)
                        "Os itens devem estar sem uso e incluir a embalagem original. " +
                        "Os reembolsos são emitidos no método de pagamento original dentro de 5 dias úteis após a inspeção. " +
                        "Para serviços automotivos, o prazo de devolução é de 7 dias, desde que não tenha havido instalação completa.",
-                Keywords = new[] { "return", "refund", "devolução", "reembolso", "devolver" }
+                Keywords = ["return", "refund", "devolução", "reembolso", "devolver"]
             },
+
             new PolicyDocument
             {
                 SourceName = "politica-garantia.pdf",
@@ -51,26 +52,31 @@ public class BasicRagService(ILogger<BasicRagService> logger)
                        "Veículos novos: 3 anos ou 100.000 km. Veículos seminovos: 1 ano ou 20.000 km. " +
                        "A garantia cobre defeitos de fabricação e problemas mecânicos não causados por uso inadequado. " +
                        "Manutenções regulares em concessionárias autorizadas são obrigatórias para manter a garantia válida.",
-                Keywords = new[] { "warranty", "guarantee", "garantia" }
+                Keywords = ["warranty", "guarantee", "garantia"]
             },
+
             new PolicyDocument
             {
                 SourceName = "politica-atendimento-cliente.pdf",
-                Text = "A Contoso AutoTech oferece atendimento ao cliente 24/7 através de telefone, email e chat online. " +
-                       "Todas as reclamações são analisadas em até 48 horas úteis. " +
-                       "Clientes têm direito a acompanhar o status de suas solicitações através do portal online. " +
-                       "Em caso de insatisfação, é garantido o direito de escalonamento para um supervisor.",
-                Keywords = new[] { "service", "support", "complaint", "atendimento", "reclamação", "suporte" }
+                Text =
+                    "A Contoso AutoTech oferece atendimento ao cliente 24/7 através de telefone, email e chat online. " +
+                    "Todas as reclamações são analisadas em até 48 horas úteis. " +
+                    "Clientes têm direito a acompanhar o status de suas solicitações através do portal online. " +
+                    "Em caso de insatisfação, é garantido o direito de escalonamento para um supervisor.",
+                Keywords = ["service", "support", "complaint", "atendimento", "reclamação", "suporte"]
             },
+
             new PolicyDocument
             {
                 SourceName = "politica-trocas.pdf",
-                Text = "Peças e acessórios podem ser trocados dentro de 15 dias, mediante apresentação da nota fiscal. " +
-                       "A troca está sujeita à disponibilidade em estoque. " +
-                       "Produtos com defeito de fabricação podem ser trocados independente do prazo, mediante análise técnica. " +
-                       "Para veículos, a troca só é permitida em caso de vícios ocultos identificados nos primeiros 90 dias.",
-                Keywords = new[] { "exchange", "replacement", "troca", "trocar" }
+                Text =
+                    "Peças e acessórios podem ser trocados dentro de 15 dias, mediante apresentação da nota fiscal. " +
+                    "A troca está sujeita à disponibilidade em estoque. " +
+                    "Produtos com defeito de fabricação podem ser trocados independente do prazo, mediante análise técnica. " +
+                    "Para veículos, a troca só é permitida em caso de vícios ocultos identificados nos primeiros 90 dias.",
+                Keywords = [ "exchange", "replacement", "troca", "trocar" ]
             },
+
             new PolicyDocument
             {
                 SourceName = "politica-privacidade-lgpd.pdf",
@@ -78,8 +84,9 @@ public class BasicRagService(ILogger<BasicRagService> logger)
                        "Dados pessoais são coletados apenas para fins de vendas e atendimento. " +
                        "Clientes podem solicitar acesso, correção ou exclusão de seus dados a qualquer momento. " +
                        "Dados não são compartilhados com terceiros sem consentimento explícito.",
-                Keywords = new[] { "privacy", "data", "privacidade", "dados", "lgpd", "proteção" }
+                Keywords = ["privacy", "data", "privacidade", "dados", "lgpd", "proteção"]
             },
+
             new PolicyDocument
             {
                 SourceName = "politica-entrega.pdf",
@@ -87,8 +94,9 @@ public class BasicRagService(ILogger<BasicRagService> logger)
                        "Veículos: entrega agendada em até 30 dias após aprovação do financiamento. " +
                        "Frete grátis para compras acima de R$ 500,00. " +
                        "Cliente é notificado por SMS e email em todas as etapas da entrega.",
-                Keywords = new[] { "delivery", "shipping", "entrega", "frete", "envio" }
+                Keywords = ["delivery", "shipping", "entrega", "frete", "envio"]
             },
+
             new PolicyDocument
             {
                 SourceName = "politica-financiamento.pdf",
@@ -96,8 +104,9 @@ public class BasicRagService(ILogger<BasicRagService> logger)
                        "Financiamento disponível em até 60 meses para veículos novos e 48 meses para seminovos. " +
                        "Entrada mínima de 20% do valor do veículo. " +
                        "Aprovação de crédito sujeita à análise. Simulações podem ser feitas online ou presencialmente.",
-                Keywords = new[] { "financing", "financiamento", "crédito", "parcela", "prestação", "entrada" }
+                Keywords = ["financing", "financiamento", "crédito", "parcela", "prestação", "entrada"]
             },
+
             new PolicyDocument
             {
                 SourceName = "politica-manutencao-preventiva.pdf",
@@ -107,7 +116,7 @@ public class BasicRagService(ILogger<BasicRagService> logger)
                        "Agendamento pode ser feito através do app ou site.",
                 Keywords = ["maintenance", "manutenção", "revisão", "preventiva", "óleo", "filtro"]
             }
-        };
+        ];
     }
 
     private class PolicyDocument
