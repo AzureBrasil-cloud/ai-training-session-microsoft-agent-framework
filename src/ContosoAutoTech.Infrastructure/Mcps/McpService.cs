@@ -22,13 +22,21 @@ public partial class McpService
         return (tools.Select(AITool (x) => x).ToList(), mcpClient);
     }
 
-    public async Task<(IList<AITool> tools, McpClient mcpClient)> GetHttpMcpToolAsync(string name, string endpoint)
+    public async Task<(IList<AITool> tools, McpClient mcpClient)> GetHttpMcpToolAsync(
+        string name, 
+        string endpoint, 
+        string headerName, 
+        string headerValue)
     {
         var mcpHttpClient = await McpClient.CreateAsync(
             new HttpClientTransport(new HttpClientTransportOptions
             {
                 Name = name,
-                Endpoint = new Uri(endpoint)
+                Endpoint = new Uri(endpoint),
+                AdditionalHeaders = new AdditionalPropertiesDictionary<string>()
+                {
+                    { headerName, headerValue}
+                }
             })
         );
 

@@ -42,24 +42,26 @@ public partial class AgentService(
     {
         var tools = new List<AITool>();
         var mcpClients = new List<McpClient>();
-
+        
+        var apimHeader = "Ocp-Apim-Subscription-Key";
+        var apiHeaderValue = configuration["Application:SubscriptionMcpKey"];
         switch (feature)
         {
             case Feature.CarPartPrice:
                 var (carPartPriceTools, stdioMcpClient) = await mcpService
-                    .GetHttpMcpToolAsync("CarPartPriceMcp", configuration["Application:CarPriceMcpRemoteUrl"]!);
+                    .GetHttpMcpToolAsync("CarPartPriceMcp", configuration["Application:CarPriceMcpRemoteUrl"]!, apimHeader, apiHeaderValue!);
                 tools.AddRange(carPartPriceTools);
                 mcpClients.Add(stdioMcpClient);
                 break;
             case Feature.CarPartStock:
                 var (carPartStockTools, httpMcpClient) = await mcpService
-                    .GetHttpMcpToolAsync("CarPartStockMcp", configuration["Application:CarStockMcpRemoteUrl"]!);
+                    .GetHttpMcpToolAsync("CarPartStockMcp", configuration["Application:CarStockMcpRemoteUrl"]!, apimHeader, apiHeaderValue!);
                 tools.AddRange(carPartStockTools);
                 mcpClients.Add(httpMcpClient);
                 break;
             case Feature.HumanInLoopClient :
                  var (humanInLoopClientTools, humanInLoopMcpClient) = await mcpService
-                     .GetHttpMcpToolAsync("HumanInLoopClientMcp", configuration["Application:CarDiscountMcpRemoteUrl"]!);
+                     .GetHttpMcpToolAsync("HumanInLoopClientMcp", configuration["Application:CarDiscountMcpRemoteUrl"]!, apimHeader, apiHeaderValue!);
                  var selectedClientTools =
                      humanInLoopClientTools.Where(x => x.Name is not "decide_approval" and "get_pending_approvals");
                  tools.AddRange(selectedClientTools);
@@ -67,14 +69,16 @@ public partial class AgentService(
                  break;
             case Feature.HumanInLoopManager :
                 var (humanInLoopManagerTools, humanInLoopManagerMcpClient) = await mcpService
-                    .GetHttpMcpToolAsync("HumanInLoopManagerMcp", configuration["Application:CarDiscountMcpRemoteUrl"]!);
+                    .GetHttpMcpToolAsync("HumanInLoopManagerMcp", configuration["Application:CarDiscountMcpRemoteUrl"]!, apimHeader, apiHeaderValue!);
                 var selectedTools = humanInLoopManagerTools.Where(x => x.Name is "decide_approval" or "get_pending_approvals");
                 tools.AddRange(selectedTools);
                 mcpClients.Add(humanInLoopManagerMcpClient);
                 break;
-            case Feature.CarPartProduct: 
+            case Feature.CarPartProduct:
+                var headerName = "X-API-KEY";
+                var headerKey = "123";
                 var (carPartProductTools, carPartProductMcpClient) = await mcpService
-                    .GetHttpMcpToolAsync("CarPartProductMcp", configuration["Application:CarProductMcpRemoteUrl"]!);
+                    .GetHttpMcpToolAsync("CarPartProductMcp", configuration["Application:CarProductMcpRemoteUrl"]!, headerName, headerKey);
                 tools.AddRange(carPartProductTools);
                 mcpClients.Add(carPartProductMcpClient);
                 break;
