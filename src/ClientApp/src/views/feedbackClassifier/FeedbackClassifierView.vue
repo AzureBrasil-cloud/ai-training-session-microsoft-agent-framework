@@ -20,44 +20,55 @@ interface FeedbackItem {
 
 // Lista de feedbacks
 const feedbacks = ref<FeedbackItem[]>([
-  { id: 1, text: 'Prometeram um retorno que nunca aconteceu', classification: '', isLoading: false, usage: null },
-  { id: 2, text: 'Foi bom em partes, mas pode melhorar.', classification: '', isLoading: false, usage: null },
-  { id: 3, text: 'A pior experiência que já tive com suporte técnico.', classification: '', isLoading: false, usage: null },
-  { id: 4, text: 'Equipe fantástica, resolveram tudo em minutos.', classification: '', isLoading: false, usage: null },
-  { id: 5, text: 'Boa experiência, voltaria a contratar.', classification: '', isLoading: false, usage: null }
+  { id: 1, text: `Odiei muito o serviço oferecido na loja; achei tudo muito lento e extremamente ineficiente. Tive que esperar muito tempo para ser atendido e, mesmo assim, o vendedor não parecia interessado em ajudar. Além disso, a organização do local estava péssima, com peças espalhadas de forma desordenada. Não recomendo e certamente não voltarei a fazer negócio aqui.`, classification: '', isLoading: false, usage: null },
+  { id: 2, text: `Achei que os carros disponíveis na loja estavam muito velhos, com vários deles apresentando sinais visíveis de desgaste, como arranhões na pintura e bancos rasgados. Além disso, os preços estavam bem acima do que eu esperava pagar pelo estado em que os veículos se encontram. Pensei em negociar, mas não houve flexibilidade na negociação por parte do vendedor.`, classification: '', isLoading: false, usage: null },
+  { id: 3, text: `Consegui encontrar o item que precisava para o meu carro sem grandes dificuldades, e o preço estava dentro do esperado, o que foi positivo. Porém, o atendimento deixou um pouco a desejar. Os funcionários até tentaram ajudar, mas parecia que cada um tinha uma informação diferente, e isso acabou me deixando confuso. Em alguns momentos, fiquei esperando enquanto eles confirmavam detalhes que deveriam saber de imediato. No final, consegui fazer a compra e resolver tudo, mas o processo poderia ter sido mais ágil e organizado. No geral, a experiência foi aceitável, mas nada excepcional.`, classification: '', isLoading: false, usage: null },
+  { id: 4, text: `O serviço de compra e venda de peças nesta loja é bom, e fiquei satisfeito com a experiência geral. A variedade de peças disponíveis é grande e os preços são justos. A equipe foi cordial, apesar de parecerem um pouco ocupados naquele momento. Além disso, o ambiente é limpo e organizado, o que facilita encontrar o que eu precisava. Pretendo voltar quando precisar de mais peças para meu carro.`, classification: '', isLoading: false, usage: null },
+  { id: 5, text: `Os carros que comprei na loja estavam todos em perfeito estado, com descritivos detalhados sobre cada veículo e todas as manutenções em dia. O atendimento foi excelente, com funcionários muito atenciosos e prestativos que esclareceram todas as minhas dúvidas antes da compra. Além disso, o processo de pagamento foi rápido e transparente. Saí muito satisfeito e recomendo a loja para quem busca qualidade e confiança na compra de carros.`, classification: '', isLoading: false, usage: null }
 ]);
 
 // Configurações do agente (instruções)
 const showSettingsModal = ref(false);
 const showTokenModal = ref(false);
 const selectedUsage = ref<{ input?: number; output?: number; total?: number } | null>(null);
-
 const agentSettings = ref({
   name: 'Classificador de Sentimentos',
-  instructions: 'Você é um classificador de sentimento de atendimento ao cliente da Contoso AutoTech. Sua tarefa é receber uma avaliação de serviço e retornar uma nota de 1 a 5, onde: 1 = MUITO RUIM, 2 = RUIM, 3 = MÉDIO, 4 = BOM e 5 = MUITO BOM.\n' +
+  instructions:
+    'Você é um classificador de sentimento de atendimento ao cliente de uma loja de compra e venda de carros e peças. Classifique de 1 a 5.' +
+    '\n' +
+    'As notas seguem a seguinte regra:\n' +
+    '1 = MUITO RUIM\n' +
+    '2 = RUIM\n' +
+    '3 = MÉDIO\n' +
+    '4 = BOM\n' +
+    '5 = MUITO BOM\n' +
+    '\n' +
+    'Exemplos:\n' +
     '\n' +
     'Exemplo 1\n' +
-    '- Entrada: Serviço péssimo! Nunca mais volto!\n' +
+    '- Entrada: "Minha experiência na loja foi péssima. Cheguei com pressa para comprar uma peça simples, mas ninguém parecia disposto a me atender. Os atendentes conversavam entre si e ignoravam os clientes. Quando finalmente me notaram, disseram que precisariam procurar no estoque, mas desapareceram por quase quarenta minutos. O ambiente estava desorganizado, com caixas abertas e peças espalhadas pelo chão. Saí frustrado e sem resolver meu problema."\n' +
     '- Saída: 1\n' +
     '\n' +
     'Exemplo 2\n' +
-    '- Entrada: Não gostei!\n' +
+    '- Entrada: "Fui avaliar alguns carros usados, mas a maioria estava em condição bem inferior à anunciada. As latarias tinham amassados discretos, alguns pneus estavam carecas e o interior apresentava sinais claros de uso pesado. Tentei conversar sobre um possível desconto, mas o atendente não demonstrou interesse em negociar e manteve um preço que não condizia com o estado dos veículos. A visita não atendeu minhas expectativas."\n' +
     '- Saída: 2\n' +
     '\n' +
     'Exemplo 3\n' +
-    '- Entrada: Resolveram meu problema, mas tive dificuldades de me comunicar com eles.\n' +
+    '- Entrada: "A loja tinha a peça que eu precisava, e o valor estava dentro do previsto. No entanto, o atendimento foi meio confuso: os funcionários pareciam não se comunicar entre si, e fiquei sendo redirecionado de um balcão para outro até que alguém conseguisse me ajudar. No fim deu tudo certo, mas o processo demorou mais do que deveria e gerou certo desconforto."\n' +
     '- Saída: 3\n' +
     '\n' +
     'Exemplo 4\n' +
-    '- Entrada: Gostei! Me atenderam bem\n' +
+    '- Entrada: "Tive uma boa experiência na loja. Os vendedores foram educados e me mostraram várias opções de peças compatíveis com meu carro. O ambiente estava organizado, o que facilitou bastante a consulta dos itens disponíveis. Apesar de um pequeno atraso para concluir o atendimento, tudo foi resolvido com clareza e profissionalismo. Voltaria a comprar aqui sem problemas."\n' +
     '- Saída: 4\n' +
     '\n' +
     'Exemplo 5\n' +
-    '- Entrada: Ótima equipe, com certeza vou voltar!\n' +
+    '- Entrada: "Simplesmente excelente! Fui comprar um carro e fiquei impressionado com a qualidade dos veículos. Todos estavam muito bem cuidados, com histórico de manutenção completo e explicações detalhadas. O vendedor foi extremamente atencioso, respondendo cada dúvida com paciência e transparência. A negociação foi rápida, justa e sem surpresa alguma. Saí da loja muito satisfeito e seguro da minha compra."\n' +
     '- Saída: 5\n' +
     '\n' +
     'Retorne APENAS o número de 1 a 5, sem texto adicional.'
 });
+
+
 
 // Função para mapear número para nome da classificação
 function getClassificationName(classification: string): string {
@@ -344,7 +355,7 @@ function saveSettings(settings: { name: string; instructions: string }) {
             <tbody>
               <tr v-for="feedback in feedbacks" :key="feedback.id">
                 <th scope="row" class="align-middle">{{ feedback.id }}</th>
-                <td class="align-middle">{{ feedback.text }}</td>
+                <td class="align-middle feedback-text">{{ feedback.text }}</td>
                 <td class="align-middle">
                   <button
                     class="btn btn-purple btn-sm"
@@ -412,6 +423,13 @@ function saveSettings(settings: { name: string; instructions: string }) {
 
 .table td {
   vertical-align: middle;
+}
+
+.feedback-text {
+  max-width: 400px;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 
 .table-hover tbody tr:hover {
