@@ -3,6 +3,8 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import carSalesService, { type CarSale } from '@/services/carSales'
 import HelpButton from '@/components/common/HelpButton.vue'
 
+const carSalesListImage = `${window.location.origin}/images/Feature8.png`
+
 const carSales = ref<CarSale[]>([])
 const loading = ref(false)
 const error = ref('')
@@ -68,6 +70,15 @@ onUnmounted(() => {
 
 <template>
   <HelpButton>
+    <div class="d-flex justify-content-center my-4">
+      <img
+        :src="carSalesListImage"
+        alt="Anúncios de Carros - Agente Autônomo"
+        class="img-fluid rounded"
+        style="width: 100%; max-width: 800px;"
+      />
+    </div>
+
     <h2 class="mb-5 mt-8"><i class="bi bi-megaphone px-2"></i> Descritivo da Página de Anúncios de Carros</h2>
     <p>
       Esta página apresenta um <strong>sistema inteligente de análise de anúncios de veículos</strong> que utiliza um agente autônomo para processar, enriquecer e avaliar automaticamente anúncios de carros disponíveis para venda. O agente extrai informações de uma página web externa, analisa cada veículo e gera insights valiosos para tomada de decisão.
