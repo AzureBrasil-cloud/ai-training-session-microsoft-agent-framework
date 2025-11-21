@@ -3,13 +3,14 @@ using Azure.AI.OpenAI;
 using ContosoAutoTech.Infrastructure.Shared;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Logging;
 using OpenAI;
 using OpenAI.Chat;
 using ChatMessage = Microsoft.Extensions.AI.ChatMessage;
 
 namespace ContosoAutoTech.Infrastructure.AIAgent;
 
-public partial class AiAgentService
+public partial class AiAgentService(ILogger<AiAgentService> logger)
 {
     private const string ServiceName = "ContosoAutoTech.Api";
     
@@ -33,7 +34,9 @@ public partial class AiAgentService
     {
         var chatClient = client
             .AsBuilder()
-            .Use(getResponseFunc: ChatClientMiddleware, getStreamingResponseFunc: null)
+            .Use(getResponseFunc: (messages, opts, inner, ct) =>
+                    ChatClientMiddleware(messages, opts, inner, ct, logger),
+                getStreamingResponseFunc: null)
             .Build();
         
         return chatClient.CreateAIAgent(
@@ -48,26 +51,27 @@ public partial class AiAgentService
                 AIContextProviderFactory = aiContextProviderFactory
             }
         ).AsBuilder()
-        .Use(FunctionCallMiddleware)
+        .Use((agent, ctx, next, ct) => 
+            FunctionCallMiddleware(agent, ctx, next, ct, logger))
         .UseOpenTelemetry(sourceName: ServiceName)
         .Build();;
         
     }
     
-    async Task<ChatResponse> ChatClientMiddleware(IEnumerable<ChatMessage> message, ChatOptions? options, IChatClient innerChatClient, CancellationToken cancellationToken)
+    async Task<ChatResponse> ChatClientMiddleware(IEnumerable<ChatMessage> message, ChatOptions? options, IChatClient innerChatClient, CancellationToken cancellationToken, ILogger<AiAgentService> logger)
     {
-        Console.WriteLine("Chat Client Middleware - Pre-Chat");
+        logger.LogInformation("Chat Client Middleware - Pre-Chat");
         var response = await innerChatClient.GetResponseAsync(message, options, cancellationToken);
-        Console.WriteLine("Chat Client Middleware - Post-Chat");
+        logger.LogInformation("Chat Client Middleware - Post-Chat");
 
         return response;
     }
     
-    async ValueTask<object?> FunctionCallMiddleware(Microsoft.Agents.AI.AIAgent agent, FunctionInvocationContext context, Func<FunctionInvocationContext, CancellationToken, ValueTask<object?>> next, CancellationToken cancellationToken)
+    async ValueTask<object?> FunctionCallMiddleware(Microsoft.Agents.AI.AIAgent agent, FunctionInvocationContext context, Func<FunctionInvocationContext, CancellationToken, ValueTask<object?>> next, CancellationToken cancellationToken, ILogger<AiAgentService> logger)
     {
-        Console.WriteLine($"Function Name: {context!.Function.Name} - Middleware 1 Pre-Invoke");
+        logger.LogInformation("Function Name: {FunctionName} - Middleware 1 Pre-Invoke", context!.Function.Name);
         var result = await next(context, cancellationToken);
-        Console.WriteLine($"Function Name: {context!.Function.Name} - Middleware 1 Post-Invoke");
+        logger.LogInformation("Function Name: {FunctionName} - Middleware 1 Post-Invoke", context!.Function.Name);
 
         return result;
     }
