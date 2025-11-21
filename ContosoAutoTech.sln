@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscountMcp", "src\Discount
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarPartProductMcp", "src\CarPartProductMcp\CarPartProductMcp.csproj", "{F6F86FD4-7FC5-4340-B967-309EF3CE6CBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarPartProductRelatedApi", "src\CarPartProductRelatedApi\CarPartProductRelatedApi.csproj", "{983ECE0B-C6BC-4BC9-92C9-5D6CD47070F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{F6F86FD4-7FC5-4340-B967-309EF3CE6CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6F86FD4-7FC5-4340-B967-309EF3CE6CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6F86FD4-7FC5-4340-B967-309EF3CE6CBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{983ECE0B-C6BC-4BC9-92C9-5D6CD47070F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{983ECE0B-C6BC-4BC9-92C9-5D6CD47070F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{983ECE0B-C6BC-4BC9-92C9-5D6CD47070F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{983ECE0B-C6BC-4BC9-92C9-5D6CD47070F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,5 +101,6 @@ Global
 		{32C00146-530F-4064-ADA9-6E7472ACA73C} = {840EFA3D-BD26-4BC9-920D-754EB14EB882}
 		{083F6B8E-A5C3-4B48-B156-D331535D6EEE} = {840EFA3D-BD26-4BC9-920D-754EB14EB882}
 		{F6F86FD4-7FC5-4340-B967-309EF3CE6CBF} = {840EFA3D-BD26-4BC9-920D-754EB14EB882}
+		{983ECE0B-C6BC-4BC9-92C9-5D6CD47070F3} = {840EFA3D-BD26-4BC9-920D-754EB14EB882}
 	EndGlobalSection
 EndGlobal
