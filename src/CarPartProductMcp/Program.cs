@@ -1,7 +1,8 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add MCP services and configure the HTTP transport
-builder.Services.AddMcpServer()
+builder.Services
+    .AddMcpServer()
     .WithHttpTransport()
     .WithToolsFromAssembly(typeof(Program).Assembly); // Configures the server to use HTTP transport
 

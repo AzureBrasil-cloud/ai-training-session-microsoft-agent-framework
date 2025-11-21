@@ -1,8 +1,6 @@
 using System.Text.Json;
 using ContosoAutoTech.Infrastructure.Shared;
 using Microsoft.Agents.AI;
-using ContosoAutoTech.Common;
-using Microsoft.Agents.AI.Workflows;
 using Microsoft.Extensions.AI;
 
 namespace ContosoAutoTech.Infrastructure.AIAgent;
@@ -26,7 +24,7 @@ public partial class AiAgentService
             name,
             tools,
             aiContextProviderFactory);
-
+        
         var reloaded = JsonSerializer.Deserialize<JsonElement>(thread, JsonSerializerOptions.Web);
         var resumedThread = agent.DeserializeThread(reloaded, JsonSerializerOptions.Web);
 
