@@ -63,7 +63,9 @@ public partial class AgentService(
                 await CarPartProductMcp(tools, mcpClients);
                 break;
             case Feature.MultiMcps:
-                //adicionar aqui.
+                await CarPartProductMcp(tools, mcpClients);
+                await CarPartPriceMcp(apimHeader, apiHeaderValue, tools, mcpClients);
+                await CarPartStockMcp(apimHeader, apiHeaderValue, tools, mcpClients);
                 break;
         }
 

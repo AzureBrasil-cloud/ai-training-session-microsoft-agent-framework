@@ -213,7 +213,7 @@ const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
   </HelpButton>
 
   <AgentChatWindow
-    :feature-id="9"
+    :feature-id="10"
     title="Agente de Catálogo de Peças de Carros"
     welcome-message="👋 Olá! Sou o Agente de Catálogo de Peças Automotivas. Posso ajudá-lo a consultar e localizar produtos em nosso catálogo. Como posso auxiliá-lo hoje?"
     default-agent-name="Agente de Catálogo de Produtos"
