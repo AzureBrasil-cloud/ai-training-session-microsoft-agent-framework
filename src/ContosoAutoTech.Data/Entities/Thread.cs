@@ -30,5 +30,6 @@ public enum Feature
     CarSales = 6,
     HumanInLoopClient = 7,
     HumanInLoopManager = 8,
-    CarPartProduct = 9
+    CarPartProduct = 9,
+    MultiMcps = 10
 }
