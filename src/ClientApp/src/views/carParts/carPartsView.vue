@@ -2,22 +2,18 @@
 import HelpButton from "@/components/common/HelpButton.vue";
 import MultiAgentChatWindow from "@/components/agent/MultiAgentChatWindow.vue";
 
-const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
+const carPartsImage = `${window.location.origin}/images/Feature5.png`;
 </script>
 
 <template>
   <HelpButton>
     <div class="d-flex justify-content-center my-4">
-      <video
-        ref="player"
-        :src="videoUrl"
-        controls
-        loop
-        autoplay
-        muted
-        playsinline
-        style="width: 100%;"
-      ></video>
+      <img
+        :src="carPartsImage"
+        alt="Multi-Agente Orquestrador de Peças"
+        class="img-fluid rounded"
+        style="width: 100%; max-width: 800px;"
+      />
     </div>
 
     <h2 class="mb-5 mt-8">

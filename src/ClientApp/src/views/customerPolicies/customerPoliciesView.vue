@@ -2,22 +2,18 @@
 import HelpButton from "@/components/common/HelpButton.vue";
 import AgentChatWindow from "@/components/agent/AgentChatWindow.vue";
 
-const videoUrl = `${window.location.origin}/videos/customer-policies-agent.mp4`;
+const customerPoliciesImage = `${window.location.origin}/images/Feature2.png`;
 </script>
 
 <template>
   <HelpButton>
     <div class="d-flex justify-content-center my-4">
-      <video
-          ref="player"
-          :src="videoUrl"
-          controls
-          loop
-          autoplay
-          muted
-          playsinline
-          style="width: 100%;"
-      ></video>
+      <img
+        :src="customerPoliciesImage"
+        alt="Assistente de Políticas de Relacionamento"
+        class="img-fluid rounded"
+        style="width: 100%; max-width: 800px;"
+      />
     </div>
 
     <h2 class="mb-5 mt-8"><i class="bi bi-shield-check px-2"></i> Descritivo da Página de Políticas de Relacionamento com o Cliente</h2>

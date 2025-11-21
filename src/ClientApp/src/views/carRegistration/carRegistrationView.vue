@@ -2,22 +2,18 @@
 import HelpButton from "@/components/common/HelpButton.vue";
 import AgentChatWindow from "@/components/agent/AgentChatWindow.vue";
 
-const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
+const carRegistrationImage = `${window.location.origin}/images/Feature1.png`;
 </script>
 
 <template>
   <HelpButton>
     <div class="d-flex justify-content-center my-4">
-      <video
-          ref="player"
-          :src="videoUrl"
-          controls
-          loop
-          autoplay
-          muted
-          playsinline
-          style="width: 100%;"
-      ></video>
+      <img
+        :src="carRegistrationImage"
+        alt="Assistente de Cadastro de Carros"
+        class="img-fluid rounded"
+        style="width: 100%; max-width: 800px;"
+      />
     </div>
 
     <h2 class="mb-5 mt-8"><i class="bi bi-car-front px-2"></i> Descritivo da Página do Assistente de Cadastro de Carros</h2>

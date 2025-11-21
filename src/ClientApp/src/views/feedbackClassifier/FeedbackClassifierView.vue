@@ -6,6 +6,8 @@ import AgentSettingsModal from '@/components/agent/AgentSettingsModal.vue';
 import TokenUsageModal from '@/components/agent/TokenUsageModal.vue';
 import HelpButton from '@/components/common/HelpButton.vue';
 
+const feedbackClassifierImage = `${window.location.origin}/images/Feature5.png`;
+
 interface FeedbackItem {
   id: number;
   text: string;
@@ -124,6 +126,15 @@ function saveSettings(settings: { name: string; instructions: string }) {
 
 <template>
   <HelpButton>
+    <div class="d-flex justify-content-center my-4">
+      <img
+        :src="feedbackClassifierImage"
+        alt="Classificador de Feedback de Atendimentos"
+        class="img-fluid rounded"
+        style="width: 100%; max-width: 800px;"
+      />
+    </div>
+
     <h2 class="mb-5 mt-8"><i class="bi bi-chat-square-text px-2"></i> Descritivo da Página de Classificador de Feedback de Atendimentos</h2>
     <p>
       Esta página apresenta um <strong>classificador de sentimento automático</strong> especializado em avaliar feedbacks de atendimento ao cliente. O sistema utiliza inferência de IA para analisar avaliações textuais e atribuir uma nota de 1 a 5, permitindo quantificar a satisfação dos clientes de forma rápida e consistente.

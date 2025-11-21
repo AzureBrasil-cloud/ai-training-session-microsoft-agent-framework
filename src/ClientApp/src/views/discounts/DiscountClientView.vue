@@ -2,22 +2,18 @@
 import HelpButton from "@/components/common/HelpButton.vue";
 import AgentChatWindow from "@/components/agent/AgentChatWindow.vue";
 
-const videoUrl = `${window.location.origin}/videos/car-agent.mp4`;
+const discountClientImage = `${window.location.origin}/images/Feature6.png`;
 </script>
 
 <template>
   <HelpButton>
     <div class="d-flex justify-content-center my-4">
-      <video
-        ref="player"
-        :src="videoUrl"
-        controls
-        loop
-        autoplay
-        muted
-        playsinline
-        style="width: 100%;"
-      ></video>
+      <img
+        :src="discountClientImage"
+        alt="Agente de Solicitação de Descontos"
+        class="img-fluid rounded"
+        style="width: 100%; max-width: 800px;"
+      />
     </div>
 
     <h2 class="mb-5 mt-8">

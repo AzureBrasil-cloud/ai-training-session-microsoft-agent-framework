@@ -89,8 +89,8 @@ const clearErrors = () => {
   passwordError.value = "";
 };
 
-const videoUrl = `${window.location.origin}/videos/login.mp4`;
 const logo = `${window.location.origin}/images/Logo.svg`;
+const signInImage = `${window.location.origin}/images/sign-in.png`;
 
 const canvasRef = ref<HTMLCanvasElement | null>(null);
 
@@ -221,16 +221,12 @@ onMounted(() => {
 <template>
   <HelpButton>
     <div class="d-flex justify-content-center my-4">
-      <video
-        ref="player"
-        :src="videoUrl"
-        controls
-        loop
-        autoplay
-        muted
-        playsinline
-        style="width: 100%;"
-      ></video>
+      <img
+        :src="signInImage"
+        alt="Sign In"
+        class="img-fluid rounded"
+        style="width: 100%; max-width: 800px;"
+      />
     </div>
     <h2 class="mb-3"><i class="bi bi-person-check-fill px-2"></i> Descritivo da Página de Login</h2>
     <p>
@@ -239,36 +235,33 @@ onMounted(() => {
       frontend, sem conexão com backends reais ou bancos de dados persistentes.
     </p>
 
-    <p>
-      <h5 class="mt-6 mb-3 bg-gray-100 p-2 rounded"><i class="bi bi-list-task px-2"></i>
-        Funcionalidades</h5>
-      <ul>
-        <li><strong>Autenticação de usuários comuns:</strong> Qualquer email válido e senha com no
-          mínimo 8 caracteres permite o login como <code>usuário comum</code>.
-        </li>
-        <li><strong>Autenticação de administrador:</strong> O acesso como <code>administrador</code>
-          é
-          feito usando:
-          <ul>
-            <li><strong>Email:</strong> <code>adm@adm.com</code></li>
-            <li><strong>Senha:</strong> <code>adm</code></li>
-          </ul>
-        </li>
-        <li><strong>Validação de campos:</strong> O sistema realiza validações locais para garantir
-          que o email seja válido e a senha tenha o comprimento mínimo exigido.
-        </li>
-        <li><strong>Feedback imediato:</strong> Erros de validação são exibidos diretamente abaixo
-          dos
-          campos de entrada.
-        </li>
-        <li><strong>Redirecionamento automático:</strong> Após um login bem-sucedido, o usuário é
-          redirecionado para a rota <code>home</code>.
-        </li>
-      </ul>
-    </p>
+    <h5 class="mt-6 mb-3 bg-gray-100 p-2 rounded bck-h"><i class="bi bi-asterisk px-2"></i>Processo Técnico</h5>
+    <ul>
+      <li><strong>Autenticação de usuários comuns:</strong> Qualquer email válido e senha com no
+        mínimo 8 caracteres permite o login como <code>usuário comum</code>.
+      </li>
+      <li><strong>Autenticação de administrador:</strong> O acesso como <code>administrador</code>
+        é
+        feito usando:
+        <ul>
+          <li><strong>Email:</strong> <code>adm@adm.com</code></li>
+          <li><strong>Senha:</strong> <code>adm</code></li>
+        </ul>
+      </li>
+      <li><strong>Validação de campos:</strong> O sistema realiza validações locais para garantir
+        que o email seja válido e a senha tenha o comprimento mínimo exigido.
+      </li>
+      <li><strong>Feedback imediato:</strong> Erros de validação são exibidos diretamente abaixo
+        dos
+        campos de entrada.
+      </li>
+      <li><strong>Redirecionamento automático:</strong> Após um login bem-sucedido, o usuário é
+        redirecionado para a rota <code>home</code>.
+      </li>
+    </ul>
 
+    <h5 class="mt-6 mb-3 bg-gray-100 p-2 rounded bck-h"><i class="bi bi-asterisk px-2"></i>Processo Técnico</h5>
     <p>
-      <h5 class="mt-6 mb-3 bg-gray-100 p-2 rounded bck-h"><i class="bi bi-asterisk px-2"></i>Processo Técnico</h5>
       O sistema realiza a autenticação diretamente no frontend. As credenciais de administrador
       estão armazenadas como constante no código-fonte (em <code>ADM_CREDENTIALS</code>), enquanto
       as demais validações são feitas com funções auxiliares presentes no arquivo <code>validators.ts</code>.
@@ -280,7 +273,6 @@ onMounted(() => {
       sessão em outras páginas do sistema.
     </p>
 
-    <p>
     <h5 class="mt-6 mb-3 bg-gray-100 p-2 rounded bck-h"><i class="bi bi-check-circle px-2"></i> Regras de Validação</h5>
     <ul>
       <li><strong>Email:</strong> Deve ter um formato válido (ex: <code>usuario@email.com</code>).
@@ -289,34 +281,31 @@ onMounted(() => {
         do administrador (<code>adm</code>).
       </li>
     </ul>
-    </p>
 
+    <h5 class="mt-6 mb-3 bg-gray-100 p-2 rounded bck-h"><i class="bi bi-bullseye px-2"></i>
+      Objetivo</h5>
     <p>
-      <h5 class="mt-6 mb-3 bg-gray-100 p-2 rounded bck-h"><i class="bi bi-bullseye px-2"></i>
-        Objetivo</h5>
       Esta funcionalidade foi criada para simular o processo de login em um ambiente controlado,
       útil para protótipos, testes ou demonstrações sem dependência de autenticação real.
     </p>
 
-    <p>
-      <h5 class="mt-6 mb-3 bg-gray-100 p-2 rounded bck-h"><i class="bi bi-link-45deg px-2"></i>
-        Links
-        Úteis</h5>
-      <ul>
-        <li>
-          <a href="https://developer.mozilla.org/pt-BR/docs/Web/API/Window/sessionStorage"
-             target="_blank" rel="noopener">
-            Documentação – sessionStorage
-          </a>
-        </li>
-        <li>
-          <a href="https://vuejs.org/guide/essentials/reactivity-fundamentals.html" target="_blank"
-             rel="noopener">
-            Vue 3 – Fundamentos de Reatividade
-          </a>
-        </li>
-      </ul>
-    </p>
+    <h5 class="mt-6 mb-3 bg-gray-100 p-2 rounded bck-h"><i class="bi bi-link-45deg px-2"></i>
+      Links
+      Úteis</h5>
+    <ul>
+      <li>
+        <a href="https://developer.mozilla.org/pt-BR/docs/Web/API/Window/sessionStorage"
+           target="_blank" rel="noopener">
+          Documentação – sessionStorage
+        </a>
+      </li>
+      <li>
+        <a href="https://vuejs.org/guide/essentials/reactivity-fundamentals.html" target="_blank"
+           rel="noopener">
+          Vue 3 – Fundamentos de Reatividade
+        </a>
+      </li>
+    </ul>
   </HelpButton>
 
   <div
