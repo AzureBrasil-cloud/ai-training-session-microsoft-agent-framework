@@ -31,7 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscountMcp", "src\Discount
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarPartProductMcp", "src\CarPartProductMcp\CarPartProductMcp.csproj", "{F6F86FD4-7FC5-4340-B967-309EF3CE6CBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarPartProductRelatedApi", "src\CarPartProductRelatedApi\CarPartProductRelatedApi.csproj", "{983ECE0B-C6BC-4BC9-92C9-5D6CD47070F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarPartProductRelatedMcp", "src\CarPartProductRelatedMcp\CarPartProductRelatedMcp.csproj", "{983ECE0B-C6BC-4BC9-92C9-5D6CD47070F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
