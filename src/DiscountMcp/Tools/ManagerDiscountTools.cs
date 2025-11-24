@@ -14,13 +14,13 @@ public class ManagerDiscountTools(ILogger<DiscountTools> logger, DiscountSession
     /// </summary>
     [McpServerTool]
     [Description("List all pending discount approvals waiting for manager decision.")]
-    public List<Models.Response.PendingApproval> GetPendingApprovals()
+    public List<PendingApprovalResponse> GetPendingApprovals()
     {
         logger.LogInformation("Fetching pending approvals");
 
         var pendingRequests = store
             .GetPendingApprovals()   // Agora vem direto da Store
-            .Select(s => new Models.Response.PendingApproval
+            .Select(s => new PendingApprovalResponse
             {
                 SessionId = s.SessionId,
                 ProductName = s.Request.ProductName,

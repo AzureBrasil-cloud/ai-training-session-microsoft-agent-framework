@@ -65,7 +65,7 @@ public class DiscountTools(ILogger<DiscountTools> logger, DiscountSessionStore s
     /// </summary>
     [McpServerTool]
     [Description("Check the status of a discount request by session ID.")]
-    public DiscountStatus GetDiscountStatus(
+    public DiscountStatusResponse GetDiscountStatus(
         [Description("Session ID from discount request")] string sessionId)
     {
         logger.LogInformation("Status check for session {SessionId}", sessionId);
@@ -75,7 +75,7 @@ public class DiscountTools(ILogger<DiscountTools> logger, DiscountSessionStore s
             throw new InvalidOperationException($"Session {sessionId} not found");
         }
 
-        return new DiscountStatus
+        return new DiscountStatusResponse
         {
             SessionId = sessionId,
             Status = session.Status,

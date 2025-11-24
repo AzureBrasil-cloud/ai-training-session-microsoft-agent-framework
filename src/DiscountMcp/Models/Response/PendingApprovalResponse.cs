@@ -1,6 +1,6 @@
 namespace DiscountMcp.Models.Response;
 
-public record PendingApproval
+public record PendingApprovalResponse
 {
     public string SessionId { get; init; } = "";
     public string ProductName { get; init; } = "";

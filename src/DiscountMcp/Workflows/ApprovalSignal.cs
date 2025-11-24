@@ -5,7 +5,5 @@ namespace DiscountMcp.Workflows;
 /// </summary>
 public enum ApprovalSignal
 {
-    PendingApproval,
-    Approved,
-    Denied
+    PendingApproval
 }

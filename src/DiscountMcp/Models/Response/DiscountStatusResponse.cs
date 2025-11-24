@@ -2,7 +2,7 @@ using DiscountMcp.Models.Requests;
 
 namespace DiscountMcp.Models.Response;
 
-public record DiscountStatus
+public record DiscountStatusResponse
 {
     public string SessionId { get; init; } = "";
     public string Status { get; init; } = "";
