@@ -62,8 +62,7 @@ public partial class AgentService(
             case Feature.HumanInLoopClient :
                  var (humanInLoopClientTools, humanInLoopMcpClient) = await mcpService
                      .GetHttpMcpToolAsync("HumanInLoopClientMcp", configuration["Application:CarDiscountMcpRemoteUrl"]!, apimHeader, apiHeaderValue!);
-                 var selectedClientTools =
-                     humanInLoopClientTools.Where(x => x.Name is not "decide_approval" and "get_pending_approvals");
+                 var selectedClientTools = humanInLoopClientTools.Where(x => x.Name is  "get_discount_status" or "request_discount");
                  tools.AddRange(selectedClientTools);
                  mcpClients.Add(humanInLoopMcpClient);
                  break;
