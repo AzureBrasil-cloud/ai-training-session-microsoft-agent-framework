@@ -30,7 +30,7 @@ public partial class AiInferenceApplicationService
         var credentials = GetCredentials();
         
         var useFinedClassificationModel =
-            Convert.ToBoolean(configuration["Application:UserClassificationFinedTunedModel"]);
+            Convert.ToBoolean(configuration["Application:UserClassificationFineTunedModel"]);
 
         if (useFinedClassificationModel)
         {
