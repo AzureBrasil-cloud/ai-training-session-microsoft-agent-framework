@@ -1,6 +1,7 @@
+using DiscountMcp.Models.Response;
 using Microsoft.Agents.AI.Workflows;
 
-namespace DiscountMcp;
+namespace DiscountMcp.Workflows;
 
 /// <summary>
 /// Executor que finaliza o processo com base na decisão de aprovação
@@ -19,7 +20,7 @@ internal sealed class FinalizeExecutor() : Executor<ApprovalDecision>("Finalize"
                 {
                     Approved = true,
                     FinalPrice = finalPrice,
-                    Message = $"✅ Desconto aprovado pelo gerente!\n" +
+                    Message = $"Desconto aprovado pelo gerente!\n" +
                               $"Produto: {request.ProductName}\n" +
                               $"Desconto: {request.RequestedDiscount:P0}\n" +
                               $"Preço original: {request.OriginalPrice:C2}\n" +
@@ -34,7 +35,7 @@ internal sealed class FinalizeExecutor() : Executor<ApprovalDecision>("Finalize"
                 {
                     Approved = false,
                     FinalPrice = request.OriginalPrice,
-                    Message = $"❌ Desconto negado pelo gerente.\n" +
+                    Message = $"Desconto negado pelo gerente.\n" +
                               $"Preço mantido: {request.OriginalPrice:C2}"
                 },
                 cancellationToken);

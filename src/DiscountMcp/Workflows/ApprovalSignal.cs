@@ -1,4 +1,4 @@
-namespace DiscountMcp;
+namespace DiscountMcp.Workflows;
 
 /// <summary>
 /// Sinais para controle de aprovação

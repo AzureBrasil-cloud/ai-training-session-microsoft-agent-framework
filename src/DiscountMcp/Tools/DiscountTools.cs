@@ -1,8 +1,12 @@
-using ModelContextProtocol.Server;
 using System.ComponentModel;
+using DiscountMcp.Models.Requests;
+using DiscountMcp.Models.Response;
+using DiscountMcp.Workflows;
 using Microsoft.Agents.AI.Workflows;
+using ModelContextProtocol.Server;
+using PendingApproval = DiscountMcp.Workflows.PendingApproval;
 
-namespace DiscountMcp;
+namespace DiscountMcp.Tools;
 
 [McpServerToolType]
 public class DiscountTools(ILogger<DiscountTools> logger, DiscountSessionStore store)
@@ -12,7 +16,7 @@ public class DiscountTools(ILogger<DiscountTools> logger, DiscountSessionStore s
     /// </summary>
     [McpServerTool]
     [Description("Request a discount for a product. Returns session ID and approval status.")]
-    public async Task<DiscountResponseDto> RequestDiscount(
+    public async Task<DiscountResponse> RequestDiscount(
         [Description("Product name")] string productName,
         [Description("Original price")] decimal originalPrice,
         [Description("Requested discount (0.0 to 1.0)")] decimal requestedDiscount,
@@ -33,8 +37,7 @@ public class DiscountTools(ILogger<DiscountTools> logger, DiscountSessionStore s
         };
 
         var session = new DiscountWorkflowSession(sessionId, discountRequest);
-
-        // 🔥 Agora usando o Singleton store compartilhado
+        
         store.Add(sessionId, session);
 
         // Inicia o workflow em background
@@ -43,7 +46,7 @@ public class DiscountTools(ILogger<DiscountTools> logger, DiscountSessionStore s
         // Aguarda o resultado inicial
         var result = await session.WaitForResultAsync();
 
-        return new DiscountResponseDto
+        return new DiscountResponse
         {
             SessionId = sessionId,
             Message = result.Message,
@@ -62,7 +65,7 @@ public class DiscountTools(ILogger<DiscountTools> logger, DiscountSessionStore s
     /// </summary>
     [McpServerTool]
     [Description("Check the status of a discount request by session ID.")]
-    public DiscountStatusDto GetDiscountStatus(
+    public DiscountStatus GetDiscountStatus(
         [Description("Session ID from discount request")] string sessionId)
     {
         logger.LogInformation("Status check for session {SessionId}", sessionId);
@@ -72,13 +75,13 @@ public class DiscountTools(ILogger<DiscountTools> logger, DiscountSessionStore s
             throw new InvalidOperationException($"Session {sessionId} not found");
         }
 
-        return new DiscountStatusDto
+        return new DiscountStatus
         {
             SessionId = sessionId,
             Status = session.Status,
             RequiresApproval = session.RequiresApproval,
             IsCompleted = session.IsCompleted,
-            Request = new DiscountRequestDto
+            Request = new DiscountRequest
             {
                 ProductName = session.Request.ProductName,
                 OriginalPrice = session.Request.OriginalPrice,
@@ -98,7 +101,7 @@ public class DiscountTools(ILogger<DiscountTools> logger, DiscountSessionStore s
             var workflow = WorkflowFactory.BuildWorkflow();
             
             // Inicia o workflow passando a solicitação inicial
-            await using StreamingRun handle = await InProcessExecution.StreamAsync(
+            await using var handle = await InProcessExecution.StreamAsync(
                 workflow,
                 session.Request);
             
@@ -115,7 +118,7 @@ public class DiscountTools(ILogger<DiscountTools> logger, DiscountSessionStore s
                             
                             session.SetInitialResult(new WorkflowStepResult
                             {
-                                Message = $"⏳ Aguardando aprovação do gerente para desconto de {session.Request.RequestedDiscount:P0}",
+                                Message = $"Aguardando aprovação do gerente para desconto de {session.Request.RequestedDiscount:P0}",
                                 RequiresApproval = true,
                                 Approved = false,
                                 FinalPrice = session.Request.OriginalPrice

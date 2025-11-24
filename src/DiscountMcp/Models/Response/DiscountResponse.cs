@@ -1,6 +1,6 @@
-namespace DiscountMcp;
+namespace DiscountMcp.Models.Response;
 
-public record DiscountResponseDto
+public record DiscountResponse
 {
     public string SessionId { get; init; } = "";
     public string Message { get; init; } = "";

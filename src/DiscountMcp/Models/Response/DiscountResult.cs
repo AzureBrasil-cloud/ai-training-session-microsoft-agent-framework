@@ -1,4 +1,4 @@
-namespace DiscountMcp;
+namespace DiscountMcp.Models.Response;
 
 /// <summary>
 /// Resultado do workflow

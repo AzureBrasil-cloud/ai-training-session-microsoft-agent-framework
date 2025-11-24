@@ -1,4 +1,7 @@
 using System.ComponentModel;
+using DiscountMcp.Models;
+using DiscountMcp.Models.Response;
+using DiscountMcp.Tools;
 using ModelContextProtocol.Server;
 
 namespace DiscountMcp;
@@ -11,13 +14,13 @@ public class ManagerDiscountTools(ILogger<DiscountTools> logger, DiscountSession
     /// </summary>
     [McpServerTool]
     [Description("List all pending discount approvals waiting for manager decision.")]
-    public List<PendingApprovalDto> GetPendingApprovals()
+    public List<Models.Response.PendingApproval> GetPendingApprovals()
     {
         logger.LogInformation("Fetching pending approvals");
 
         var pendingRequests = store
-            .GetPendingApprovals()   // 🔥 Agora vem direto da Store
-            .Select(s => new PendingApprovalDto
+            .GetPendingApprovals()   // Agora vem direto da Store
+            .Select(s => new Models.Response.PendingApproval
             {
                 SessionId = s.SessionId,
                 ProductName = s.Request.ProductName,
@@ -40,7 +43,7 @@ public class ManagerDiscountTools(ILogger<DiscountTools> logger, DiscountSession
     /// </summary>
     [McpServerTool]
     [Description("Approve or reject a pending discount request. Only managers can use this.")]
-    public async Task<DiscountResponseDto> DecideApproval(
+    public async Task<DiscountResponse> DecideApproval(
         [Description("Session ID of the request")] string sessionId,
         [Description("True to approve, false to reject")] bool approved,
         [Description("Optional comments from approver")] string? comments = null)
@@ -64,7 +67,7 @@ public class ManagerDiscountTools(ILogger<DiscountTools> logger, DiscountSession
         // Aguarda o resultado final
         var result = await session.WaitForFinalResultAsync();
 
-        return new DiscountResponseDto
+        return new DiscountResponse
         {
             SessionId = sessionId,
             Message = result.Message,

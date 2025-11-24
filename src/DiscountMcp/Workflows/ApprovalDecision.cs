@@ -1,4 +1,6 @@
-namespace DiscountMcp;
+using DiscountMcp.Models.Requests;
+
+namespace DiscountMcp.Workflows;
 
 /// <summary>
 /// Decisão de aprovação com os dados originais da solicitação

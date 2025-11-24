@@ -1,4 +1,6 @@
-namespace DiscountMcp;
+using DiscountMcp.Models.Requests;
+
+namespace DiscountMcp.Workflows;
 
 /// <summary>
 /// Dados enviados para o RequestPort (inclui a solicitação original)

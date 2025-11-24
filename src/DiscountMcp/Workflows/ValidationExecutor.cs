@@ -1,6 +1,9 @@
+using DiscountMcp.Models;
+using DiscountMcp.Models.Requests;
+using DiscountMcp.Models.Response;
 using Microsoft.Agents.AI.Workflows;
 
-namespace DiscountMcp;
+namespace DiscountMcp.Workflows;
 
 /// <summary>
 /// Executor que valida a solicitação de desconto
@@ -19,7 +22,7 @@ internal sealed class ValidationExecutor() : Executor<DiscountRequest>("Validati
                 {
                     Approved = false,
                     FinalPrice = request.OriginalPrice,
-                    Message = "❌ Desconto inválido. Deve ser entre 0% e 100%."
+                    Message = "Desconto inválido. Deve ser entre 0% e 100%."
                 },
                 cancellationToken);
             return;
@@ -32,7 +35,7 @@ internal sealed class ValidationExecutor() : Executor<DiscountRequest>("Validati
                 {
                     Approved = false,
                     FinalPrice = request.OriginalPrice,
-                    Message = "❌ Nome do produto é obrigatório."
+                    Message = "Nome do produto é obrigatório."
                 },
                 cancellationToken);
             return;
@@ -47,7 +50,7 @@ internal sealed class ValidationExecutor() : Executor<DiscountRequest>("Validati
                 {
                     Approved = true,
                     FinalPrice = finalPrice,
-                    Message = $"✅ Desconto de {request.RequestedDiscount:P0} aprovado automaticamente! Preço final: {finalPrice:C2}"
+                    Message = $"Desconto de {request.RequestedDiscount:P0} aprovado automaticamente! Preço final: {finalPrice:C2}"
                 },
                 cancellationToken);
             return;

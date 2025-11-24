@@ -1,24 +1,21 @@
+using DiscountMcp.Models;
+using DiscountMcp.Models.Requests;
+using DiscountMcp.Models.Response;
+
 namespace DiscountMcp;
 
-public class DiscountWorkflowSession
+public class DiscountWorkflowSession(string sessionId, DiscountRequest request)
 {
     private readonly TaskCompletionSource<WorkflowStepResult> _initialResultTcs = new();
-    private TaskCompletionSource<bool> _approvalDecisionTcs = new();
-    private TaskCompletionSource<WorkflowStepResult> _finalResultTcs = new();
+    private readonly TaskCompletionSource<bool> _approvalDecisionTcs = new();
+    private readonly TaskCompletionSource<WorkflowStepResult> _finalResultTcs = new();
 
-    public string SessionId { get; }
-    public DiscountRequest Request { get; }
-    public DateTime CreatedAt { get; }
+    public string SessionId { get; } = sessionId;
+    public DiscountRequest Request { get; } = request;
+    public DateTime CreatedAt { get; } = DateTime.UtcNow;
     public bool RequiresApproval { get; private set; }
     public bool IsCompleted { get; private set; }
     public string Status { get; private set; } = "CREATED";
-
-    public DiscountWorkflowSession(string sessionId, DiscountRequest request)
-    {
-        SessionId = sessionId;
-        Request = request;
-        CreatedAt = DateTime.UtcNow;
-    }
 
     public void MarkAsRequiringApproval()
     {

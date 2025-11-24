@@ -1,6 +1,6 @@
 using Microsoft.Agents.AI.Workflows;
 
-namespace DiscountMcp;
+namespace DiscountMcp.Workflows;
 
 public static class WorkflowFactory
 {
