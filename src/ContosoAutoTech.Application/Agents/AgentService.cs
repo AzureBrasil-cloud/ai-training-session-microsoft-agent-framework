@@ -61,16 +61,16 @@ public partial class AgentService(
                 break;
             case Feature.HumanInLoopClient :
                  var (humanInLoopClientTools, humanInLoopMcpClient) = await mcpService
-                     .GetHttpMcpToolAsync("HumanInLoopClientMcp", configuration["Application:CarDiscountMcpRemoteUrl"]!, apimHeader, apiHeaderValue!);
-                 var selectedClientTools = humanInLoopClientTools.Where(x => x.Name is  "get_discount_status" or "request_discount");
-                 tools.AddRange(selectedClientTools);
+                     .GetHttpMcpToolAsync("HumanInLoopClientMcp", $"{configuration["Application:CarDiscountMcpRemoteUrl"]!}/discount", apimHeader, apiHeaderValue!);
+                 //var selectedClientTools = humanInLoopClientTools.Where(x => x.Name is  "get_discount_status" or "request_discount");
+                 tools.AddRange(humanInLoopClientTools);
                  mcpClients.Add(humanInLoopMcpClient);
                  break;
             case Feature.HumanInLoopManager :
                 var (humanInLoopManagerTools, humanInLoopManagerMcpClient) = await mcpService
-                    .GetHttpMcpToolAsync("HumanInLoopManagerMcp", configuration["Application:CarDiscountMcpRemoteUrl"]!, apimHeader, apiHeaderValue!);
-                var selectedTools = humanInLoopManagerTools.Where(x => x.Name is "decide_approval" or "get_pending_approvals");
-                tools.AddRange(selectedTools);
+                    .GetHttpMcpToolAsync("HumanInLoopManagerMcp", $"{configuration["Application:CarDiscountMcpRemoteUrl"]!}/manager", apimHeader, apiHeaderValue!);
+                //var selectedTools = humanInLoopManagerTools.Where(x => x.Name is "decide_approval" or "get_pending_approvals");
+                tools.AddRange(humanInLoopManagerTools);
                 mcpClients.Add(humanInLoopManagerMcpClient);
                 break;
             case Feature.CarPartProduct:
