@@ -199,10 +199,16 @@ const carPartPriceImage = `${window.location.origin}/images/Feature3.png`;
         </a>
       </li>
       <li>
-        <a href="https://www.azurebrasil.cloud/blog/desvendando-o-model-context-protocol-mcp/" target="_blank" rel="noopener">
-          Desvendando o Model Context Protocol (MCP) - Azure Brasil
+        <a href="https://medium.com/@carlosmachel_46688/entendendo-model-context-protocol-mcp-4026f3bcc3af" target="_blank" rel="noopener">
+          Entendendo Model Context Protocol (MCP)
         </a>
       </li>
+        <li>
+        <a href="https://www.youtube.com/watch?v=n8Rq0Yo0KVE" target="_blank" rel="noopener">
+          Protegendo MCP Server via Azure Api Management
+        </a>
+      </li>
+
     </ul>
   </HelpButton>
 
